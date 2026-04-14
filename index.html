@@ -705,6 +705,291 @@ body::before {
   background: var(--color-lime);
 }
 
+/* ===== DEMO BUTTON & BADGE (NEW) ===== */
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.btn-demo {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: var(--radius-btn);
+  font-size: 0.82rem;
+  font-weight: 700;
+  background: transparent;
+  color: var(--color-muted);
+  border: 1px dashed rgba(255,255,255,0.12);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.btn-demo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(139,218,79,0.0), rgba(139,218,79,0.0));
+  transition: var(--transition);
+}
+.btn-demo:hover {
+  color: var(--color-lime);
+  border-color: rgba(139,218,79,0.4);
+  border-style: solid;
+  background: rgba(139,218,79,0.06);
+  transform: translateY(-1px);
+}
+.btn-demo:hover::before {
+  background: linear-gradient(135deg, rgba(139,218,79,0.04), rgba(139,218,79,0.0));
+}
+.btn-demo .demo-pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-lime);
+  box-shadow: 0 0 6px var(--color-lime);
+  animation: pulse-demo 2s ease-in-out infinite;
+}
+@keyframes pulse-demo {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.4); }
+}
+.demo-microcopy {
+  text-align: center;
+  font-size: 0.68rem;
+  color: rgba(139,218,79,0.5);
+  margin-top: -0.2rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ===== DEMO MODAL (NEW) ===== */
+.demo-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 3000;
+  background: rgba(0,0,0,0.92);
+  backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+.demo-modal-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+.demo-modal {
+  width: 94vw;
+  max-width: 1100px;
+  height: 85vh;
+  max-height: 750px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.92) translateY(20px);
+  transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.35s ease;
+  opacity: 0;
+  box-shadow: 0 48px 120px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.05);
+}
+.demo-modal-overlay.open .demo-modal {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+/* Demo modal header */
+.demo-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  background: rgba(26,23,20,0.95);
+  flex-shrink: 0;
+}
+.demo-modal-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.demo-modal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(139,218,79,0.12);
+  border: 1px solid rgba(139,218,79,0.25);
+  border-radius: 100px;
+  padding: 0.3rem 0.8rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--color-lime);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.demo-modal-badge .live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--color-lime);
+  box-shadow: 0 0 8px var(--color-lime);
+  animation: pulse-demo 1.5s ease-in-out infinite;
+}
+.demo-modal-title {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+.demo-modal-pkg {
+  font-size: 0.78rem;
+  color: var(--color-orange);
+  font-weight: 600;
+}
+.demo-modal-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.btn-fullscreen {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--color-text);
+  transition: var(--transition);
+}
+.btn-fullscreen:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.2); }
+.btn-demo-close {
+  width: 36px; height: 36px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--color-text);
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+.btn-demo-close:hover { background: rgba(232,41,76,0.2); border-color: rgba(232,41,76,0.4); color: var(--color-red); }
+
+/* Demo modal iframe area */
+.demo-modal-body {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  background: #0a0a0a;
+}
+.demo-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #fff;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+.demo-iframe.loaded { opacity: 1; }
+
+/* Demo loader */
+.demo-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: #111;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+.demo-loader.hidden { opacity: 0; pointer-events: none; }
+.demo-loader-spinner {
+  width: 40px; height: 40px;
+  border: 3px solid rgba(255,107,43,0.15);
+  border-top-color: var(--color-orange);
+  border-radius: 50%;
+  animation: spin-slow 0.8s linear infinite;
+}
+.demo-loader-text {
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  font-weight: 500;
+}
+
+/* Demo modal footer — gallery slider */
+.demo-modal-footer {
+  border-top: 1px solid rgba(255,255,255,0.08);
+  background: rgba(26,23,20,0.95);
+  padding: 0.75rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+  overflow-x: auto;
+}
+.demo-modal-footer::-webkit-scrollbar { height: 0; }
+.demo-thumb {
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-muted);
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  cursor: pointer;
+  transition: var(--transition);
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.demo-thumb:hover { background: rgba(255,107,43,0.08); border-color: rgba(255,107,43,0.2); color: var(--color-text); }
+.demo-thumb.active {
+  background: rgba(255,107,43,0.15);
+  border-color: rgba(255,107,43,0.4);
+  color: var(--color-orange);
+}
+.demo-footer-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--color-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+  margin-right: 0.25rem;
+}
+.demo-footer-sep {
+  width: 1px;
+  height: 24px;
+  background: var(--color-border);
+  flex-shrink: 0;
+}
+.btn-buy-modal {
+  flex-shrink: 0;
+  margin-left: auto;
+  padding: 0.5rem 1.25rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  background: var(--grad-hero);
+  color: #fff;
+  transition: var(--transition);
+}
+.btn-buy-modal:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(255,107,43,0.4); }
+
 /* ===== DETALLE SERVICIOS ===== */
 .services { padding: 6rem 0; background: rgba(255,107,43,0.02); }
 .services-grid {
@@ -1275,6 +1560,13 @@ body::before {
   .package-selector { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .hero-stats { gap: 1.5rem; }
+  /* Demo modal responsive */
+  .demo-modal { width: 98vw; height: 90vh; max-height: none; border-radius: 12px; }
+  .demo-modal-header { padding: 0.75rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+  .demo-modal-title { font-size: 1rem; }
+  .demo-modal-footer { padding: 0.5rem 0.75rem; }
+  .demo-thumb { font-size: 0.7rem; padding: 0.4rem 0.75rem; }
+  .btn-buy-modal { display: none; }
 }
 @media (max-width: 480px) {
   .proceso-grid { grid-template-columns: 1fr; }
@@ -1423,7 +1715,6 @@ body::before {
 <!-- ===== TICKER ===== -->
 <div class="ticker">
   <div class="ticker-inner">
-    <!-- duplicated for seamless loop -->
     <div class="ticker-item"><span class="ticker-icon">🌮</span> Entrega en 3-7 días</div>
     <div class="ticker-item"><span class="ticker-icon">📱</span> 100% Responsive</div>
     <div class="ticker-item"><span class="ticker-icon">💬</span> WhatsApp integrado</div>
@@ -1432,6 +1723,7 @@ body::before {
     <div class="ticker-item"><span class="ticker-icon">💳</span> Paga a meses sin intereses</div>
     <div class="ticker-item"><span class="ticker-icon">🛡️</span> SSL incluido</div>
     <div class="ticker-item"><span class="ticker-icon">🌮</span> Precios en MXN</div>
+    <div class="ticker-item"><span class="ticker-icon">👁️</span> Demos interactivos en cada paquete</div>
     <div class="ticker-item"><span class="ticker-icon">🌮</span> Entrega en 3-7 días</div>
     <div class="ticker-item"><span class="ticker-icon">📱</span> 100% Responsive</div>
     <div class="ticker-item"><span class="ticker-icon">💬</span> WhatsApp integrado</div>
@@ -1440,22 +1732,23 @@ body::before {
     <div class="ticker-item"><span class="ticker-icon">💳</span> Paga a meses sin intereses</div>
     <div class="ticker-item"><span class="ticker-icon">🛡️</span> SSL incluido</div>
     <div class="ticker-item"><span class="ticker-icon">🌮</span> Precios en MXN</div>
+    <div class="ticker-item"><span class="ticker-icon">👁️</span> Demos interactivos en cada paquete</div>
   </div>
 </div>
 
-<!-- ===== PAQUETES ===== -->
+<!-- ===== PAQUETES (UPDATED WITH DEMO BUTTONS) ===== -->
 <section class="packages section" id="paquetes">
   <div class="container">
     <div class="packages-header">
       <div class="section-tag">🌮 Menú de paquetes</div>
       <h2 class="section-title">Elige el taco<br><span class="highlight">digital perfecto</span></h2>
-      <p class="section-sub">Desde una landing rápida hasta un e-commerce completo. Todos los paquetes incluyen diseño profesional y entrega express.</p>
+      <p class="section-sub">Desde una landing rápida hasta un e-commerce completo. Todos los paquetes incluyen diseño profesional y entrega express. <strong style="color:var(--color-lime)">👁️ ¡Ahora con demos interactivos!</strong></p>
     </div>
 
     <div class="pricing-grid" id="pricingGrid">
 
       <!-- 1. Starter -->
-      <div class="pricing-card reveal" data-pkg="Starter – Landing Express" data-price="$2,199 MXN">
+      <div class="pricing-card reveal" data-pkg="Starter – Landing Express" data-price="$2,199 MXN" data-demo="demo/starter.html" data-demo-biz="Tacos Don Beto">
         <div class="badge-placeholder"></div>
         <span class="card-emoji">🌮</span>
         <div class="card-name">Starter</div>
@@ -1475,12 +1768,16 @@ body::before {
           <li><span class="feature-cross">✗</span> Dominio y hosting</li>
           <li><span class="feature-cross">✗</span> Blog o secciones extra</li>
         </ul>
-        <button class="btn-card btn-card-outline" onclick="selectPackage(this)">Comprar 🛒</button>
+        <div class="card-actions">
+          <button class="btn-card btn-card-outline" onclick="selectPackage(this)">Comprar 🛒</button>
+          <button class="btn-demo" onclick="openDemo(this)"><span class="demo-pulse"></span> 👁️ Ver demo en vivo</button>
+          <div class="demo-microcopy">Mira exactamente cómo se verá tu sitio</div>
+        </div>
         <div class="delivery-chip"><div class="delivery-dot"></div> Entrega: 3 días</div>
       </div>
 
       <!-- 2. Básico -->
-      <div class="pricing-card reveal" data-pkg="Básico – Sitio de Contacto" data-price="$3,999 MXN">
+      <div class="pricing-card reveal" data-pkg="Básico – Sitio de Contacto" data-price="$3,999 MXN" data-demo="demo/basico.html" data-demo-biz="Estética Bella Lux">
         <div class="badge-placeholder"></div>
         <span class="card-emoji">🌯</span>
         <div class="card-name">Básico</div>
@@ -1500,12 +1797,16 @@ body::before {
           <li><span class="feature-check">✓</span> Entrega en 5 días hábiles</li>
           <li><span class="feature-cross">✗</span> Tienda o catálogo</li>
         </ul>
-        <button class="btn-card btn-card-outline" onclick="selectPackage(this)">Comprar 🛒</button>
+        <div class="card-actions">
+          <button class="btn-card btn-card-outline" onclick="selectPackage(this)">Comprar 🛒</button>
+          <button class="btn-demo" onclick="openDemo(this)"><span class="demo-pulse"></span> 👁️ Ver demo en vivo</button>
+          <div class="demo-microcopy">Ejemplo real incluido en este paquete</div>
+        </div>
         <div class="delivery-chip"><div class="delivery-dot"></div> Entrega: 5 días</div>
       </div>
 
       <!-- 3. Catálogo (Más vendido) -->
-      <div class="pricing-card featured reveal" data-pkg="Catálogo – Productos" data-price="$6,499 MXN">
+      <div class="pricing-card featured reveal" data-pkg="Catálogo – Productos" data-price="$6,499 MXN" data-demo="demo/catalogo.html" data-demo-biz="Café Molcajete">
         <div class="card-badge badge-hot">🔥 Más vendido</div>
         <span class="card-emoji">🫔</span>
         <div class="card-name">Catálogo</div>
@@ -1525,12 +1826,16 @@ body::before {
           <li><span class="feature-check">✓</span> Google Analytics incluido</li>
           <li><span class="feature-check">✓</span> Entrega en 5-7 días hábiles</li>
         </ul>
-        <button class="btn-card btn-card-primary" onclick="selectPackage(this)">Comprar 🛒</button>
+        <div class="card-actions">
+          <button class="btn-card btn-card-primary" onclick="selectPackage(this)">Comprar 🛒</button>
+          <button class="btn-demo" onclick="openDemo(this)"><span class="demo-pulse"></span> 👁️ Ver demo en vivo</button>
+          <div class="demo-microcopy">Mira exactamente cómo se verá tu sitio</div>
+        </div>
         <div class="delivery-chip"><div class="delivery-dot"></div> Entrega: 5–7 días</div>
       </div>
 
       <!-- 4. Tienda Lite -->
-      <div class="pricing-card reveal" data-pkg="Tienda Lite – E-commerce" data-price="$9,999 MXN">
+      <div class="pricing-card reveal" data-pkg="Tienda Lite – E-commerce" data-price="$9,999 MXN" data-demo="demo/tienda.html" data-demo-biz="Jabones Raíz">
         <div class="badge-placeholder"></div>
         <span class="card-emoji">🛒</span>
         <div class="card-name">Tienda Lite</div>
@@ -1550,12 +1855,16 @@ body::before {
           <li><span class="feature-check">✓</span> Entrega en 7-10 días hábiles</li>
           <li><span class="feature-cross">✗</span> Panel admin avanzado</li>
         </ul>
-        <button class="btn-card btn-card-outline" onclick="selectPackage(this)">Comprar 🛒</button>
+        <div class="card-actions">
+          <button class="btn-card btn-card-outline" onclick="selectPackage(this)">Comprar 🛒</button>
+          <button class="btn-demo" onclick="openDemo(this)"><span class="demo-pulse"></span> 👁️ Ver demo en vivo</button>
+          <div class="demo-microcopy">Ejemplo real incluido en este paquete</div>
+        </div>
         <div class="delivery-chip"><div class="delivery-dot"></div> Entrega: 7–10 días</div>
       </div>
 
       <!-- 5. Negocio Pro (Mejor opción) -->
-      <div class="pricing-card best reveal" data-pkg="Negocio Pro – Sitio Completo" data-price="$12,999 MXN">
+      <div class="pricing-card best reveal" data-pkg="Negocio Pro – Sitio Completo" data-price="$12,999 MXN" data-demo="demo/pro.html" data-demo-biz="Dental Sonríe">
         <div class="card-badge badge-best">⭐ Mejor opción</div>
         <span class="card-emoji">💼</span>
         <div class="card-name">Negocio Pro</div>
@@ -1575,12 +1884,16 @@ body::before {
           <li><span class="feature-check">✓</span> Hosting 1 año incluido</li>
           <li><span class="feature-check">✓</span> 1 mes de soporte gratuito</li>
         </ul>
-        <button class="btn-card btn-card-gold" onclick="selectPackage(this)">Comprar ⭐</button>
+        <div class="card-actions">
+          <button class="btn-card btn-card-gold" onclick="selectPackage(this)">Comprar ⭐</button>
+          <button class="btn-demo" onclick="openDemo(this)"><span class="demo-pulse"></span> 👁️ Ver demo en vivo</button>
+          <div class="demo-microcopy">Mira exactamente cómo se verá tu sitio</div>
+        </div>
         <div class="delivery-chip"><div class="delivery-dot"></div> Entrega: 10–14 días</div>
       </div>
 
       <!-- 6. Premium A Medida -->
-      <div class="pricing-card reveal" data-pkg="Premium – A Medida" data-price="Desde $19,999 MXN">
+      <div class="pricing-card reveal" data-pkg="Premium – A Medida" data-price="Desde $19,999 MXN" data-demo="demo/pro.html" data-demo-biz="Ejemplo Premium">
         <div class="badge-placeholder"></div>
         <span class="card-emoji">🏆</span>
         <div class="card-name">Premium</div>
@@ -1601,7 +1914,11 @@ body::before {
           <li><span class="feature-check">✓</span> Reuniones de seguimiento</li>
           <li><span class="feature-check">✓</span> Cotización personalizada</li>
         </ul>
-        <button class="btn-card btn-card-outline" onclick="selectPackage(this)">Solicitar cotización 📩</button>
+        <div class="card-actions">
+          <button class="btn-card btn-card-outline" onclick="selectPackage(this)">Solicitar cotización 📩</button>
+          <button class="btn-demo" onclick="openDemo(this)"><span class="demo-pulse"></span> 👁️ Ver demo en vivo</button>
+          <div class="demo-microcopy">Ejemplo basado en proyectos anteriores</div>
+        </div>
         <div class="delivery-chip"><div class="delivery-dot"></div> Entrega: según proyecto</div>
       </div>
 
@@ -1621,81 +1938,49 @@ body::before {
         <span class="service-icon">📱</span>
         <div class="service-title">Diseño Responsive</div>
         <div class="service-desc">Tu sitio se ve perfecto en celular, tablet y computadora. El 80% de tus clientes te visitan desde el teléfono.</div>
-        <ul class="service-list">
-          <li>Mobile-first por defecto</li>
-          <li>Optimizado para todos los navegadores</li>
-          <li>Velocidad de carga rápida</li>
-        </ul>
+        <ul class="service-list"><li>Mobile-first por defecto</li><li>Optimizado para todos los navegadores</li><li>Velocidad de carga rápida</li></ul>
       </div>
       <div class="service-card reveal">
         <span class="service-icon">💬</span>
         <div class="service-title">WhatsApp Integrado</div>
         <div class="service-desc">Botón de contacto directo con tu número. Tus clientes te escriben en un clic y tú cierras ventas desde el chat.</div>
-        <ul class="service-list">
-          <li>Botón flotante personalizable</li>
-          <li>Mensaje predefinido automático</li>
-          <li>Link de catálogo integrable</li>
-        </ul>
+        <ul class="service-list"><li>Botón flotante personalizable</li><li>Mensaje predefinido automático</li><li>Link de catálogo integrable</li></ul>
       </div>
       <div class="service-card reveal">
         <span class="service-icon">🔍</span>
         <div class="service-title">SEO Básico</div>
         <div class="service-desc">Configuramos tu sitio para que Google lo encuentre. Más visibilidad = más clientes sin pagar publicidad.</div>
-        <ul class="service-list">
-          <li>Títulos y metas optimizados</li>
-          <li>Velocidad optimizada (Core Web Vitals)</li>
-          <li>Google Search Console setup</li>
-        </ul>
+        <ul class="service-list"><li>Títulos y metas optimizados</li><li>Velocidad optimizada (Core Web Vitals)</li><li>Google Search Console setup</li></ul>
       </div>
       <div class="service-card reveal">
         <span class="service-icon">☁️</span>
         <div class="service-title">Hosting Opcional</div>
         <div class="service-desc">Manejamos tu infraestructura o te orientamos con el mejor hosting según tu presupuesto y necesidades.</div>
-        <ul class="service-list">
-          <li>SSL (https) gratuito incluido</li>
-          <li>Backups automáticos</li>
-          <li>Uptime 99.9% garantizado</li>
-        </ul>
+        <ul class="service-list"><li>SSL (https) gratuito incluido</li><li>Backups automáticos</li><li>Uptime 99.9% garantizado</li></ul>
       </div>
       <div class="service-card reveal">
         <span class="service-icon">⚡</span>
         <div class="service-title">Tiempos Express</div>
         <div class="service-desc">Entregamos en tiempo récord sin sacrificar calidad. El hambre de resultados no espera — nosotros tampoco.</div>
-        <ul class="service-list">
-          <li>Starter: 3 días hábiles</li>
-          <li>Catálogo: 5–7 días hábiles</li>
-          <li>Negocio Pro: 10–14 días</li>
-        </ul>
+        <ul class="service-list"><li>Starter: 3 días hábiles</li><li>Catálogo: 5–7 días hábiles</li><li>Negocio Pro: 10–14 días</li></ul>
       </div>
       <div class="service-card reveal">
         <span class="service-icon">🛡️</span>
         <div class="service-title">Soporte Post-Entrega</div>
         <div class="service-desc">No desaparecemos después de entregar. Estamos aquí para ajustes, dudas y actualizaciones.</div>
-        <ul class="service-list">
-          <li>30 días de revisiones incluidas</li>
-          <li>Soporte por WhatsApp</li>
-          <li>Manual básico de uso</li>
-        </ul>
+        <ul class="service-list"><li>30 días de revisiones incluidas</li><li>Soporte por WhatsApp</li><li>Manual básico de uso</li></ul>
       </div>
       <div class="service-card reveal">
         <span class="service-icon">📊</span>
         <div class="service-title">Analytics Integrado</div>
         <div class="service-desc">Conectamos Google Analytics y Tag Manager para que sepas exactamente cuántos visitan tu sitio y de dónde vienen.</div>
-        <ul class="service-list">
-          <li>Google Analytics 4</li>
-          <li>Mapa de calor (paquetes Pro)</li>
-          <li>Reporte mensual básico</li>
-        </ul>
+        <ul class="service-list"><li>Google Analytics 4</li><li>Mapa de calor (paquetes Pro)</li><li>Reporte mensual básico</li></ul>
       </div>
       <div class="service-card reveal">
         <span class="service-icon">🎨</span>
         <div class="service-title">Diseño Personalizado</div>
         <div class="service-desc">Sin plantillas genéricas. Diseñamos con tu identidad, colores, logo y la personalidad de tu marca.</div>
-        <ul class="service-list">
-          <li>Identidad visual consistente</li>
-          <li>Tipografías y paleta personalizada</li>
-          <li>Revisiones incluidas en el proceso</li>
-        </ul>
+        <ul class="service-list"><li>Identidad visual consistente</li><li>Tipografías y paleta personalizada</li><li>Revisiones incluidas en el proceso</li></ul>
       </div>
     </div>
   </div>
@@ -1710,30 +1995,10 @@ body::before {
       <p class="section-sub" style="margin:0 auto">Más fácil que pedir tacos a domicilio. Literalmente.</p>
     </div>
     <div class="proceso-grid">
-      <div class="step-card reveal">
-        <div class="step-num">1</div>
-        <span class="step-icon">🌮</span>
-        <div class="step-title">Elige tu paquete</div>
-        <div class="step-desc">Revisa nuestro menú y selecciona el paquete que mejor se adapte a tu negocio y presupuesto.</div>
-      </div>
-      <div class="step-card reveal">
-        <div class="step-num">2</div>
-        <span class="step-icon">💳</span>
-        <div class="step-title">Realiza el pago</div>
-        <div class="step-desc">Pago seguro con tarjeta, transferencia o a meses sin intereses. Recibe tu comprobante al instante.</div>
-      </div>
-      <div class="step-card reveal">
-        <div class="step-num">3</div>
-        <span class="step-icon">📝</span>
-        <div class="step-title">Envía tu info</div>
-        <div class="step-desc">Completa un formulario sencillo con los datos de tu negocio, logo y lo que quieres comunicar.</div>
-      </div>
-      <div class="step-card reveal">
-        <div class="step-num">4</div>
-        <span class="step-icon">🚀</span>
-        <div class="step-title">Recibe tu sitio</div>
-        <div class="step-desc">Revisamos juntos el resultado, hacemos ajustes y lanzamos tu sitio al mundo digital. ¡Listo!</div>
-      </div>
+      <div class="step-card reveal"><div class="step-num">1</div><span class="step-icon">🌮</span><div class="step-title">Elige tu paquete</div><div class="step-desc">Revisa nuestro menú y selecciona el paquete que mejor se adapte a tu negocio y presupuesto.</div></div>
+      <div class="step-card reveal"><div class="step-num">2</div><span class="step-icon">💳</span><div class="step-title">Realiza el pago</div><div class="step-desc">Pago seguro con tarjeta, transferencia o a meses sin intereses. Recibe tu comprobante al instante.</div></div>
+      <div class="step-card reveal"><div class="step-num">3</div><span class="step-icon">📝</span><div class="step-title">Envía tu info</div><div class="step-desc">Completa un formulario sencillo con los datos de tu negocio, logo y lo que quieres comunicar.</div></div>
+      <div class="step-card reveal"><div class="step-num">4</div><span class="step-icon">🚀</span><div class="step-title">Recibe tu sitio</div><div class="step-desc">Revisamos juntos el resultado, hacemos ajustes y lanzamos tu sitio al mundo digital. ¡Listo!</div></div>
     </div>
   </div>
 </section>
@@ -1746,39 +2011,13 @@ body::before {
         <div class="section-tag">✅ ¿Por qué nosotros?</div>
         <h2 class="section-title">La salsa secreta<br><span class="highlight">de cada proyecto</span></h2>
         <p class="section-sub">No solo construimos sitios web — construimos herramientas de venta que trabajan por ti las 24 horas.</p>
-        <div style="margin-top:2rem">
-          <a href="#paquetes" class="btn-primary">🔥 Ver paquetes ahora</a>
-        </div>
+        <div style="margin-top:2rem"><a href="#paquetes" class="btn-primary">🔥 Ver paquetes ahora</a></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:1.5rem">
-        <div class="beneficio-item reveal">
-          <div class="beneficio-icon-wrap">⚡</div>
-          <div>
-            <div class="beneficio-title">Entrega ultrarrápida</div>
-            <div class="beneficio-desc">Mientras otros tardan semanas, nosotros entregamos en días. Sabemos que cada día sin sitio es dinero perdido.</div>
-          </div>
-        </div>
-        <div class="beneficio-item reveal">
-          <div class="beneficio-icon-wrap">💰</div>
-          <div>
-            <div class="beneficio-title">Precios en MXN sin sorpresas</div>
-            <div class="beneficio-desc">Precios fijos en pesos mexicanos. Sin cobros ocultos, sin tipos de cambio, sin "te cotizo mañana".</div>
-          </div>
-        </div>
-        <div class="beneficio-item reveal">
-          <div class="beneficio-icon-wrap">🧠</div>
-          <div>
-            <div class="beneficio-title">Sin conocimientos técnicos</div>
-            <div class="beneficio-desc">Tú dinos qué quieres y nosotros lo construimos. No necesitas saber de código ni de diseño, de eso nos encargamos.</div>
-          </div>
-        </div>
-        <div class="beneficio-item reveal">
-          <div class="beneficio-icon-wrap">🛡️</div>
-          <div>
-            <div class="beneficio-title">Soporte real y humano</div>
-            <div class="beneficio-desc">Un asesor real, no un bot. Contacto directo por WhatsApp para que nunca te quedes con dudas.</div>
-          </div>
-        </div>
+        <div class="beneficio-item reveal"><div class="beneficio-icon-wrap">⚡</div><div><div class="beneficio-title">Entrega ultrarrápida</div><div class="beneficio-desc">Mientras otros tardan semanas, nosotros entregamos en días. Sabemos que cada día sin sitio es dinero perdido.</div></div></div>
+        <div class="beneficio-item reveal"><div class="beneficio-icon-wrap">💰</div><div><div class="beneficio-title">Precios en MXN sin sorpresas</div><div class="beneficio-desc">Precios fijos en pesos mexicanos. Sin cobros ocultos, sin tipos de cambio, sin "te cotizo mañana".</div></div></div>
+        <div class="beneficio-item reveal"><div class="beneficio-icon-wrap">🧠</div><div><div class="beneficio-title">Sin conocimientos técnicos</div><div class="beneficio-desc">Tú dinos qué quieres y nosotros lo construimos. No necesitas saber de código ni de diseño, de eso nos encargamos.</div></div></div>
+        <div class="beneficio-item reveal"><div class="beneficio-icon-wrap">🛡️</div><div><div class="beneficio-title">Soporte real y humano</div><div class="beneficio-desc">Un asesor real, no un bot. Contacto directo por WhatsApp para que nunca te quedes con dudas.</div></div></div>
       </div>
     </div>
   </div>
@@ -1792,85 +2031,12 @@ body::before {
       <h2 class="section-title">Clientes felices<br><span class="highlight">resultados reales</span></h2>
     </div>
     <div class="testimonios-grid">
-
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">Tenía mi taquería sin presencia en internet y en una semana ya tenía mi sitio con menú, galería y botón de WhatsApp. Mis pedidos aumentaron un 40% en el primer mes.</p>
-        <div class="testi-author">
-          <div class="testi-avatar av-1">R</div>
-          <div>
-            <div class="testi-name">Roberto Mendoza</div>
-            <div class="testi-role">Tacos El Compadre, CDMX</div>
-          </div>
-        </div>
-        <div class="testi-package">🌮 Catálogo – Productos</div>
-      </div>
-
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">Pensé que un sitio web iba a ser carísimo y complicado. Me llevé la sorpresa de que fue rápido, económico y el resultado quedó increíble. Lo recomiendo con mis ojos cerrados.</p>
-        <div class="testi-author">
-          <div class="testi-avatar av-2">L</div>
-          <div>
-            <div class="testi-name">Laura García</div>
-            <div class="testi-role">Estética LauraBeauty, Guadalajara</div>
-          </div>
-        </div>
-        <div class="testi-package">💬 Básico – Sitio de Contacto</div>
-      </div>
-
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">Vendí mis primeros productos en línea a los dos días de lanzar mi tienda. El equipo me guió en todo el proceso y la integración con MercadoPago funcionó a la perfección.</p>
-        <div class="testi-author">
-          <div class="testi-avatar av-3">C</div>
-          <div>
-            <div class="testi-name">Carlos Reyes</div>
-            <div class="testi-role">Artesanías Reyes, Oaxaca</div>
-          </div>
-        </div>
-        <div class="testi-package">🛒 Tienda Lite – E-commerce</div>
-      </div>
-
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">Mi agencia de viajes necesitaba un sitio profesional urgente. En 5 días hábiles ya estaba en línea con todo: cotizador, galería de destinos y formulario de reserva. ¡Excelente trabajo!</p>
-        <div class="testi-author">
-          <div class="testi-avatar av-4">M</div>
-          <div>
-            <div class="testi-name">Mónica Vázquez</div>
-            <div class="testi-role">Viajes Horizonte, Monterrey</div>
-          </div>
-        </div>
-        <div class="testi-package">💼 Negocio Pro</div>
-      </div>
-
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">La atención es de primera. Siempre disponibles por WhatsApp, explicaron cada detalle y entregaron antes del tiempo prometido. El sitio quedó exactamente como lo imaginé.</p>
-        <div class="testi-author">
-          <div class="testi-avatar av-5">A</div>
-          <div>
-            <div class="testi-name">Alejandro Torres</div>
-            <div class="testi-role">Clínica Dental Torres, Puebla</div>
-          </div>
-        </div>
-        <div class="testi-package">💼 Negocio Pro</div>
-      </div>
-
-      <div class="testi-card reveal">
-        <div class="testi-stars">★★★★★</div>
-        <p class="testi-quote">Emprendedora de tiempo completo y sin tiempo para aprender de tecnología. Me hicieron todo y ahora mis clientas me encuentran en Google. Invertí $3,999 y lo recuperé en semanas.</p>
-        <div class="testi-author">
-          <div class="testi-avatar av-6">P</div>
-          <div>
-            <div class="testi-name">Patricia Lozano</div>
-            <div class="testi-role">Pastelería Paty's, León Gto.</div>
-          </div>
-        </div>
-        <div class="testi-package">💬 Básico – Sitio de Contacto</div>
-      </div>
-
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><p class="testi-quote">Tenía mi taquería sin presencia en internet y en una semana ya tenía mi sitio con menú, galería y botón de WhatsApp. Mis pedidos aumentaron un 40% en el primer mes.</p><div class="testi-author"><div class="testi-avatar av-1">R</div><div><div class="testi-name">Roberto Mendoza</div><div class="testi-role">Tacos El Compadre, CDMX</div></div></div><div class="testi-package">🌮 Catálogo – Productos</div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><p class="testi-quote">Pensé que un sitio web iba a ser carísimo y complicado. Me llevé la sorpresa de que fue rápido, económico y el resultado quedó increíble. Lo recomiendo con mis ojos cerrados.</p><div class="testi-author"><div class="testi-avatar av-2">L</div><div><div class="testi-name">Laura García</div><div class="testi-role">Estética LauraBeauty, Guadalajara</div></div></div><div class="testi-package">💬 Básico – Sitio de Contacto</div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><p class="testi-quote">Vendí mis primeros productos en línea a los dos días de lanzar mi tienda. El equipo me guió en todo el proceso y la integración con MercadoPago funcionó a la perfección.</p><div class="testi-author"><div class="testi-avatar av-3">C</div><div><div class="testi-name">Carlos Reyes</div><div class="testi-role">Artesanías Reyes, Oaxaca</div></div></div><div class="testi-package">🛒 Tienda Lite – E-commerce</div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><p class="testi-quote">Mi agencia de viajes necesitaba un sitio profesional urgente. En 5 días hábiles ya estaba en línea con todo: cotizador, galería de destinos y formulario de reserva. ¡Excelente trabajo!</p><div class="testi-author"><div class="testi-avatar av-4">M</div><div><div class="testi-name">Mónica Vázquez</div><div class="testi-role">Viajes Horizonte, Monterrey</div></div></div><div class="testi-package">💼 Negocio Pro</div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><p class="testi-quote">La atención es de primera. Siempre disponibles por WhatsApp, explicaron cada detalle y entregaron antes del tiempo prometido. El sitio quedó exactamente como lo imaginé.</p><div class="testi-author"><div class="testi-avatar av-5">A</div><div><div class="testi-name">Alejandro Torres</div><div class="testi-role">Clínica Dental Torres, Puebla</div></div></div><div class="testi-package">💼 Negocio Pro</div></div>
+      <div class="testi-card reveal"><div class="testi-stars">★★★★★</div><p class="testi-quote">Emprendedora de tiempo completo y sin tiempo para aprender de tecnología. Me hicieron todo y ahora mis clientas me encuentran en Google. Invertí $3,999 y lo recuperé en semanas.</p><div class="testi-author"><div class="testi-avatar av-6">P</div><div><div class="testi-name">Patricia Lozano</div><div class="testi-role">Pastelería Paty's, León Gto.</div></div></div><div class="testi-package">💬 Básico – Sitio de Contacto</div></div>
     </div>
   </div>
 </section>
@@ -1882,39 +2048,17 @@ body::before {
       <div class="checkout-info">
         <div class="section-tag">🛒 Ordena tu sitio</div>
         <h2 class="section-title">Completa tu<br><span class="highlight">pedido digital</span></h2>
-        <p class="section-sub" style="margin-bottom:2rem">
-          Llena el formulario, elige tu paquete y uno de nuestros asesores te contactará en menos de 24 horas para coordinar los detalles.
-        </p>
+        <p class="section-sub" style="margin-bottom:2rem">Llena el formulario, elige tu paquete y uno de nuestros asesores te contactará en menos de 24 horas para coordinar los detalles.</p>
         <div style="display:flex;flex-direction:column;gap:1.25rem">
-          <div class="beneficio-item">
-            <div class="beneficio-icon-wrap">✅</div>
-            <div>
-              <div class="beneficio-title">Sin riesgo</div>
-              <div class="beneficio-desc">Si no quedas satisfecho con el diseño, te ajustamos sin costo adicional.</div>
-            </div>
-          </div>
-          <div class="beneficio-item">
-            <div class="beneficio-icon-wrap">🔒</div>
-            <div>
-              <div class="beneficio-title">Pago 100% seguro</div>
-              <div class="beneficio-desc">Procesamos pagos con Stripe y MercadoPago. Tus datos siempre protegidos.</div>
-            </div>
-          </div>
-          <div class="beneficio-item">
-            <div class="beneficio-icon-wrap">⚡</div>
-            <div>
-              <div class="beneficio-title">Respuesta en menos de 24h</div>
-              <div class="beneficio-desc">Confirmamos tu pedido y arrancamos el mismo día hábil que recibimos tu pago.</div>
-            </div>
-          </div>
+          <div class="beneficio-item"><div class="beneficio-icon-wrap">✅</div><div><div class="beneficio-title">Sin riesgo</div><div class="beneficio-desc">Si no quedas satisfecho con el diseño, te ajustamos sin costo adicional.</div></div></div>
+          <div class="beneficio-item"><div class="beneficio-icon-wrap">🔒</div><div><div class="beneficio-title">Pago 100% seguro</div><div class="beneficio-desc">Procesamos pagos con Stripe y MercadoPago. Tus datos siempre protegidos.</div></div></div>
+          <div class="beneficio-item"><div class="beneficio-icon-wrap">⚡</div><div><div class="beneficio-title">Respuesta en menos de 24h</div><div class="beneficio-desc">Confirmamos tu pedido y arrancamos el mismo día hábil que recibimos tu pago.</div></div></div>
         </div>
       </div>
 
       <div class="checkout-form reveal">
         <div class="form-title">¡Pide tu sitio! 🌮</div>
         <div class="form-sub">Selecciona tu paquete y llena tus datos. Es más fácil que pedir tacos.</div>
-
-        <!-- Package selector -->
         <div class="package-selector" id="pkgSelector">
           <div class="pkg-option active" data-pkg="Starter – Landing Express" data-price="$2,199 MXN" onclick="selectPkg(this)">🌮 Starter $2,199</div>
           <div class="pkg-option" data-pkg="Básico – Sitio de Contacto" data-price="$3,999 MXN" onclick="selectPkg(this)">🌯 Básico $3,999</div>
@@ -1923,8 +2067,6 @@ body::before {
           <div class="pkg-option" data-pkg="Negocio Pro – Sitio Completo" data-price="$12,999 MXN" onclick="selectPkg(this)">💼 Pro $12,999</div>
           <div class="pkg-option" data-pkg="Premium – A Medida" data-price="Desde $19,999 MXN" onclick="selectPkg(this)">🏆 Premium</div>
         </div>
-
-        <!-- Selected pkg display -->
         <div class="selected-pkg-display" id="selectedPkgDisplay">
           <div>
             <div style="font-size:0.72rem;color:var(--color-muted);margin-bottom:2px">Paquete seleccionado</div>
@@ -1932,34 +2074,15 @@ body::before {
           </div>
           <div class="selected-pkg-price" id="selPkgPrice">$2,199 MXN</div>
         </div>
-
-        <!-- Form fields -->
         <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Nombre completo *</label>
-            <input type="text" class="form-input" placeholder="Juan Pérez" id="fName" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Correo electrónico *</label>
-            <input type="email" class="form-input" placeholder="juan@ejemplo.com" id="fEmail" />
-          </div>
+          <div class="form-group"><label class="form-label">Nombre completo *</label><input type="text" class="form-input" placeholder="Juan Pérez" id="fName" /></div>
+          <div class="form-group"><label class="form-label">Correo electrónico *</label><input type="email" class="form-input" placeholder="juan@ejemplo.com" id="fEmail" /></div>
         </div>
         <div class="form-row">
-          <div class="form-group">
-            <label class="form-label">Teléfono / WhatsApp *</label>
-            <input type="tel" class="form-input" placeholder="+52 55 1234 5678" id="fPhone" />
-          </div>
-          <div class="form-group">
-            <label class="form-label">Nombre de tu negocio *</label>
-            <input type="text" class="form-input" placeholder="Tacos El Compadre" id="fBusiness" />
-          </div>
+          <div class="form-group"><label class="form-label">Teléfono / WhatsApp *</label><input type="tel" class="form-input" placeholder="+52 55 1234 5678" id="fPhone" /></div>
+          <div class="form-group"><label class="form-label">Nombre de tu negocio *</label><input type="text" class="form-input" placeholder="Tacos El Compadre" id="fBusiness" /></div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Cuéntanos tu negocio</label>
-          <textarea class="form-textarea" placeholder="Describe a qué se dedica tu negocio, a quién va dirigido y qué esperas de tu sitio web..." id="fDesc"></textarea>
-        </div>
-
-        <!-- Payment methods -->
+        <div class="form-group"><label class="form-label">Cuéntanos tu negocio</label><textarea class="form-textarea" placeholder="Describe a qué se dedica tu negocio, a quién va dirigido y qué esperas de tu sitio web..." id="fDesc"></textarea></div>
         <div style="font-size:0.78rem;color:var(--color-muted);margin-bottom:0.5rem;font-weight:600">Métodos de pago disponibles:</div>
         <div class="payment-methods">
           <div class="pm-badge">💳 Tarjeta de crédito/débito</div>
@@ -1967,10 +2090,7 @@ body::before {
           <div class="pm-badge">🏦 Transferencia SPEI</div>
           <div class="pm-badge">📅 Meses sin intereses</div>
         </div>
-
-        <button class="btn-buy" onclick="submitOrder()">
-          🌮 ¡Ordenar mi sitio web!
-        </button>
+        <button class="btn-buy" onclick="submitOrder()">🌮 ¡Ordenar mi sitio web!</button>
         <div class="secure-note">🔒 Pago seguro con cifrado SSL · Tus datos están protegidos</div>
       </div>
     </div>
@@ -1997,13 +2117,8 @@ body::before {
   <div class="container">
     <div class="footer-grid">
       <div>
-        <div class="footer-logo">
-          <span>🌮</span>
-          <span style="color:var(--color-orange)">Taqueros</span><span>Web</span><span style="color:var(--color-gold);font-size:1.2rem">.mx</span>
-        </div>
-        <p class="footer-about">
-          Creamos sitios web profesionales para negocios mexicanos que quieren crecer en internet. Rápidos, bonitos y que sí convierten — como un buen taco bien preparado.
-        </p>
+        <div class="footer-logo"><span>🌮</span><span style="color:var(--color-orange)">Taqueros</span><span>Web</span><span style="color:var(--color-gold);font-size:1.2rem">.mx</span></div>
+        <p class="footer-about">Creamos sitios web profesionales para negocios mexicanos que quieren crecer en internet. Rápidos, bonitos y que sí convierten — como un buen taco bien preparado.</p>
         <div class="social-links">
           <a href="#" class="social-btn" title="Facebook">📘</a>
           <a href="#" class="social-btn" title="Instagram">📸</a>
@@ -2048,7 +2163,6 @@ body::before {
         </div>
       </div>
     </div>
-
     <div class="footer-bottom">
       <div class="footer-copy">© 2025 TaquerosWeb.com — Todos los derechos reservados 🌮</div>
       <div class="footer-legal">
@@ -2068,12 +2182,45 @@ body::before {
   <div class="modal-box">
     <div class="modal-icon">🌮</div>
     <div class="modal-title">¡Pedido Enviado!</div>
-    <p class="modal-msg">
-      Tu orden está en la cocina 👨‍🍳<br><br>
-      Un asesor de <strong>TaquerosWeb.com</strong> se comunicará contigo en menos de <strong>24 horas hábiles</strong> para confirmar tu pago y arrancar con el diseño.<br><br>
-      Mientras tanto, revisa tu correo y ten listo tu logo 🎨
-    </p>
+    <p class="modal-msg">Tu orden está en la cocina 👨‍🍳<br><br>Un asesor de <strong>TaquerosWeb.com</strong> se comunicará contigo en menos de <strong>24 horas hábiles</strong> para confirmar tu pago y arrancar con el diseño.<br><br>Mientras tanto, revisa tu correo y ten listo tu logo 🎨</p>
     <button class="btn-modal" onclick="closeModal()">¡Perfecto, gracias! 🚀</button>
+  </div>
+</div>
+
+<!-- ===== DEMO PREVIEW MODAL (NEW) ===== -->
+<div class="demo-modal-overlay" id="demoModal">
+  <div class="demo-modal">
+    <div class="demo-modal-header">
+      <div class="demo-modal-info">
+        <div class="demo-modal-badge"><span class="live-dot"></span> Demo interactivo</div>
+        <div>
+          <div class="demo-modal-title" id="demoModalTitle">Cargando demo...</div>
+          <div class="demo-modal-pkg" id="demoModalPkg"></div>
+        </div>
+      </div>
+      <div class="demo-modal-actions">
+        <button class="btn-fullscreen" id="btnFullscreen" onclick="openDemoFullscreen()">⛶ Pantalla completa</button>
+        <button class="btn-demo-close" onclick="closeDemoModal()">✕</button>
+      </div>
+    </div>
+    <div class="demo-modal-body">
+      <div class="demo-loader" id="demoLoader">
+        <div class="demo-loader-spinner"></div>
+        <div class="demo-loader-text">Cargando demo interactivo...</div>
+      </div>
+      <!-- iframe loaded lazily -->
+      <iframe class="demo-iframe" id="demoIframe" title="Demo preview" sandbox="allow-scripts allow-same-origin"></iframe>
+    </div>
+    <div class="demo-modal-footer" id="demoFooter">
+      <div class="demo-footer-label">📂 Demos:</div>
+      <div class="demo-footer-sep"></div>
+      <button class="demo-thumb" data-demo="demo/starter.html" data-title="Tacos Don Beto" data-pkg="Starter — $2,199" onclick="switchDemo(this)">🌮 Starter</button>
+      <button class="demo-thumb" data-demo="demo/basico.html" data-title="Estética Bella Lux" data-pkg="Básico — $3,999" onclick="switchDemo(this)">🌯 Básico</button>
+      <button class="demo-thumb" data-demo="demo/catalogo.html" data-title="Café Molcajete" data-pkg="Catálogo — $6,499" onclick="switchDemo(this)">🫔 Catálogo</button>
+      <button class="demo-thumb" data-demo="demo/tienda.html" data-title="Jabones Raíz" data-pkg="Tienda — $9,999" onclick="switchDemo(this)">🛒 Tienda</button>
+      <button class="demo-thumb" data-demo="demo/pro.html" data-title="Dental Sonríe" data-pkg="Pro — $12,999" onclick="switchDemo(this)">💼 Pro</button>
+      <button class="btn-buy-modal" onclick="closeDemoModal();document.getElementById('contacto').scrollIntoView({behavior:'smooth'})">🔥 Comprar ahora</button>
+    </div>
   </div>
 </div>
 
@@ -2123,15 +2270,11 @@ function selectPackage(btn) {
   const card = btn.closest('.pricing-card');
   const pkg = card.dataset.pkg;
   const price = card.dataset.price;
-
-  // Highlight correct option in form
   document.querySelectorAll('.pkg-option').forEach(opt => {
     opt.classList.toggle('active', opt.dataset.pkg === pkg);
   });
   document.getElementById('selPkgName').textContent = pkg;
   document.getElementById('selPkgPrice').textContent = price;
-
-  // Scroll to form
   document.getElementById('contacto').scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -2145,51 +2288,38 @@ function selectPkg(el) {
 
 // ─── Order submission ───
 function submitOrder() {
-  const name    = document.getElementById('fName').value.trim();
-  const email   = document.getElementById('fEmail').value.trim();
-  const phone   = document.getElementById('fPhone').value.trim();
-  const biz     = document.getElementById('fBusiness').value.trim();
-
+  const name = document.getElementById('fName').value.trim();
+  const email = document.getElementById('fEmail').value.trim();
+  const phone = document.getElementById('fPhone').value.trim();
+  const biz = document.getElementById('fBusiness').value.trim();
   if (!name || !email || !phone || !biz) {
-    // Shake effect on missing fields
     const fields = [
-      { id: 'fName', val: name },
-      { id: 'fEmail', val: email },
-      { id: 'fPhone', val: phone },
-      { id: 'fBusiness', val: biz }
+      { id: 'fName', val: name }, { id: 'fEmail', val: email },
+      { id: 'fPhone', val: phone }, { id: 'fBusiness', val: biz }
     ];
     fields.forEach(f => {
       if (!f.val) {
         const el = document.getElementById(f.id);
         el.style.borderColor = 'var(--color-red)';
         el.style.boxShadow = '0 0 0 3px rgba(232,41,76,0.2)';
-        setTimeout(() => {
-          el.style.borderColor = '';
-          el.style.boxShadow = '';
-        }, 2000);
+        setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
       }
     });
     return;
   }
-
-  // Simulate processing
   const btn = document.querySelector('.btn-buy');
   btn.textContent = '⏳ Procesando tu orden...';
   btn.disabled = true;
-
   setTimeout(() => {
     btn.textContent = '🌮 ¡Ordenar mi sitio web!';
     btn.disabled = false;
-    // Clear form
-    ['fName','fEmail','fPhone','fBusiness','fDesc'].forEach(id => {
-      document.getElementById(id).value = '';
-    });
-    openModal();
+    ['fName','fEmail','fPhone','fBusiness','fDesc'].forEach(id => { document.getElementById(id).value = ''; });
+    openSuccessModal();
   }, 1800);
 }
 
-// ─── Modal ───
-function openModal() {
+// ─── Success Modal ───
+function openSuccessModal() {
   document.getElementById('successModal').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -2201,7 +2331,93 @@ document.getElementById('successModal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
-// ─── Hover sound feedback (visual) on pricing cards ───
+// ─── DEMO MODAL SYSTEM (NEW) ───
+const demoOverlay = document.getElementById('demoModal');
+const demoIframe = document.getElementById('demoIframe');
+const demoLoader = document.getElementById('demoLoader');
+const demoTitle = document.getElementById('demoModalTitle');
+const demoPkg = document.getElementById('demoModalPkg');
+let currentDemoUrl = '';
+
+// Open demo from pricing card button
+function openDemo(btn) {
+  const card = btn.closest('.pricing-card');
+  const demoUrl = card.dataset.demo;
+  const bizName = card.dataset.demoBiz || 'Demo';
+  const pkgName = card.dataset.pkg;
+  const price = card.dataset.price;
+
+  loadDemoInModal(demoUrl, bizName, pkgName + ' — ' + price);
+}
+
+// Load a demo into the modal
+function loadDemoInModal(url, title, pkgInfo) {
+  currentDemoUrl = url;
+  demoTitle.textContent = title;
+  demoPkg.textContent = pkgInfo;
+
+  // Reset state
+  demoLoader.classList.remove('hidden');
+  demoIframe.classList.remove('loaded');
+
+  // Highlight matching footer thumb
+  document.querySelectorAll('.demo-thumb').forEach(t => {
+    t.classList.toggle('active', t.dataset.demo === url);
+  });
+
+  // Lazy load iframe
+  demoIframe.src = url;
+  demoIframe.onload = function() {
+    demoLoader.classList.add('hidden');
+    demoIframe.classList.add('loaded');
+  };
+
+  // Open modal
+  demoOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// Switch demo via footer gallery
+function switchDemo(thumb) {
+  const url = thumb.dataset.demo;
+  const title = thumb.dataset.title;
+  const pkg = thumb.dataset.pkg;
+  loadDemoInModal(url, title, pkg);
+}
+
+// Close demo modal
+function closeDemoModal() {
+  demoOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+  // Delay iframe removal to allow close animation
+  setTimeout(() => {
+    demoIframe.src = 'about:blank';
+    demoIframe.classList.remove('loaded');
+    demoLoader.classList.remove('hidden');
+  }, 400);
+}
+
+// Open demo in new tab (fullscreen)
+function openDemoFullscreen() {
+  if (currentDemoUrl) {
+    window.open(currentDemoUrl, '_blank');
+  }
+}
+
+// Close demo with ESC key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    if (demoOverlay.classList.contains('open')) closeDemoModal();
+    if (document.getElementById('successModal').classList.contains('open')) closeModal();
+  }
+});
+
+// Close demo clicking overlay
+demoOverlay.addEventListener('click', (e) => {
+  if (e.target === demoOverlay) closeDemoModal();
+});
+
+// ─── Hover feedback on pricing cards ───
 document.querySelectorAll('.pricing-card').forEach(card => {
   card.addEventListener('mouseenter', function() {
     this.style.transition = 'all 0.25s cubic-bezier(0.34,1.56,0.64,1)';
@@ -2219,16 +2435,12 @@ const sectionObserver = new IntersectionObserver((entries) => {
     if (entry.isIntersecting) {
       navLinks.forEach(link => {
         link.style.color = link.getAttribute('href') === '#' + entry.target.id
-          ? 'var(--color-text)'
-          : '';
+          ? 'var(--color-text)' : '';
       });
     }
   });
 }, { threshold: 0.4 });
 sections.forEach(s => sectionObserver.observe(s));
-
-// ─── Ticker duplicate check (already duplicated in HTML) ───
-// No JS needed — CSS animation handles seamless loop
 </script>
 </body>
 </html>
