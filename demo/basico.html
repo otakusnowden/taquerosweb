@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Demo Básico — Estética Bella Lux | TaquerosWeb</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#FBF8F4;--text:#1C1712;--accent:#B8860B;--accent2:#D4A84B;--cream:#F5EFE6;--muted:#8A7E6E;--rose:#E8C4C4;--font-display:'Cormorant Garamond',serif;--font-body:'DM Sans',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);background:var(--bg);color:var(--text);line-height:1.6}
+
+.demo-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,#1C1712,#2E2418);color:#fff;text-align:center;padding:.6rem 1rem;font-size:.8rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:.75rem}
+.demo-banner a{color:var(--accent2);text-decoration:underline}
+
+nav{position:sticky;top:36px;background:rgba(251,248,244,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,0,0,.05);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav-brand{font-family:var(--font-display);font-size:1.7rem;color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.875rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--accent)}
+.nav-cta{background:var(--accent);color:#fff;padding:.6rem 1.4rem;border-radius:8px;font-weight:700;font-size:.875rem;text-decoration:none;transition:all .2s}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(184,134,11,.3)}
+
+.hero{display:grid;grid-template-columns:1fr 1fr;min-height:85vh;overflow:hidden}
+.hero-text{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem}
+.hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:var(--cream);border-radius:100px;padding:.35rem 1rem;font-size:.72rem;font-weight:700;color:var(--accent);margin-bottom:1.5rem;text-transform:uppercase;letter-spacing:.08em;width:fit-content}
+.hero h1{font-family:var(--font-display);font-size:clamp(2.5rem,5vw,3.8rem);line-height:1.1;margin-bottom:1.25rem}
+.hero h1 span{color:var(--accent)}
+.hero p{color:var(--muted);font-size:1rem;margin-bottom:2rem;max-width:400px}
+.hero-btns{display:flex;gap:1rem}
+.btn-gold{background:var(--accent);color:#fff;padding:.85rem 2rem;border-radius:10px;font-weight:700;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-gold:hover{background:#9A7209;transform:translateY(-2px)}
+.btn-outline{border:1px solid rgba(0,0,0,.15);padding:.85rem 2rem;border-radius:10px;font-weight:600;text-decoration:none;color:var(--text);transition:all .2s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+
+.hero-visual{background:linear-gradient(135deg,var(--rose),var(--cream));display:flex;align-items:center;justify-content:center;position:relative}
+.hero-visual .placeholder{font-size:12rem;opacity:.6}
+
+.section-header{text-align:center;padding:5rem 2rem 2rem}
+.section-header h2{font-family:var(--font-display);font-size:2.4rem;margin-bottom:.5rem}
+.section-header p{color:var(--muted);max-width:500px;margin:0 auto}
+
+.services-grid{max-width:1100px;margin:0 auto;padding:2rem;display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.svc-card{background:#fff;border:1px solid rgba(0,0,0,.05);border-radius:16px;padding:2rem;text-align:center;transition:all .25s}
+.svc-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.08);border-color:rgba(184,134,11,.2)}
+.svc-card .icon{font-size:2.5rem;margin-bottom:1rem;display:block}
+.svc-card h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:.5rem}
+.svc-card p{font-size:.85rem;color:var(--muted);line-height:1.6;margin-bottom:1rem}
+.svc-price{font-family:var(--font-display);font-size:1.5rem;color:var(--accent)}
+
+.about{max-width:1100px;margin:0 auto;padding:5rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.about-img{background:var(--cream);border-radius:20px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:8rem}
+.about h2{font-family:var(--font-display);font-size:2.2rem;margin-bottom:1rem}
+.about p{color:var(--muted);margin-bottom:1.5rem;line-height:1.7}
+
+.gallery{padding:4rem 2rem;max-width:1100px;margin:0 auto}
+.gallery h2{font-family:var(--font-display);font-size:2rem;text-align:center;margin-bottom:2rem}
+.gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+.gallery-item{background:var(--cream);border-radius:12px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:3rem;transition:all .3s}
+.gallery-item:hover{transform:scale(1.05)}
+
+.map-section{background:var(--cream);padding:4rem 2rem;text-align:center;margin-top:3rem}
+.map-section h2{font-family:var(--font-display);font-size:2rem;margin-bottom:.5rem}
+.map-section p{color:var(--muted);margin-bottom:2rem}
+.map-placeholder{max-width:800px;margin:0 auto;background:#ddd;border-radius:16px;height:300px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:1.2rem}
+
+.contact{max-width:700px;margin:0 auto;padding:5rem 2rem;text-align:center}
+.contact h2{font-family:var(--font-display);font-size:2.2rem;margin-bottom:1rem}
+.contact p{color:var(--muted);margin-bottom:2rem}
+.contact-form{display:flex;flex-direction:column;gap:1rem;text-align:left}
+.contact-form input,.contact-form textarea{width:100%;padding:.85rem 1rem;border:1px solid rgba(0,0,0,.1);border-radius:10px;font-size:.9rem;font-family:var(--font-body);background:#fff;outline:none;transition:border .2s}
+.contact-form input:focus,.contact-form textarea:focus{border-color:var(--accent)}
+.contact-form textarea{min-height:120px;resize:vertical}
+.contact-form .btn-gold{width:100%;justify-content:center;border:none;cursor:pointer;font-size:1rem}
+
+footer{background:var(--text);color:rgba(255,255,255,.5);padding:3rem 2rem;text-align:center;font-size:.82rem}
+footer .brand{font-family:var(--font-display);font-size:1.5rem;color:var(--accent2);margin-bottom:.75rem}
+
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr}.hero-visual{display:none}
+  .services-grid{grid-template-columns:1fr}
+  .about{grid-template-columns:1fr}.about-img{max-width:250px;margin:0 auto}
+  .gallery-grid{grid-template-columns:repeat(2,1fr)}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+<div class="demo-banner">⚡ DEMO — Paquete Básico ($3,999 MXN) · <a href="../index.html#paquetes">Comprar este paquete</a></div>
+
+<nav>
+  <div class="nav-brand">✨ Bella Lux</div>
+  <ul class="nav-links"><li><a href="#servicios">Servicios</a></li><li><a href="#nosotros">Nosotros</a></li><li><a href="#galeria">Galería</a></li><li><a href="#contacto">Contacto</a></li></ul>
+  <a href="#contacto" class="nav-cta">📅 Agendar cita</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-tag">✨ Estética profesional en CDMX</div>
+    <h1>Tu belleza,<br><span>nuestra pasión</span></h1>
+    <p>Más de 15 años cuidando tu imagen. Cortes, color, maquillaje, uñas y tratamientos faciales con productos premium.</p>
+    <div class="hero-btns">
+      <a href="#contacto" class="btn-gold">📅 Agendar cita</a>
+      <a href="#servicios" class="btn-outline">Ver servicios</a>
+    </div>
+  </div>
+  <div class="hero-visual"><span class="placeholder">💇‍♀️</span></div>
+</section>
+
+<div class="section-header" id="servicios">
+  <h2>Nuestros Servicios</h2>
+  <p>Tratamientos profesionales para que te veas y te sientas increíble</p>
+</div>
+<div class="services-grid">
+  <div class="svc-card"><span class="icon">✂️</span><h3>Corte y Peinado</h3><p>Cortes modernos, clásicos y creativos para dama y caballero.</p><div class="svc-price">Desde $250</div></div>
+  <div class="svc-card"><span class="icon">🎨</span><h3>Color y Mechas</h3><p>Balayage, mechas, tintes fantasía y corrección de color.</p><div class="svc-price">Desde $800</div></div>
+  <div class="svc-card"><span class="icon">💅</span><h3>Manicure y Pedicure</h3><p>Gelish, acrílico, diseño de uñas y spa de manos.</p><div class="svc-price">Desde $350</div></div>
+  <div class="svc-card"><span class="icon">💆‍♀️</span><h3>Facial Express</h3><p>Limpieza profunda, hidratación y revitalización en 45 min.</p><div class="svc-price">Desde $500</div></div>
+  <div class="svc-card"><span class="icon">👰</span><h3>Paquete Novia</h3><p>Maquillaje, peinado, prueba previa y retoque el día del evento.</p><div class="svc-price">Desde $3,500</div></div>
+  <div class="svc-card"><span class="icon">💈</span><h3>Barbería</h3><p>Corte, barba, cejas y tratamiento capilar para caballeros.</p><div class="svc-price">Desde $200</div></div>
+</div>
+
+<section class="about" id="nosotros">
+  <div class="about-img">👩‍🎨</div>
+  <div>
+    <h2>Sobre Bella Lux</h2>
+    <p>Fundada en 2009, nuestra estética se ha convertido en un referente de belleza y estilo en la Ciudad de México. Nuestro equipo de estilistas certificados trabaja con las mejores marcas del mercado.</p>
+    <p>Creemos que cada persona merece sentirse hermosa. Por eso ofrecemos atención personalizada en un ambiente cálido y relajante.</p>
+    <a href="#contacto" class="btn-gold">📅 Reservar ahora</a>
+  </div>
+</section>
+
+<section class="gallery" id="galeria">
+  <h2>Nuestro Trabajo</h2>
+  <div class="gallery-grid">
+    <div class="gallery-item">💇‍♀️</div><div class="gallery-item">💅</div><div class="gallery-item">💆‍♀️</div><div class="gallery-item">👰</div>
+    <div class="gallery-item">✂️</div><div class="gallery-item">🎨</div><div class="gallery-item">💈</div><div class="gallery-item">🪞</div>
+  </div>
+</section>
+
+<section class="map-section">
+  <h2>📍 Encuéntranos</h2>
+  <p>Col. Roma Norte, CDMX · Lun-Sáb 10am - 8pm</p>
+  <div class="map-placeholder">🗺️ Google Maps integrado</div>
+</section>
+
+<section class="contact" id="contacto">
+  <h2>Agenda tu Cita</h2>
+  <p>Llena el formulario y te confirmamos en menos de 2 horas</p>
+  <div class="contact-form">
+    <input type="text" placeholder="Tu nombre"/>
+    <input type="tel" placeholder="WhatsApp"/>
+    <input type="text" placeholder="Servicio de interés"/>
+    <textarea placeholder="¿Algún detalle o preferencia?"></textarea>
+    <button class="btn-gold">📅 Solicitar cita</button>
+  </div>
+</section>
+
+<footer>
+  <div class="brand">✨ Bella Lux Estética</div>
+  <p>Col. Roma Norte, CDMX · Tel: 55 1234 5678</p>
+  <p style="margin-top:1rem;opacity:.5">Demo creado por TaquerosWeb.mx</p>
+</footer>
+</body>
+</html>

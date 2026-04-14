@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Demo Catálogo — Café Molcajete | TaquerosWeb</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0E0C0A;--surface:#161311;--card:#1C1916;--text:#F5F0E6;--accent:#C17F3E;--accent2:#E5A04B;--muted:#8A7F70;--green:#6BBF59;--border:rgba(255,255,255,.07);--font:Sora,sans-serif;--font2:'Space Grotesk',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}
+
+.demo-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,#C17F3E,#8B5E2F);color:#fff;text-align:center;padding:.6rem 1rem;font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:.75rem}
+.demo-banner a{color:#FFE0B2;text-decoration:underline}
+
+nav{position:sticky;top:36px;background:rgba(14,12,10,.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav-brand{font-family:var(--font2);font-size:1.5rem;font-weight:700;color:var(--accent)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{font-size:.85rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{background:var(--accent);color:#fff;padding:.6rem 1.4rem;border-radius:8px;font-weight:700;font-size:.85rem;text-decoration:none;transition:all .2s}
+.nav-cta:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(193,127,62,.4)}
+
+.hero{padding:6rem 2rem 4rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;min-height:85vh}
+.hero-tag{display:inline-flex;background:rgba(193,127,62,.12);border:1px solid rgba(193,127,62,.25);border-radius:100px;padding:.4rem 1rem;font-size:.72rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.5rem}
+.hero h1{font-family:var(--font2);font-size:clamp(2.5rem,5vw,4.2rem);line-height:1.05;margin-bottom:1.25rem;letter-spacing:-1px}
+.hero h1 span{color:var(--accent)}
+.hero p{color:var(--muted);font-size:1rem;margin-bottom:2rem;max-width:440px}
+.hero-btns{display:flex;gap:1rem;flex-wrap:wrap}
+.btn-main{background:var(--accent);color:#fff;padding:.85rem 2rem;border-radius:10px;font-weight:700;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-main:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(193,127,62,.4)}
+.btn-ghost{border:1px solid var(--border);color:var(--text);padding:.85rem 2rem;border-radius:10px;font-weight:600;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.hero-visual{display:flex;justify-content:center;align-items:center}
+.hero-visual .cup{font-size:14rem;filter:drop-shadow(0 20px 60px rgba(193,127,62,.3))}
+
+.stats-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:2rem;display:flex;justify-content:center;gap:4rem}
+.stat{text-align:center}
+.stat-val{font-family:var(--font2);font-size:2rem;color:var(--accent)}
+.stat-label{font-size:.78rem;color:var(--muted);margin-top:.25rem}
+
+.catalog{max-width:1200px;margin:0 auto;padding:5rem 2rem}
+.catalog-header{text-align:center;margin-bottom:3rem}
+.catalog-header h2{font-family:var(--font2);font-size:2.5rem;margin-bottom:.5rem}
+.catalog-header p{color:var(--muted)}
+.catalog-filters{display:flex;justify-content:center;gap:.75rem;margin-bottom:3rem;flex-wrap:wrap}
+.filter-btn{background:var(--card);border:1px solid var(--border);color:var(--muted);padding:.5rem 1.25rem;border-radius:100px;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .2s}
+.filter-btn:hover,.filter-btn.active{background:rgba(193,127,62,.15);border-color:var(--accent);color:var(--accent)}
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.5rem}
+.product-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .25s}
+.product-card:hover{transform:translateY(-6px);border-color:rgba(193,127,62,.3);box-shadow:0 24px 64px rgba(0,0,0,.4)}
+.product-img{height:200px;display:flex;align-items:center;justify-content:center;font-size:5rem;background:linear-gradient(135deg,rgba(193,127,62,.1),rgba(193,127,62,.05))}
+.product-info{padding:1.25rem}
+.product-tag{font-size:.68rem;font-weight:700;color:var(--green);text-transform:uppercase;letter-spacing:.05em;margin-bottom:.5rem}
+.product-name{font-family:var(--font2);font-size:1.1rem;margin-bottom:.35rem}
+.product-desc{font-size:.82rem;color:var(--muted);line-height:1.5;margin-bottom:1rem}
+.product-bottom{display:flex;justify-content:space-between;align-items:center}
+.product-price{font-family:var(--font2);font-size:1.3rem;color:var(--accent)}
+.btn-sm{background:var(--accent);color:#fff;padding:.5rem 1rem;border-radius:8px;font-size:.78rem;font-weight:700;text-decoration:none;transition:all .2s;border:none;cursor:pointer}
+.btn-sm:hover{transform:translateY(-1px)}
+
+.blog{max-width:1200px;margin:0 auto;padding:5rem 2rem}
+.blog h2{font-family:var(--font2);font-size:2rem;text-align:center;margin-bottom:2.5rem}
+.blog-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.blog-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .25s}
+.blog-card:hover{transform:translateY(-4px);border-color:rgba(193,127,62,.2)}
+.blog-thumb{height:160px;display:flex;align-items:center;justify-content:center;font-size:3.5rem;background:linear-gradient(135deg,rgba(193,127,62,.08),transparent)}
+.blog-body{padding:1.25rem}
+.blog-date{font-size:.72rem;color:var(--accent);font-weight:600;margin-bottom:.5rem}
+.blog-title{font-family:var(--font2);font-size:1rem;margin-bottom:.5rem}
+.blog-excerpt{font-size:.82rem;color:var(--muted);line-height:1.5}
+
+.cta{background:var(--card);border:1px solid var(--border);border-radius:24px;max-width:900px;margin:3rem auto;padding:4rem 3rem;text-align:center}
+.cta h2{font-family:var(--font2);font-size:2.2rem;margin-bottom:1rem}
+.cta p{color:var(--muted);margin-bottom:2rem}
+
+footer{border-top:1px solid var(--border);padding:3rem 2rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:3rem}
+.foot-brand{font-family:var(--font2);font-size:1.4rem;color:var(--accent);margin-bottom:.75rem}
+.foot-about{font-size:.82rem;color:var(--muted);line-height:1.6}
+.foot-title{font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem;color:var(--text)}
+.foot-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.foot-links a{font-size:.82rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.foot-links a:hover{color:var(--accent)}
+.foot-bottom{grid-column:1/-1;border-top:1px solid var(--border);padding-top:1.5rem;font-size:.75rem;color:var(--muted);text-align:center}
+
+@media(max-width:768px){
+  .hero{grid-template-columns:1fr}.hero-visual{display:none}
+  .blog-grid{grid-template-columns:1fr}
+  .stats-bar{flex-wrap:wrap;gap:2rem}
+  footer{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+<div class="demo-banner">☕ DEMO — Paquete Catálogo ($6,499 MXN) · <a href="../index.html#paquetes">Comprar este paquete</a></div>
+
+<nav>
+  <div class="nav-brand">☕ Café Molcajete</div>
+  <ul class="nav-links"><li><a href="#catalogo">Catálogo</a></li><li><a href="#blog">Blog</a></li><li><a href="#nosotros">Nosotros</a></li><li><a href="#contacto">Contacto</a></li></ul>
+  <a href="#contacto" class="nav-cta">💬 Hacer pedido</a>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-tag">☕ Café de especialidad mexicano</div>
+    <h1>El sabor de<br><span>Oaxaca en tu taza</span></h1>
+    <p>Café orgánico de origen, tostado artesanalmente en micro-lotes. De la sierra oaxaqueña directo a tu hogar.</p>
+    <div class="hero-btns">
+      <a href="#catalogo" class="btn-main">☕ Ver catálogo</a>
+      <a href="#blog" class="btn-ghost">📖 Nuestro blog</a>
+    </div>
+  </div>
+  <div class="hero-visual"><span class="cup">☕</span></div>
+</section>
+
+<div class="stats-bar">
+  <div class="stat"><div class="stat-val">+2,500</div><div class="stat-label">Bolsas vendidas</div></div>
+  <div class="stat"><div class="stat-val">12</div><div class="stat-label">Variedades</div></div>
+  <div class="stat"><div class="stat-val">100%</div><div class="stat-label">Orgánico</div></div>
+  <div class="stat"><div class="stat-val">4.9★</div><div class="stat-label">Calificación</div></div>
+</div>
+
+<section class="catalog" id="catalogo">
+  <div class="catalog-header">
+    <h2>Nuestro Catálogo</h2>
+    <p>Café de especialidad para cada paladar y cada momento</p>
+  </div>
+  <div class="catalog-filters">
+    <div class="filter-btn active">Todos</div>
+    <div class="filter-btn">Molido</div>
+    <div class="filter-btn">Grano Entero</div>
+    <div class="filter-btn">Cold Brew</div>
+    <div class="filter-btn">Accesorios</div>
+  </div>
+  <div class="product-grid">
+    <div class="product-card"><div class="product-img">🫘</div><div class="product-info"><div class="product-tag">Bestseller</div><div class="product-name">Oaxaca Pluma — Molido</div><div class="product-desc">Notas de chocolate, nuez y vainilla. Tueste medio.</div><div class="product-bottom"><div class="product-price">$289</div><button class="btn-sm">Pedir</button></div></div></div>
+    <div class="product-card"><div class="product-img">☕</div><div class="product-info"><div class="product-tag">Nuevo</div><div class="product-name">Sierra Norte — Grano</div><div class="product-desc">Afrutado, floral, acidez brillante. Tueste ligero.</div><div class="product-bottom"><div class="product-price">$329</div><button class="btn-sm">Pedir</button></div></div></div>
+    <div class="product-card"><div class="product-img">🧊</div><div class="product-info"><div class="product-tag">Favorito</div><div class="product-name">Cold Brew Concentrado</div><div class="product-desc">Listo para mezclar. Sabor intenso, suave al paladar.</div><div class="product-bottom"><div class="product-price">$199</div><button class="btn-sm">Pedir</button></div></div></div>
+    <div class="product-card"><div class="product-img">🎁</div><div class="product-info"><div class="product-tag">Edición limitada</div><div class="product-name">Kit Molcajete Premium</div><div class="product-desc">3 variedades + taza artesanal + guía de preparación.</div><div class="product-bottom"><div class="product-price">$749</div><button class="btn-sm">Pedir</button></div></div></div>
+    <div class="product-card"><div class="product-img">🏔️</div><div class="product-info"><div class="product-tag">Orgánico</div><div class="product-name">Chiapas Altura — Molido</div><div class="product-desc">Cuerpo completo, caramelo y frutos secos. Tueste oscuro.</div><div class="product-bottom"><div class="product-price">$269</div><button class="btn-sm">Pedir</button></div></div></div>
+    <div class="product-card"><div class="product-img">⚙️</div><div class="product-info"><div class="product-tag">Accesorio</div><div class="product-name">Prensa Francesa 350ml</div><div class="product-desc">Vidrio borosilicato, marco de acero inoxidable. Elegante.</div><div class="product-bottom"><div class="product-price">$459</div><button class="btn-sm">Pedir</button></div></div></div>
+  </div>
+</section>
+
+<section class="blog" id="blog">
+  <h2>Blog Cafetero</h2>
+  <div class="blog-grid">
+    <div class="blog-card"><div class="blog-thumb">📝</div><div class="blog-body"><div class="blog-date">Ene 2025</div><div class="blog-title">Cómo preparar el café perfecto en casa</div><div class="blog-excerpt">5 tips de baristas profesionales para elevar tu ritual matutino.</div></div></div>
+    <div class="blog-card"><div class="blog-thumb">🌱</div><div class="blog-body"><div class="blog-date">Dic 2024</div><div class="blog-title">¿Qué hace especial al café oaxaqueño?</div><div class="blog-excerpt">La altitud, el suelo y la tradición detrás de cada grano.</div></div></div>
+    <div class="blog-card"><div class="blog-thumb">🧊</div><div class="blog-body"><div class="blog-date">Nov 2024</div><div class="blog-title">Cold Brew vs. Café helado: las diferencias</div><div class="blog-excerpt">No es lo mismo enfriar café que hacer cold brew. Te explicamos.</div></div></div>
+  </div>
+</section>
+
+<div class="cta" id="contacto">
+  <h2>¿Listo para probar?</h2>
+  <p>Escríbenos por WhatsApp y recibe tu café en 24-48 horas dentro de CDMX</p>
+  <a href="#" class="btn-main">💬 Pedir por WhatsApp</a>
+</div>
+
+<footer>
+  <div><div class="foot-brand">☕ Café Molcajete</div><p class="foot-about">Café orgánico de especialidad, tostado artesanalmente en micro-lotes. De Oaxaca a tu taza.</p></div>
+  <div><div class="foot-title">Tienda</div><ul class="foot-links"><li><a href="#">Catálogo</a></li><li><a href="#">Mayoreo</a></li><li><a href="#">Suscripción</a></li></ul></div>
+  <div><div class="foot-title">Contacto</div><ul class="foot-links"><li><a href="#">WhatsApp</a></li><li><a href="#">Instagram</a></li><li><a href="#">hola@cafemolcajete.mx</a></li></ul></div>
+  <div class="foot-bottom">© 2025 Café Molcajete · Demo por TaquerosWeb.mx</div>
+</footer>
+</body>
+</html>

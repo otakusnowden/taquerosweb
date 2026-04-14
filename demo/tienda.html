@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Demo Tienda Lite — Jabones Raíz | TaquerosWeb</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#F7F4F0;--surface:#fff;--card:#fff;--text:#1A1715;--accent:#4A7C59;--accent2:#6BA368;--gold:#C9A85C;--muted:#7D756A;--border:rgba(0,0,0,.08);--font:'Outfit',sans-serif}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.6}
+
+.demo-banner{position:fixed;top:0;left:0;right:0;z-index:9999;background:linear-gradient(135deg,#4A7C59,#2F5238);color:#fff;text-align:center;padding:.6rem 1rem;font-size:.8rem;font-weight:700;display:flex;align-items:center;justify-content:center;gap:.75rem}
+.demo-banner a{color:#A8D5BA;text-decoration:underline}
+
+nav{position:sticky;top:36px;background:rgba(247,244,240,.95);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:.75rem 2rem;display:flex;justify-content:space-between;align-items:center;z-index:100}
+.nav-brand{font-size:1.4rem;font-weight:800;color:var(--accent)}
+.nav-center{display:flex;gap:2rem;list-style:none}
+.nav-center a{font-size:.85rem;font-weight:500;color:var(--muted);text-decoration:none;transition:color .2s}
+.nav-center a:hover{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:1.25rem}
+.nav-search{background:rgba(0,0,0,.04);border:1px solid var(--border);border-radius:8px;padding:.45rem .85rem;font-size:.82rem;width:180px;outline:none;font-family:var(--font)}
+.cart-btn{position:relative;font-size:1.3rem;text-decoration:none;cursor:pointer}
+.cart-count{position:absolute;top:-6px;right:-8px;background:var(--accent);color:#fff;font-size:.6rem;font-weight:800;width:16px;height:16px;border-radius:50%;display:flex;align-items:center;justify-content:center}
+
+.hero-shop{display:grid;grid-template-columns:1fr 1fr;min-height:70vh;overflow:hidden}
+.hero-shop-text{display:flex;flex-direction:column;justify-content:center;padding:4rem 3rem}
+.hero-shop-text .badge{display:inline-flex;background:rgba(74,124,89,.1);border:1px solid rgba(74,124,89,.2);border-radius:100px;padding:.35rem 1rem;font-size:.7rem;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.5rem;width:fit-content}
+.hero-shop-text h1{font-size:clamp(2.2rem,5vw,3.5rem);font-weight:800;line-height:1.1;margin-bottom:1.25rem}
+.hero-shop-text h1 span{color:var(--accent)}
+.hero-shop-text p{color:var(--muted);max-width:400px;margin-bottom:2rem}
+.btn-green{background:var(--accent);color:#fff;padding:.85rem 2rem;border-radius:10px;font-weight:700;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;border:none;cursor:pointer;font-family:var(--font);font-size:.95rem}
+.btn-green:hover{background:#3D6B4B;transform:translateY(-2px);box-shadow:0 12px 32px rgba(74,124,89,.3)}
+.hero-shop-visual{background:linear-gradient(135deg,#E8F0E4,#D4E0CE);display:flex;align-items:center;justify-content:center;font-size:12rem}
+
+.trust-bar{display:flex;justify-content:center;gap:3rem;padding:2rem;border-bottom:1px solid var(--border)}
+.trust-item{display:flex;align-items:center;gap:.5rem;font-size:.82rem;font-weight:600;color:var(--muted)}
+
+.shop-section{max-width:1200px;margin:0 auto;padding:4rem 2rem}
+.shop-section h2{font-size:2rem;font-weight:800;text-align:center;margin-bottom:.5rem}
+.shop-section .sub{text-align:center;color:var(--muted);margin-bottom:2.5rem}
+.categories{display:flex;justify-content:center;gap:.75rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.cat-btn{background:var(--surface);border:1px solid var(--border);padding:.5rem 1.25rem;border-radius:100px;font-size:.82rem;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s}
+.cat-btn:hover,.cat-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+
+.products{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.5rem}
+.p-card{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;transition:all .25s}
+.p-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,.08)}
+.p-img{height:220px;display:flex;align-items:center;justify-content:center;font-size:5rem;background:linear-gradient(135deg,#F0EDE8,#E8E4DD);position:relative}
+.p-badge{position:absolute;top:.75rem;left:.75rem;background:var(--accent);color:#fff;font-size:.65rem;font-weight:700;padding:.25rem .6rem;border-radius:6px;text-transform:uppercase}
+.p-badge.sale{background:#C0392B}
+.p-info{padding:1.25rem}
+.p-name{font-size:1rem;font-weight:700;margin-bottom:.25rem}
+.p-desc{font-size:.8rem;color:var(--muted);margin-bottom:.75rem}
+.p-prices{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem}
+.p-price{font-size:1.2rem;font-weight:800;color:var(--accent)}
+.p-old{font-size:.85rem;color:var(--muted);text-decoration:line-through}
+.p-rating{font-size:.75rem;color:var(--gold)}
+.btn-add{width:100%;background:var(--accent);color:#fff;padding:.65rem;border-radius:8px;font-weight:700;font-size:.85rem;border:none;cursor:pointer;transition:all .2s;font-family:var(--font)}
+.btn-add:hover{background:#3D6B4B}
+
+.features{max-width:1200px;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.feat{text-align:center;padding:2rem 1rem}
+.feat .icon{font-size:2.5rem;margin-bottom:.75rem;display:block}
+.feat h3{font-size:.95rem;font-weight:700;margin-bottom:.35rem}
+.feat p{font-size:.8rem;color:var(--muted)}
+
+.newsletter{background:var(--accent);color:#fff;padding:3rem 2rem;text-align:center;border-radius:20px;max-width:900px;margin:2rem auto}
+.newsletter h2{font-size:1.8rem;font-weight:800;margin-bottom:.5rem}
+.newsletter p{opacity:.8;margin-bottom:1.5rem}
+.newsletter-form{display:flex;gap:.75rem;max-width:450px;margin:0 auto}
+.newsletter-form input{flex:1;padding:.75rem 1rem;border-radius:8px;border:none;font-size:.9rem;font-family:var(--font)}
+.newsletter-form button{background:#fff;color:var(--accent);padding:.75rem 1.5rem;border-radius:8px;font-weight:700;border:none;cursor:pointer;font-family:var(--font);transition:all .2s}
+
+footer{padding:3rem 2rem;max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2rem;border-top:1px solid var(--border);margin-top:3rem}
+.f-brand{font-size:1.3rem;font-weight:800;color:var(--accent);margin-bottom:.5rem}
+.f-about{font-size:.82rem;color:var(--muted);line-height:1.6}
+.f-title{font-weight:700;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem}
+.f-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.f-links a{font-size:.82rem;color:var(--muted);text-decoration:none;transition:color .2s}
+.f-links a:hover{color:var(--accent)}
+.f-pay{display:flex;gap:.5rem;margin-top:1rem;flex-wrap:wrap}
+.pay-badge{background:rgba(0,0,0,.04);border:1px solid var(--border);border-radius:6px;padding:.3rem .6rem;font-size:.7rem;font-weight:600;color:var(--muted)}
+.f-bottom{grid-column:1/-1;border-top:1px solid var(--border);padding-top:1.5rem;font-size:.75rem;color:var(--muted);text-align:center}
+
+@media(max-width:768px){
+  .hero-shop{grid-template-columns:1fr}.hero-shop-visual{display:none}
+  .features{grid-template-columns:1fr 1fr}
+  footer{grid-template-columns:1fr 1fr}
+  .nav-center,.nav-search{display:none}
+  .newsletter-form{flex-direction:column}
+}
+</style>
+</head>
+<body>
+<div class="demo-banner">🛒 DEMO — Paquete Tienda Lite ($9,999 MXN) · <a href="../index.html#paquetes">Comprar este paquete</a></div>
+
+<nav>
+  <div class="nav-brand">🌿 Jabones Raíz</div>
+  <ul class="nav-center"><li><a href="#tienda">Tienda</a></li><li><a href="#">Kits</a></li><li><a href="#">Nosotros</a></li><li><a href="#">FAQ</a></li></ul>
+  <div class="nav-right">
+    <input type="text" class="nav-search" placeholder="Buscar..."/>
+    <div class="cart-btn">🛒<span class="cart-count">3</span></div>
+  </div>
+</nav>
+
+<section class="hero-shop">
+  <div class="hero-shop-text">
+    <div class="badge">🌿 100% natural · Hecho en México</div>
+    <h1>Jabones artesanales<br><span>para tu piel</span></h1>
+    <p>Ingredientes naturales, sin químicos agresivos. Cada jabón es una obra de arte hecha a mano en Oaxaca.</p>
+    <a href="#tienda" class="btn-green">🛒 Comprar ahora</a>
+  </div>
+  <div class="hero-shop-visual">🧼</div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-item">🚚 Envío gratis +$499</div>
+  <div class="trust-item">🌿 100% Natural</div>
+  <div class="trust-item">🔄 Devoluciones 30 días</div>
+  <div class="trust-item">💳 MercadoPago / PayPal</div>
+</div>
+
+<section class="shop-section" id="tienda">
+  <h2>Nuestra Tienda</h2>
+  <p class="sub">Jabones artesanales para cada tipo de piel</p>
+  <div class="categories">
+    <div class="cat-btn active">Todos</div>
+    <div class="cat-btn">Rostro</div>
+    <div class="cat-btn">Cuerpo</div>
+    <div class="cat-btn">Cabello</div>
+    <div class="cat-btn">Kits</div>
+  </div>
+  <div class="products">
+    <div class="p-card"><div class="p-img"><span class="p-badge">Bestseller</span>🧼</div><div class="p-info"><div class="p-name">Jabón de Avena y Miel</div><div class="p-desc">Hidratación profunda para piel sensible</div><div class="p-prices"><span class="p-price">$129</span><span class="p-rating">★★★★★ (47)</span></div><button class="btn-add">Agregar al carrito 🛒</button></div></div>
+    <div class="p-card"><div class="p-img"><span class="p-badge sale">-20%</span>🌹</div><div class="p-info"><div class="p-name">Jabón de Rosa Mosqueta</div><div class="p-desc">Anti-edad y regenerador celular</div><div class="p-prices"><span class="p-price">$159</span><span class="p-old">$199</span><span class="p-rating">★★★★★ (32)</span></div><button class="btn-add">Agregar al carrito 🛒</button></div></div>
+    <div class="p-card"><div class="p-img">🫧</div><div class="p-info"><div class="p-name">Jabón de Carbón Activado</div><div class="p-desc">Limpieza profunda y detox facial</div><div class="p-prices"><span class="p-price">$139</span><span class="p-rating">★★★★☆ (28)</span></div><button class="btn-add">Agregar al carrito 🛒</button></div></div>
+    <div class="p-card"><div class="p-img"><span class="p-badge">Nuevo</span>🌸</div><div class="p-info"><div class="p-name">Jabón de Lavanda</div><div class="p-desc">Relajante y aromaterapia natural</div><div class="p-prices"><span class="p-price">$119</span><span class="p-rating">★★★★★ (15)</span></div><button class="btn-add">Agregar al carrito 🛒</button></div></div>
+    <div class="p-card"><div class="p-img">🍫</div><div class="p-info"><div class="p-name">Jabón de Cacao</div><div class="p-desc">Nutrición y suavidad para piel seca</div><div class="p-prices"><span class="p-price">$149</span><span class="p-rating">★★★★★ (21)</span></div><button class="btn-add">Agregar al carrito 🛒</button></div></div>
+    <div class="p-card"><div class="p-img"><span class="p-badge">Kit</span>🎁</div><div class="p-info"><div class="p-name">Kit Spa en Casa (5 piezas)</div><div class="p-desc">5 jabones + bolsa de yute + tarjeta</div><div class="p-prices"><span class="p-price">$499</span><span class="p-old">$645</span><span class="p-rating">★★★★★ (64)</span></div><button class="btn-add">Agregar al carrito 🛒</button></div></div>
+  </div>
+</section>
+
+<div class="features">
+  <div class="feat"><span class="icon">🌿</span><h3>100% Natural</h3><p>Sin sulfatos, parabenos ni químicos.</p></div>
+  <div class="feat"><span class="icon">🐰</span><h3>Cruelty Free</h3><p>No testeamos en animales. Nunca.</p></div>
+  <div class="feat"><span class="icon">🇲🇽</span><h3>Hecho en México</h3><p>Producción artesanal oaxaqueña.</p></div>
+  <div class="feat"><span class="icon">♻️</span><h3>Eco-Empaque</h3><p>Empaques biodegradables y reciclables.</p></div>
+</div>
+
+<div class="newsletter">
+  <h2>¡10% de descuento!</h2>
+  <p>Suscríbete y recibe un cupón en tu primer pedido</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="tu@correo.com"/>
+    <button>Suscribirme</button>
+  </div>
+</div>
+
+<footer>
+  <div><div class="f-brand">🌿 Jabones Raíz</div><p class="f-about">Jabones artesanales hechos a mano con ingredientes naturales de Oaxaca. Cuidamos tu piel y el planeta.</p><div class="f-pay"><span class="pay-badge">💳 MercadoPago</span><span class="pay-badge">PayPal</span><span class="pay-badge">SPEI</span><span class="pay-badge">Oxxo</span></div></div>
+  <div><div class="f-title">Tienda</div><ul class="f-links"><li><a href="#">Todos</a></li><li><a href="#">Kits</a></li><li><a href="#">Ofertas</a></li><li><a href="#">Mayoreo</a></li></ul></div>
+  <div><div class="f-title">Info</div><ul class="f-links"><li><a href="#">Nosotros</a></li><li><a href="#">Envíos</a></li><li><a href="#">Devoluciones</a></li><li><a href="#">FAQ</a></li></ul></div>
+  <div><div class="f-title">Contacto</div><ul class="f-links"><li><a href="#">WhatsApp</a></li><li><a href="#">Instagram</a></li><li><a href="#">hola@jabonesraiz.mx</a></li></ul></div>
+  <div class="f-bottom">© 2025 Jabones Raíz · Demo por TaquerosWeb.mx</div>
+</footer>
+</body>
+</html>
