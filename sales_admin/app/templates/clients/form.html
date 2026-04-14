@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}{% if client %}Editar Cliente{% else %}Nuevo Cliente{% endif %}{% endblock %}
+
+{% block content %}
+<div class="page-header">
+  <h1>
+    <i class="bi bi-person{% if client %}-gear{% else %}-plus{% endif %} me-2"></i>
+    {% if client %}Editar: {{ client.name }}{% else %}Nuevo Cliente{% endif %}
+  </h1>
+  <a href="{{ url_for('clients.index') }}" class="btn btn-outline-secondary btn-sm">
+    <i class="bi bi-arrow-left me-1"></i>Volver
+  </a>
+</div>
+
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-7">
+    <div class="card">
+      <div class="card-body p-4">
+        <form method="POST" novalidate>
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+
+          <div class="row g-3">
+            <!-- Nombre -->
+            <div class="col-12">
+              <label class="form-label" for="name">Nombre completo <span class="text-danger">*</span></label>
+              <input type="text" id="name" name="name"
+                     class="form-control {% if errors.name %}is-invalid{% endif %}"
+                     value="{{ form_data.get('name', '') }}"
+                     placeholder="Ej: Carlos Mendoza" required />
+              {% if errors.name %}
+              <div class="invalid-feedback">{{ errors.name | join(', ') }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6">
+              <label class="form-label" for="email">Correo electrónico <span class="text-danger">*</span></label>
+              <input type="email" id="email" name="email"
+                     class="form-control {% if errors.email %}is-invalid{% endif %}"
+                     value="{{ form_data.get('email', '') }}"
+                     placeholder="cliente@ejemplo.com" required />
+              {% if errors.email %}
+              <div class="invalid-feedback">{{ errors.email | join(', ') }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Teléfono -->
+            <div class="col-md-6">
+              <label class="form-label" for="phone">Teléfono</label>
+              <input type="text" id="phone" name="phone"
+                     class="form-control {% if errors.phone %}is-invalid{% endif %}"
+                     value="{{ form_data.get('phone', '') }}"
+                     placeholder="+52 55 1234 5678" />
+              {% if errors.phone %}
+              <div class="invalid-feedback">{{ errors.phone | join(', ') }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Empresa -->
+            <div class="col-12">
+              <label class="form-label" for="company">Empresa <span class="text-muted small">(opcional)</span></label>
+              <input type="text" id="company" name="company"
+                     class="form-control {% if errors.company %}is-invalid{% endif %}"
+                     value="{{ form_data.get('company', '') }}"
+                     placeholder="Nombre de la empresa" />
+              {% if errors.company %}
+              <div class="invalid-feedback">{{ errors.company | join(', ') }}</div>
+              {% endif %}
+            </div>
+
+            <!-- Notas -->
+            <div class="col-12">
+              <label class="form-label" for="notes">Notas internas</label>
+              <textarea id="notes" name="notes" rows="3"
+                        class="form-control"
+                        placeholder="Notas, observaciones sobre el cliente…">{{ form_data.get('notes', '') }}</textarea>
+            </div>
+          </div>
+
+          <hr class="my-4" />
+
+          <div class="d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-check2 me-1"></i>
+              {% if client %}Guardar cambios{% else %}Crear cliente{% endif %}
+            </button>
+            <a href="{{ url_for('clients.index') }}" class="btn btn-outline-secondary">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
