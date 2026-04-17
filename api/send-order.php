@@ -259,5 +259,5 @@ try {
     // No exponer detalles internos al cliente; loguear en servidor
     error_log('[TaquerosWeb] PHPMailer error: ' . $mail->ErrorInfo);
     http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Error al enviar el correo.']);
+    echo json_encode(['success' => false, 'error' => 'Error al enviar el correo:'.$mail->ErrorInfo]);
 }
