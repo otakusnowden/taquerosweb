@@ -2088,6 +2088,10 @@ body::before {
           <div class="form-group"><label class="form-label">Nombre de tu negocio *</label><input type="text" class="form-input" placeholder="Barber Shop Luxor" id="fBusiness" /></div>
         </div>
         <div class="form-group"><label class="form-label">Cuéntanos tu negocio</label><textarea class="form-textarea" placeholder="Describe a qué se dedica tu negocio, a quién va dirigido y qué esperas de tu sitio web..." id="fDesc"></textarea></div>
+        <!-- Honeypot antispam: oculto para humanos, visible para bots -->
+        <div style="position:absolute;left:-9999px;top:-9999px;opacity:0;height:0;overflow:hidden" aria-hidden="true">
+          <input type="text" id="fWebsite" name="website" tabindex="-1" autocomplete="off" />
+        </div>
         <div style="font-size:0.78rem;color:var(--color-muted);margin-bottom:0.5rem;font-weight:600">Métodos de pago disponibles:</div>
         <div class="payment-methods">
           <div class="pm-badge">💳 Tarjeta de crédito/débito</div>
@@ -2292,35 +2296,78 @@ function selectPkg(el) {
 }
 
 // ─── Order submission ───
-function submitOrder() {
-  const name = document.getElementById('fName').value.trim();
-  const email = document.getElementById('fEmail').value.trim();
-  const phone = document.getElementById('fPhone').value.trim();
-  const biz = document.getElementById('fBusiness').value.trim();
-  if (!name || !email || !phone || !biz) {
-    const fields = [
-      { id: 'fName', val: name }, { id: 'fEmail', val: email },
-      { id: 'fPhone', val: phone }, { id: 'fBusiness', val: biz }
-    ];
-    fields.forEach(f => {
-      if (!f.val) {
-        const el = document.getElementById(f.id);
-        el.style.borderColor = 'var(--color-red)';
-        el.style.boxShadow = '0 0 0 3px rgba(232,41,76,0.2)';
-        setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
-      }
-    });
+async function submitOrder() {
+  const name     = document.getElementById('fName').value.trim();
+  const email    = document.getElementById('fEmail').value.trim();
+  const phone    = document.getElementById('fPhone').value.trim();
+  const biz      = document.getElementById('fBusiness').value.trim();
+  const desc     = document.getElementById('fDesc').value.trim();
+  const honeypot = document.getElementById('fWebsite').value;
+  const pkg      = document.getElementById('selPkgName').textContent.trim();
+  const price    = document.getElementById('selPkgPrice').textContent.trim();
+
+  // Honeypot antispam: si un bot llenó este campo oculto, ignorar silenciosamente
+  if (honeypot) return;
+
+  // Validación campos requeridos
+  const requiredFields = [
+    { id: 'fName', val: name },
+    { id: 'fEmail', val: email },
+    { id: 'fPhone', val: phone },
+    { id: 'fBusiness', val: biz }
+  ];
+  let hasError = false;
+  requiredFields.forEach(f => {
+    const el = document.getElementById(f.id);
+    if (!f.val) {
+      hasError = true;
+      el.style.borderColor = 'var(--color-red)';
+      el.style.boxShadow = '0 0 0 3px rgba(232,41,76,0.2)';
+      setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2500);
+    }
+  });
+  if (hasError) return;
+
+  // Validación básica de email
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    const el = document.getElementById('fEmail');
+    el.style.borderColor = 'var(--color-red)';
+    el.style.boxShadow = '0 0 0 3px rgba(232,41,76,0.2)';
+    setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2500);
     return;
   }
+
   const btn = document.querySelector('.btn-buy');
-  btn.textContent = '⏳ Procesando tu orden...';
+  btn.textContent = '⏳ Enviando tu orden...';
   btn.disabled = true;
-  setTimeout(() => {
+
+  const payload = { name, email, phone, biz, desc, pkg, price };
+
+  try {
+    const res = await fetch('/api/send-order.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      ['fName','fEmail','fPhone','fBusiness','fDesc'].forEach(id => {
+        document.getElementById(id).value = '';
+      });
+      openSuccessModal();
+    } else {
+      alert('Hubo un problema al enviar tu orden. Por favor intenta de nuevo o escríbenos por WhatsApp.');
+      console.error('send-order error:', data.error);
+    }
+  } catch (err) {
+    alert('Error de conexión. Por favor verifica tu internet e intenta de nuevo.');
+    console.error('fetch error:', err);
+  } finally {
     btn.textContent = '🌮 ¡Ordenar mi sitio web!';
     btn.disabled = false;
-    ['fName','fEmail','fPhone','fBusiness','fDesc'].forEach(id => { document.getElementById(id).value = ''; });
-    openSuccessModal();
-  }, 1800);
+  }
 }
 
 // ─── Success Modal ───
