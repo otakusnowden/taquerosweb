@@ -101,7 +101,9 @@ $jsonLd = [
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!-- ===== SEO PRIMARIO ===== -->
+<!--
 <title>TaquerosWeb.com — Sitios Web Profesionales para Negocios Mexicanos</title>
+-->
 <meta name="description" content="<?= htmlspecialchars($cfg['site_desc']) ?>" />
 <meta name="keywords" content="diseño web México, páginas web para taquerías, sitio web barato, web para negocios mexicanos, landing page, tienda online MXN" />
 <meta name="author" content="<?= $siteName ?>" />
@@ -960,11 +962,11 @@ body::before {
               'exc' => ['Dominio y hosting','Blog o secciones extra'],
           ],
           'basico' => [
-              'inc' => ['Hasta 3 páginas (inicio, nosotros, contacto)','Diseño responsive','WhatsApp + mapa de ubicación','Formulario de contacto avanzado','SEO básico optimizado','Galería de fotos','Entrega en 5 días hábiles'],
+              'inc' => ['Todo en uno (servicios, nosotros, galería, reseñas, contacto)','Diseño responsive','WhatsApp + Mapa de ubicación','Formulario de contacto avanzado','SEO básico optimizado','Galería de fotos o Video','Entrega en 5 días hábiles'],
               'exc' => ['Tienda o catálogo'],
           ],
           'catalogo' => [
-              'inc' => ['Hasta 6 páginas personalizadas','Catálogo de productos/servicios','Diseño premium responsive','WhatsApp + redes sociales','SEO intermedio (palabras clave)','Blog (hasta 3 entradas)','Google Analytics incluido','Entrega en 5-7 días hábiles'],
+              'inc' => ['Hasta 6 páginas personalizadas','Catálogo de productos/servicios','Diseño premium responsive','WhatsApp + Redes sociales','SEO intermedio (palabras clave)','Google Analytics incluido','Entrega en 5-7 días hábiles'],
               'exc' => [],
           ],
           'tienda' => [
@@ -972,7 +974,7 @@ body::before {
               'exc' => ['Panel admin avanzado'],
           ],
           'pro' => [
-              'inc' => ['Sitio multi-página sin límite','E-commerce completo (hasta 100 productos)','Panel de administración','SEO profesional + Google My Business','Blog avanzado con CMS','Dominio .mx por 1 año incluido','Hosting 1 año incluido','1 mes de soporte gratuito'],
+              'inc' => ['Sitio multi-página sin límite','E-commerce completo (hasta 100 productos)','Panel de administración','SEO profesional + Google My Business','Blog avanzado con CMS','Dominio por 1 año incluido','Hosting 1 año incluido','1 mes de soporte gratuito'],
               'exc' => [],
           ],
           'premium' => [
@@ -1204,7 +1206,7 @@ body::before {
   <div class="container">
     <div class="footer-grid">
       <div>
-        <div class="footer-logo"><span>🌮</span><span style="color:var(--color-orange)">Taqueros</span><span>Web</span><span style="color:var(--color-gold);font-size:1.2rem">.mx</span></div>
+        <div class="footer-logo"><span>🌮</span><span style="color:var(--color-orange)">Taqueros</span><span>Web</span><span style="color:var(--color-gold);font-size:1.2rem">.com</span></div>
         <p class="footer-about">Creamos sitios web profesionales para negocios mexicanos que quieren crecer en internet. Rápidos, bonitos y que sí convierten — como un buen taco bien preparado.</p>
         <div class="social-links">
           <a href="#" class="social-btn" title="Facebook">📘</a>
