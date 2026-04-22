@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>La Carta — Marea Noir · Mariscos de Autor & Cava de Vinos</title>
+  <meta name="description" content="La carta completa de Marea Noir: crudos, especialidades del mar, platos de firma, cava de vinos y postres de autor. Técnica francesa, alma mexicana, precisión japonesa." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Cinzel:wght@400;500;600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2305080B'/%3E%3Ctext x='50' y='68' font-family='Georgia' font-size='60' fill='%23C9A96E' text-anchor='middle' font-style='italic'%3EM%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+
+<!-- NAVBAR -->
+<header class="nav" id="mainNav">
+  <div class="container nav-inner">
+    <a href="index.html" class="nav-brand">
+      <div class="brand-mark"><span>M</span></div>
+      <div class="brand-name">Marea <em>Noir</em></div>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="menu.html" class="active">Carta</a></li>
+        <li><a href="galeria.html">Galería</a></li>
+        <li><a href="index.html#experiencia">Experiencia</a></li>
+        <li><a href="index.html#eventos">Eventos</a></li>
+        <li><a href="index.html#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a href="index.html#reservar" class="nav-reserve">Reservar</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<div class="nav-mobile" id="navMobile">
+  <button class="nav-mobile-close" id="navMobileClose" aria-label="Cerrar">✕</button>
+  <a href="index.html">Inicio</a>
+  <a href="menu.html">Carta</a>
+  <a href="galeria.html">Galería</a>
+  <a href="index.html#experiencia">Experiencia</a>
+  <a href="index.html#eventos">Eventos</a>
+  <a href="index.html#reservar">Reservar</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="container">
+    <div class="section-eyebrow reveal">La Carta</div>
+    <h1 class="page-hero-title reveal reveal-delay-1">
+      Platillos que<br><em>cuentan historias</em>
+    </h1>
+    <div class="divider-ornament reveal reveal-delay-2"><span class="diamond"></span></div>
+    <p class="page-hero-sub reveal reveal-delay-3">
+      Técnica francesa. Alma mexicana. Precisión japonesa. Cada plato es una declaración del chef, elaborado con ingredientes rastreados desde su origen. Los precios están expresados en pesos mexicanos.
+    </p>
+  </div>
+</section>
+
+<!-- MENU CATEGORY NAV (sticky-ish) -->
+<div class="container" style="position:sticky;top:70px;z-index:10;background:var(--abyss);">
+  <nav class="menu-nav" id="menuNav">
+    <!-- Populated by JS -->
+  </nav>
+</div>
+
+<!-- MENU CONTENT -->
+<section class="menu-page">
+  <div class="container">
+    <div id="menuContainer">
+      <!-- Populated by JS -->
+      <p style="text-align:center;color:var(--text-muted);font-style:italic;padding:4rem 0">Cargando carta...</p>
+    </div>
+
+    <!-- Nota al pie -->
+    <div class="menu-footer-note reveal">
+      <p>
+        <em>★</em> indica platillo destacado de la casa.<br>
+        La pesca del día puede variar según temporada y disponibilidad.
+      </p>
+      <p>
+        Si tienes alguna restricción alimentaria, alergia o preferencia especial,<br>háznoslo saber al reservar. Nos encargamos de lo demás.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Reservar -->
+<section class="reserve" style="padding:6rem 0">
+  <div class="container" style="text-align:center">
+    <div class="reveal">
+      <div class="section-eyebrow">Ya elegiste</div>
+      <h2 class="section-title">Ahora solo falta<br><em>la mesa</em></h2>
+      <div class="divider-ornament"><span class="diamond"></span></div>
+      <p class="section-sub" style="margin:0 auto 2.5rem">
+        Reserva tu lugar y nuestro sommelier preparará recomendaciones de maridaje personalizadas para tu selección.
+      </p>
+      <a href="index.html#reservar" class="btn btn-gold">
+        <span>Reservar una mesa</span>
+        <span class="btn-arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-tag">Mariscos · Música · Memoria</div>
+        <div class="footer-brand">Marea <em>Noir</em></div>
+        <p class="footer-desc">Una marisquería que no se conforma. Donde el sabor del mar se cruza con una noche irrepetible.</p>
+        <div class="footer-social">
+          <a href="#" title="Instagram">IG</a>
+          <a href="#" title="Facebook">FB</a>
+          <a href="#" title="TikTok">TT</a>
+          <a href="https://wa.me/5215662866353" target="_blank" title="WhatsApp">WA</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Explora</div>
+        <ul class="footer-list">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="menu.html">Nuestra Carta</a></li>
+          <li><a href="galeria.html">Galería</a></li>
+          <li><a href="index.html#experiencia">Experiencia</a></li>
+          <li><a href="index.html#eventos">Eventos</a></li>
+          <li><a href="index.html#reservar">Reservar</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contacto</div>
+        <ul class="footer-list">
+          <li><a href="tel:+5215662866353">+52 55 6286 6353</a></li>
+          <li><a href="mailto:reservas@mareanoir.mx">reservas@mareanoir.mx</a></li>
+          <li><a href="#">Masaryk 275, Polanco</a></li>
+          <li><a href="#">CDMX, 11560</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Horarios</div>
+        <div class="footer-hours">
+          <div><span>Lunes</span><span>Cerrado</span></div>
+          <div><span>Mar – Jue</span><span>18:00 – 00:00</span></div>
+          <div><span>Viernes</span><span>18:00 – 02:00</span></div>
+          <div><span>Sábado</span><span>18:00 – 02:00</span></div>
+          <div><span>Domingo</span><span>13:00 – 23:00</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© <span data-year>2026</span> Marea Noir — <em>All senses reserved.</em></div>
+      <div>Diseño · Privacidad · Aviso legal</div>
+    </div>
+  </div>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>

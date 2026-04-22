@@ -1,0 +1,216 @@
+[
+  {
+    "nombre": "Crudos & Del Hielo",
+    "descripcion": "Frescura pura del océano",
+    "platillos": [
+      {
+        "nombre": "Ostiones Kumamoto",
+        "subtitulo": "media docena",
+        "descripcion": "Ostiones vivos del Pacífico Norte sobre hielo quebrado. Mignonette de champaña, limón amarillo y salsa de la casa.",
+        "precio": "420",
+        "destacado": true,
+        "tags": ["Crudo", "Premium"]
+      },
+      {
+        "nombre": "Tartar de Atún Blufín",
+        "subtitulo": "corte a mano",
+        "descripcion": "Atún azul con ponzu de yuzu, aceite de sésamo, jengibre fresco, huevo de codorniz y caviar Osetra. Pan brioche tostado.",
+        "precio": "385",
+        "destacado": true,
+        "tags": ["Crudo", "Japonés"]
+      },
+      {
+        "nombre": "Carpaccio de Salmón",
+        "subtitulo": "noruego salvaje",
+        "descripcion": "Láminas finísimas de salmón curado en cítricos, alcaparras de Pantelleria, cebolla morada encurtida y aceite de oliva toscano.",
+        "precio": "310",
+        "tags": ["Crudo"]
+      },
+      {
+        "nombre": "Ceviche del Día",
+        "subtitulo": "pesca del momento",
+        "descripcion": "Pescado blanco fresco en leche de tigre peruana, ají limo, camote, maíz cancha y chips de plátano verde.",
+        "precio": "295",
+        "tags": ["Cítrico", "Picante"]
+      },
+      {
+        "nombre": "Aguachile Negro",
+        "subtitulo": "firma de la casa",
+        "descripcion": "Camarón U-15 en tinta de calamar, chile serrano, cilantro, pepino crujiente y aceite de aguacate. Servido helado.",
+        "precio": "350",
+        "destacado": true,
+        "tags": ["Firma", "Picante"]
+      }
+    ]
+  },
+  {
+    "nombre": "Entradas Calientes",
+    "descripcion": "Preludios del fuego",
+    "platillos": [
+      {
+        "nombre": "Pulpo al Carbón",
+        "subtitulo": "Octopus Vulgaris",
+        "descripcion": "Pulpo mediterráneo cocinado 8 horas y terminado al carbón. Puré de papa trufado, aceite de páprika ahumada y limón confitado.",
+        "precio": "395",
+        "destacado": true,
+        "tags": ["Brasa"]
+      },
+      {
+        "nombre": "Vieiras Selladas U-10",
+        "subtitulo": "con caviar",
+        "descripcion": "Vieiras gigantes selladas en mantequilla dorada, reducción de champaña, puré de coliflor trufado y caviar de salmón.",
+        "precio": "475",
+        "tags": ["Premium"]
+      },
+      {
+        "nombre": "Tempura de Camarón Negro",
+        "subtitulo": "tinta de calamar",
+        "descripcion": "Camarón tigre en tempura crujiente de tinta, servido con mayonesa de wasabi, yuzu y shichimi togarashi.",
+        "precio": "285",
+        "tags": ["Japonés"]
+      },
+      {
+        "nombre": "Foie Gras Poêlé",
+        "subtitulo": "con higos confitados",
+        "descripcion": "Foie gras francés sellado a la sartén, higos negros confitados en vino Porto, pan brioche de la casa y sal de Maldon.",
+        "precio": "520",
+        "tags": ["Francés", "Premium"]
+      }
+    ]
+  },
+  {
+    "nombre": "Especialidades del Mar",
+    "descripcion": "Los protagonistas",
+    "platillos": [
+      {
+        "nombre": "Plateau Royal de Mariscos",
+        "subtitulo": "para compartir · 2 personas",
+        "descripcion": "Torre helada con ostiones Kumamoto, langosta del Pacífico, camarón U-10, jaiba azul, almejas, caracol de mar y vieiras crudas. 5 salsas artesanales.",
+        "precio": "2,490",
+        "destacado": true,
+        "tags": ["Signature", "Compartir"]
+      },
+      {
+        "nombre": "Langosta Thermidor",
+        "subtitulo": "al carbón",
+        "descripcion": "Langosta entera abierta, rellena con su carne en salsa de mantequilla trufada, mostaza Dijon y Gruyère. Terminada al carbón.",
+        "precio": "1,290",
+        "destacado": true,
+        "tags": ["Premium"]
+      },
+      {
+        "nombre": "Róbalo a la Sal",
+        "subtitulo": "marinado mediterráneo",
+        "descripcion": "Róbalo entero cocinado en costra de sal marina con hierbas del Mediterráneo. Servido a la mesa, abierto en el instante por el mesero.",
+        "precio": "890",
+        "tags": ["Ritual"]
+      },
+      {
+        "nombre": "Paella Marea Noir",
+        "subtitulo": "arroz bomba",
+        "descripcion": "Arroz bomba con azafrán iraní, langostinos, almejas, mejillones, camarón, calamares y pescado del día. Preparada a la leña.",
+        "precio": "1,150",
+        "tags": ["Leña", "Compartir"]
+      },
+      {
+        "nombre": "Atún Blufín Wellington",
+        "subtitulo": "en costra de hojaldre",
+        "descripcion": "Filete de atún azul envuelto en duxelles de hongos silvestres y prosciutto, horneado en hojaldre artesanal. Salsa de vino tinto y demi-glace.",
+        "precio": "780",
+        "tags": ["Firma"]
+      },
+      {
+        "nombre": "Filete de Res con Bogavante",
+        "subtitulo": "Surf & Turf",
+        "descripcion": "Medallón de filete prime sellado al punto, coronado con medio bogavante al ajo. Bearnesa y reducción de oporto. Papas trufadas.",
+        "precio": "1,390",
+        "tags": ["Premium"]
+      }
+    ]
+  },
+  {
+    "nombre": "Bebidas & Cava",
+    "descripcion": "Maridajes de autor",
+    "platillos": [
+      {
+        "nombre": "Copa de Champagne Ruinart Blanc",
+        "subtitulo": "copa",
+        "descripcion": "Champagne francés brut, cuvée chardonnay, notas de pera madura, brioche y avellana tostada. La bienvenida perfecta.",
+        "precio": "420",
+        "tags": ["Champagne"]
+      },
+      {
+        "nombre": "Martini Marea Noir",
+        "subtitulo": "firma de la casa",
+        "descripcion": "Gin premium, vermouth seco, polvo de ostión deshidratado y piel de limón Amalfi. Servido heladísimo.",
+        "precio": "280",
+        "destacado": true,
+        "tags": ["Firma", "Cóctel"]
+      },
+      {
+        "nombre": "Old Fashioned Ahumado",
+        "subtitulo": "con humo de cerezo",
+        "descripcion": "Bourbon Woodford Reserve, azúcar demerara, bitters Angostura y humo de madera de cerezo a la mesa bajo cúpula de cristal.",
+        "precio": "320",
+        "tags": ["Cóctel", "Ritual"]
+      },
+      {
+        "nombre": "Botella Casa Madero 3V",
+        "subtitulo": "Valle de Parras, MX",
+        "descripcion": "Ensamble mexicano de Cabernet Sauvignon, Merlot y Tempranillo. Notas de frutos rojos maduros, vainilla y tabaco. 14 meses en roble.",
+        "precio": "1,490",
+        "tags": ["Tinto", "México"]
+      },
+      {
+        "nombre": "Sake Junmai Daiginjo",
+        "subtitulo": "Niigata, Japón",
+        "descripcion": "Sake premium pulido al 40%, extremadamente limpio y floral. Maridaje perfecto con nuestros crudos y sashimis.",
+        "precio": "890",
+        "tags": ["Sake", "Japón"]
+      },
+      {
+        "nombre": "Carta completa de vinos",
+        "subtitulo": "180+ etiquetas",
+        "descripcion": "Consulta con nuestro sommelier: champagnes vintage, grand crus de Borgoña, riojas gran reserva, vinos de Valle de Guadalupe y más.",
+        "precio": "—",
+        "tags": ["Sommelier"]
+      }
+    ]
+  },
+  {
+    "nombre": "Dulce Final",
+    "descripcion": "Postres de autor",
+    "platillos": [
+      {
+        "nombre": "Soufflé Grand Marnier",
+        "subtitulo": "para 2 · 25 min",
+        "descripcion": "Soufflé clásico francés flameado a la mesa con Grand Marnier. Helado de vainilla Tahití y compota de frutos rojos. Se recomienda ordenar al inicio.",
+        "precio": "295",
+        "destacado": true,
+        "tags": ["Clásico", "Compartir"]
+      },
+      {
+        "nombre": "Crème Brûlée de Lavanda",
+        "subtitulo": "vainilla Madagascar",
+        "descripcion": "Crema inglesa infusionada con lavanda orgánica y vainilla de Madagascar. Caramelizada al momento con azúcar turbinado.",
+        "precio": "185",
+        "tags": ["Francés"]
+      },
+      {
+        "nombre": "Esfera de Chocolate Valrhona",
+        "subtitulo": "show a la mesa",
+        "descripcion": "Esfera de chocolate oscuro 70% que se derrite ante ti con chocolate caliente, revelando helado de avellana, brownie y frutos rojos.",
+        "precio": "245",
+        "destacado": true,
+        "tags": ["Ritual"]
+      },
+      {
+        "nombre": "Tarta de Limón Amalfi",
+        "subtitulo": "con merengue italiano",
+        "descripcion": "Base de masa sablée, curd de limón Amalfi y merengue italiano flameado. Toque de sal de Maldon y albahaca fresca.",
+        "precio": "175",
+        "tags": ["Cítrico"]
+      }
+    ]
+  }
+]

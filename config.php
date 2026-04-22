@@ -21,7 +21,7 @@ return [
     // ── Paquetes y precios ───────────────────────────────────────────────────
     // Cada entrada puede tratarse como un producto individual (Google Shopping).
     'paquetes' => [
-
+        /*
         'starter' => [
             'id'          => 'starter',
             'nombre'      => 'Starter',
@@ -38,8 +38,8 @@ return [
             'btn_texto'   => 'Comprar 🛒',
             'sku'         => 'TW-STARTER-01',
         ],
-
-        'basico' => [
+        */
+        'starter' => [
             'id'          => 'basico',
             'nombre'      => 'Básico',
             'subtitulo'   => 'Sitio de Contacto',
@@ -62,7 +62,7 @@ return [
             'subtitulo'   => 'Productos y servicios',
             'precio'      => 6499,
             'emoji'       => '🫔',
-            'demo'        => 'demo/catalogo.html',
+            'demo'        => 'demo/negocio_pro/index.html',
             'demo_biz'    => 'Café Molcajete',
             'entrega'     => '5–7 días hábiles',
             'disponible'  => true,
@@ -88,8 +88,8 @@ return [
             'btn_clase'   => 'btn-card-outline',
             'btn_texto'   => 'Comprar 🛒',
             'sku'         => 'TW-TIENDA-01',
-        ],
-
+        ]
+        /*
         'pro' => [
             'id'          => 'pro',
             'nombre'      => 'Negocio Pro',
@@ -124,6 +124,7 @@ return [
             'btn_texto'   => 'Solicitar cotización 📩',
             'sku'         => 'TW-PREMIUM-01',
         ],
+        */
 
     ],
 

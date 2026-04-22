@@ -101,9 +101,28 @@ $jsonLd = [
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!-- ===== SEO PRIMARIO ===== -->
-<!--
+
 <title>TaquerosWeb.com — Sitios Web Profesionales para Negocios Mexicanos</title>
--->
+
+
+<!-- Favicon básico -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+
+<!-- PNG moderno -->
+<link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+
+<!-- Android / Chrome -->
+<link rel="icon" type="image/png" sizes="192x192" href="images/android-chrome-192x192.png">
+
+<!-- iPhone / Apple -->
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+<!-- Web App Manifest -->
+<link rel="manifest" href="/site.webmanifest">
+
+
+
 <meta name="description" content="<?= htmlspecialchars($cfg['site_desc']) ?>" />
 <meta name="keywords" content="diseño web México, páginas web para taquerías, sitio web barato, web para negocios mexicanos, landing page, tienda online MXN" />
 <meta name="author" content="<?= $siteName ?>" />
@@ -957,30 +976,37 @@ body::before {
       <?php
       // Configuración de features por paquete
       $features = [
+          /*
           'starter' => [
               'inc' => ['1 página de aterrizaje','Diseño responsive mobile-first','Botón de WhatsApp','Formulario de contacto','SEO básico (títulos y meta)','Entrega en 3 días hábiles'],
               'exc' => ['Dominio y hosting','Blog o secciones extra'],
           ],
-          'basico' => [
+          */
+          'starter' => [
               'inc' => ['Todo en uno (servicios, nosotros, galería, reseñas, contacto)','Diseño responsive','WhatsApp + Mapa de ubicación','Formulario de contacto avanzado','SEO básico optimizado','Galería de fotos o Video','Entrega en 5 días hábiles'],
               'exc' => ['Tienda o catálogo'],
           ],
+
           'catalogo' => [
               'inc' => ['Hasta 6 páginas personalizadas','Catálogo de productos/servicios','Diseño premium responsive','WhatsApp + Redes sociales','SEO intermedio (palabras clave)','Google Analytics incluido','Entrega en 5-7 días hábiles'],
               'exc' => [],
           ],
+
           'tienda' => [
               'inc' => ['Tienda con hasta 30 productos','Carrito de compras','Integración MercadoPago / PayPal','Gestión de inventario básica','Diseño responsive premium','SEO e-commerce optimizado','Entrega en 7-10 días hábiles'],
               'exc' => ['Panel admin avanzado'],
-          ],
+          ]
+          /*
           'pro' => [
               'inc' => ['Sitio multi-página sin límite','E-commerce completo (hasta 100 productos)','Panel de administración','SEO profesional + Google My Business','Blog avanzado con CMS','Dominio por 1 año incluido','Hosting 1 año incluido','1 mes de soporte gratuito'],
               'exc' => [],
           ],
+
           'premium' => [
               'inc' => ['Desarrollo 100% a tu medida','Integraciones de APIs y sistemas','Plataformas y apps web','SEO avanzado y estrategia digital','Dominio + Hosting premium 1 año','3 meses de soporte incluido','Reuniones de seguimiento','Cotización personalizada'],
               'exc' => [],
           ],
+          */
       ];
 
       foreach ($paquetes as $key => $p):
