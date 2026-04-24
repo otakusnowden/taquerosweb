@@ -1,131 +1,118 @@
 <?php
+declare(strict_types=1);
+
 /**
- * TaquerosWeb — Configuración global del sitio
- * ─────────────────────────────────────────────
- * Centraliza precios, metadatos y ajustes generales.
- * NUNCA subir datos sensibles a repositorios públicos.
+ * config.php — Configuración central de TaquerosWeb
+ *
+ * Este archivo es la única fuente de verdad para:
+ *  - Datos del sitio (URL, nombre, SEO)
+ *  - Definición de paquetes (sincronizados con la tabla `paquetes` en DB)
+ *
+ * IMPORTANTE: los `db_id` deben coincidir exactamente con los IDs
+ * insertados por database/seeds.sql (1–6 en orden).
  */
 
 return [
 
-    // ── Identidad del sitio ──────────────────────────────────────────────────
-    'site_url'    => 'https://taquerosweb.com',
-    'site_name'   => 'TaquerosWeb',
-    'site_domain' => 'taquerosweb.com',
-    'site_tagline'=> 'Sitios Web que Sí Venden',
-    'site_desc'   => 'Sitios web profesionales para taquerías y negocios mexicanos. Desde $2,199 MXN, listos en días, con SEO incluido y WhatsApp integrado.',
-    'site_image'  => 'images/taquerosweb_banner.jpg',   // Ruta relativa (también se usa en OG)
-    'whatsapp'    => '5215662866353',
-    'email'       => 'hola@taquerosweb.com',
+    // ── Identidad del sitio ────────────────────────────────────────────
+    'site_name'    => 'TaquerosWeb',
+    'site_url'     => 'https://taquerosweb.com',
+    'site_tagline' => 'Sitios Web que Sí Venden',
+    'site_desc'    => 'Sitios web profesionales al precio de unos tacos. Listos en días, sin complicaciones. El sabor digital que tu negocio necesita.',
+    'site_image'   => 'images/taquerosweb_banner.jpg',
 
-    // ── Paquetes y precios ───────────────────────────────────────────────────
-    // Cada entrada puede tratarse como un producto individual (Google Shopping).
+    // ── Contacto ──────────────────────────────────────────────────────
+    'whatsapp' => '5215662866353',   // formato internacional sin +
+    'email'    => 'hola@taquerosweb.com',
+
+    // ── Paquetes ──────────────────────────────────────────────────────
+    // Cada clave debe coincidir con el orden de seeds.sql.
+    // `db_id` = ID real en la tabla `paquetes` (usado en /api/register).
     'paquetes' => [
-        /*
+
         'starter' => [
-            'id'          => 'starter',
-            'nombre'      => 'Starter',
-            'subtitulo'   => 'Landing Express',
-            'precio'      => 2199,
+            'db_id'       => 1,
+            'sku'         => 'TW-STARTER',
             'emoji'       => '🌮',
+            'nombre'      => 'Starter',
+            'subtitulo'   => 'Tu primer sitio completo',
+            'precio'      => 2199,
+            'precio_desde'=> false,
+            'disponible'  => true,
+            'entrega'     => '5 días hábiles',
+            'tipo_badge'  => '',           // '' | 'hot' | 'best'
+            'btn_clase'   => 'btn-card-outline',
+            'btn_texto'   => 'Comprar 🛒',
             'demo'        => 'demo/starter.html',
             'demo_biz'    => 'Tacos Don Beto',
-            'entrega'     => '3 días hábiles',
-            'disponible'  => true,
-            'destacado'   => false,
-            'tipo_badge'  => null,
-            'btn_clase'   => 'btn-card-outline',
-            'btn_texto'   => 'Comprar 🛒',
-            'sku'         => 'TW-STARTER-01',
-        ],
-        */
-        'starter' => [
-            'id'          => 'basico',
-            'nombre'      => 'Básico',
-            'subtitulo'   => 'Sitio de Contacto',
-            'precio'      => 3999,
-            'emoji'       => '🌯',
-            'demo'        => 'demo/basico.html',
-            'demo_biz'    => 'Estética Bella Lux',
-            'entrega'     => '5 días hábiles',
-            'disponible'  => true,
-            'destacado'   => false,
-            'tipo_badge'  => null,
-            'btn_clase'   => 'btn-card-outline',
-            'btn_texto'   => 'Comprar 🛒',
-            'sku'         => 'TW-BASICO-01',
         ],
 
         'catalogo' => [
-            'id'          => 'catalogo',
+            'db_id'       => 3,
+            'sku'         => 'TW-CATALOGO',
+            'emoji'       => '🫔',
             'nombre'      => 'Catálogo',
             'subtitulo'   => 'Productos y servicios',
             'precio'      => 6499,
-            'emoji'       => '🫔',
-            'demo'        => 'demo/negocio_pro/index.html',
-            'demo_biz'    => 'Café Molcajete',
-            'entrega'     => '5–7 días hábiles',
+            'precio_desde'=> false,
             'disponible'  => true,
-            'destacado'   => true,          // "featured" card
-            'tipo_badge'  => 'hot',         // 🔥 Más vendido
+            'entrega'     => '5–7 días hábiles',
+            'tipo_badge'  => 'hot',
             'btn_clase'   => 'btn-card-primary',
             'btn_texto'   => 'Comprar 🛒',
-            'sku'         => 'TW-CATALOGO-01',
+            'demo'        => 'demo/catalogo.html',
+            'demo_biz'    => 'Café Molcajete',
         ],
 
         'tienda' => [
-            'id'          => 'tienda',
+            'db_id'       => 4,
+            'sku'         => 'TW-TIENDA',
+            'emoji'       => '🛒',
             'nombre'      => 'Tienda Lite',
             'subtitulo'   => 'E-commerce básico',
             'precio'      => 9999,
-            'emoji'       => '🛒',
-            'demo'        => 'demo/tienda.html',
-            'demo_biz'    => 'Jabones Raíz',
-            'entrega'     => '7–10 días hábiles',
+            'precio_desde'=> false,
             'disponible'  => true,
-            'destacado'   => false,
-            'tipo_badge'  => null,
+            'entrega'     => '7–10 días hábiles',
+            'tipo_badge'  => '',
             'btn_clase'   => 'btn-card-outline',
             'btn_texto'   => 'Comprar 🛒',
-            'sku'         => 'TW-TIENDA-01',
-        ]
-        /*
+            'demo'        => 'demo/tienda.html',
+            'demo_biz'    => 'Jabones Raíz',
+        ],
+
         'pro' => [
-            'id'          => 'pro',
-            'nombre'      => 'Negocio Pro',
-            'subtitulo'   => 'Sitio completo y profesional',
-            'precio'      => 12999,
+            'db_id'       => 5,
+            'sku'         => 'TW-PRO',
             'emoji'       => '💼',
-            'demo'        => 'demo/pro.html',
-            'demo_biz'    => 'Dental Sonríe',
-            'entrega'     => '10–14 días hábiles',
+            'nombre'      => 'Negocio Pro',
+            'subtitulo'   => 'Sitio completo + dominio + hosting',
+            'precio'      => 12999,
+            'precio_desde'=> false,
             'disponible'  => true,
-            'destacado'   => false,
-            'tipo_badge'  => 'best',        // ⭐ Mejor opción
+            'entrega'     => '10–14 días hábiles',
+            'tipo_badge'  => 'best',
             'btn_clase'   => 'btn-card-gold',
             'btn_texto'   => 'Comprar ⭐',
-            'sku'         => 'TW-PRO-01',
+            'demo'        => 'demo/pro.html',
+            'demo_biz'    => 'Dental Sonríe',
         ],
 
         'premium' => [
-            'id'          => 'premium',
+            'db_id'       => 6,
+            'sku'         => 'TW-PREMIUM',
+            'emoji'       => '🏆',
             'nombre'      => 'Premium',
             'subtitulo'   => 'Desarrollo a medida',
             'precio'      => 19999,
-            'precio_desde'=> true,          // Mostrar "Desde $X"
-            'emoji'       => '🏆',
-            'demo'        => 'demo/pro.html',
-            'demo_biz'    => 'Ejemplo Premium',
-            'entrega'     => 'según proyecto',
+            'precio_desde'=> true,
             'disponible'  => true,
-            'destacado'   => false,
-            'tipo_badge'  => null,
+            'entrega'     => 'Según proyecto',
+            'tipo_badge'  => '',
             'btn_clase'   => 'btn-card-outline',
             'btn_texto'   => 'Solicitar cotización 📩',
-            'sku'         => 'TW-PREMIUM-01',
+            'demo'        => 'demo/pro.html',
+            'demo_biz'    => 'Ejemplo Premium',
         ],
-        */
-
     ],
-
 ];
