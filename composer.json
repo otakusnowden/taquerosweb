@@ -1,0 +1,19 @@
+{
+    "name": "taquerosweb/app",
+    "description": "TaquerosWeb — Sistema SaaS de gestión de clientes y órdenes",
+    "type": "project",
+    "require": {
+        "php": "^8.0",
+        "phpmailer/phpmailer": "^6.8",
+        "mercadopago/dx-php": "^2.6",
+        "vlucas/phpdotenv": "^5.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}
