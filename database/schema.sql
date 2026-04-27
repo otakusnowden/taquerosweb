@@ -64,6 +64,24 @@ CREATE TABLE IF NOT EXISTS `ordenes` (
   CONSTRAINT `fk_orden_paquete`  FOREIGN KEY (`paquete_id`) REFERENCES `paquetes`  (`id`) ON DELETE RESTRICT
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- ── orden_adjuntos ──────────────────────────────────────────────
+CREATE TABLE IF NOT EXISTS `orden_adjuntos` (
+  `id`             INT UNSIGNED     NOT NULL AUTO_INCREMENT,
+  `orden_id`       INT UNSIGNED     NOT NULL,
+  `cliente_id`     INT UNSIGNED     NOT NULL,
+  `original_name`  VARCHAR(255)     NOT NULL,
+  `stored_name`    VARCHAR(255)     NOT NULL,
+  `file_path`      VARCHAR(500)     NOT NULL,
+  `mime_type`      VARCHAR(120)     NOT NULL,
+  `file_size`      INT UNSIGNED     NOT NULL,
+  `created_at`     DATETIME         NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  INDEX `idx_adjunto_orden` (`orden_id`),
+  INDEX `idx_adjunto_cliente` (`cliente_id`),
+  CONSTRAINT `fk_adjunto_orden` FOREIGN KEY (`orden_id`) REFERENCES `ordenes` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_adjunto_cliente` FOREIGN KEY (`cliente_id`) REFERENCES `clientes` (`id`) ON DELETE RESTRICT
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 -- ── pagos ───────────────────────────────────────────────────────
 CREATE TABLE IF NOT EXISTS `pagos` (
   `id`             INT UNSIGNED     NOT NULL AUTO_INCREMENT,

@@ -15,7 +15,9 @@ $uri    = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 //   POST /api/orders/pay      → pay (body: orden_id)
 //   GET  /api/packages        → packages  (handled separately)
 
-if (preg_match('#/api/orders/(\d+)/confirm#', $uri, $m)) {
+if (preg_match('#/api/orders/(\d+)/details#', $uri, $m)) {
+    $ctrl->updateDetails((int)$m[1]);
+} elseif (preg_match('#/api/orders/(\d+)/confirm#', $uri, $m)) {
     $ctrl->confirm((int)$m[1]);
 } elseif (preg_match('#/api/orders/(\d+)/pay#', $uri, $m)) {
     $ctrl->pay((int)$m[1]);

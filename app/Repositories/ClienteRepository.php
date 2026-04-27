@@ -7,6 +7,15 @@ use App\Core\Database;
 
 final class ClienteRepository
 {
+    public function findAll(): array
+    {
+        return Database::query(
+            'SELECT id, nombre, apellidos, telefono, email, created_at
+             FROM clientes
+             ORDER BY created_at DESC'
+        );
+    }
+
     public function findByEmail(string $email): ?array
     {
         return Database::queryOne(

@@ -89,6 +89,14 @@ a{color:inherit;text-decoration:none}
 .order-price{font-family:var(--font-display);font-size:1.6rem;color:var(--color-gold)}
 
 .order-desc{font-size:.85rem;color:var(--color-muted);line-height:1.6;margin-bottom:1.25rem;padding:.75rem 1rem;background:rgba(255,255,255,.02);border-radius:8px;border:1px solid var(--color-border)}
+.attachments{margin:-.4rem 0 1.25rem;display:flex;flex-direction:column;gap:.55rem}
+.attachments-title{font-size:.75rem;color:var(--color-muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.attachment-list{display:flex;gap:.5rem;flex-wrap:wrap}
+.attachment-link{max-width:220px;display:inline-flex;align-items:center;gap:.4rem;padding:.45rem .7rem;border-radius:8px;background:rgba(255,255,255,.04);border:1px solid var(--color-border);font-size:.78rem;color:var(--color-text);transition:var(--transition)}
+.attachment-link:hover{border-color:rgba(255,107,43,.35);color:var(--color-orange)}
+.attachment-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.form-file{width:100%;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.18);border-radius:10px;padding:.8rem 1rem;font-size:.85rem;color:var(--color-muted);font-family:var(--font-body)}
+.form-help{font-size:.72rem;color:var(--color-muted);margin-top:.35rem;line-height:1.5}
 
 .order-meta{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:1.25rem}
 .meta-item{font-size:.78rem;color:var(--color-muted);display:flex;align-items:center;gap:.35rem}
@@ -195,7 +203,21 @@ a{color:inherit;text-decoration:none}
           </div>
         </div>
 
-        <div class="order-desc"><?= htmlspecialchars($o['descripcion'], ENT_QUOTES) ?></div>
+        <div class="order-desc"><?= htmlspecialchars(html_entity_decode($o['descripcion'], ENT_QUOTES, 'UTF-8'), ENT_QUOTES) ?></div>
+
+        <?php if (!empty($o['adjuntos'])): ?>
+          <div class="attachments">
+            <div class="attachments-title">Adjuntos del proyecto</div>
+            <div class="attachment-list">
+              <?php foreach ($o['adjuntos'] as $adj): ?>
+                <a class="attachment-link" href="<?= htmlspecialchars($adj['file_path'], ENT_QUOTES) ?>" target="_blank" rel="noopener">
+                  <span>📎</span>
+                  <span class="attachment-name"><?= htmlspecialchars($adj['original_name'], ENT_QUOTES) ?></span>
+                </a>
+              <?php endforeach; ?>
+            </div>
+          </div>
+        <?php endif; ?>
 
         <div class="order-meta">
           <div class="meta-item">📅 Creada: <?= $fecha ?></div>
@@ -205,6 +227,10 @@ a{color:inherit;text-decoration:none}
         </div>
 
         <div class="order-actions">
+          <button class="btn-action" style="background:rgba(255,107,43,.1);color:var(--color-orange);border:1px solid rgba(255,107,43,.22)" onclick="openEditOrderModal(<?= $o['id'] ?>)">
+            ✏️ Editar detalles
+          </button>
+
           <?php if ($o['estado'] === 'borrador'): ?>
             <button class="btn-action btn-confirm" onclick="confirmOrder(<?= $o['id'] ?>)">
               ✅ Confirmar orden
@@ -263,12 +289,61 @@ a{color:inherit;text-decoration:none}
         <div class="field-error" id="merr-desc"></div>
       </div>
 
+      <div class="form-group">
+        <label class="form-label">Adjuntos</label>
+        <input id="mo_adjuntos" class="form-file" type="file" multiple accept="image/*,.pdf,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.rar">
+        <div class="form-help">Puedes subir imágenes, PDF, documentos, TXT o ZIP. Máximo 10 MB por archivo.</div>
+      </div>
+
       <button type="submit" class="btn-modal-submit" id="newOrderBtn">🛒 Crear orden</button>
     </form>
   </div>
 </div>
 
+<!-- Edit Order Modal -->
+<div class="modal-overlay" id="editOrderModal">
+  <div class="modal-box" style="position:relative">
+    <button class="modal-close" onclick="closeEditOrderModal()">✕</button>
+    <h2 class="modal-title">Detalles del proyecto</h2>
+    <p class="modal-sub">Actualiza la descripción y agrega archivos para que el equipo tenga todo el contexto.</p>
+
+    <div id="editModalAlert" style="display:none" class="alert"></div>
+
+    <form id="editOrderForm" novalidate>
+      <input type="hidden" id="eo_id">
+
+      <div class="form-group">
+        <label class="form-label">Descripción de la orden *</label>
+        <textarea id="eo_desc" class="form-textarea" required></textarea>
+        <div class="field-error" id="eerr-desc"></div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Adjuntos actuales</label>
+        <div id="eo_attachments" class="attachment-list"></div>
+        <div class="form-help" id="eo_no_attachments">Esta orden todavía no tiene adjuntos.</div>
+      </div>
+
+      <div class="form-group">
+        <label class="form-label">Agregar adjuntos</label>
+        <input id="eo_adjuntos" class="form-file" type="file" multiple accept="image/*,.pdf,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.zip,.rar">
+        <div class="form-help">Puedes agregar imágenes, referencias, textos, PDFs, documentos o archivos comprimidos.</div>
+      </div>
+
+      <button type="submit" class="btn-modal-submit" id="editOrderBtn">Guardar detalles</button>
+    </form>
+  </div>
+</div>
+
 <script>
+const ORDER_DETAILS = <?= json_encode(array_column(array_map(static function (array $order): array {
+  return [
+    'id' => (int)$order['id'],
+    'descripcion' => html_entity_decode((string)$order['descripcion'], ENT_QUOTES, 'UTF-8'),
+    'adjuntos' => $order['adjuntos'] ?? [],
+  ];
+}, $orders), null, 'id'), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>;
+
 // ── New order modal ───────────────────────────────────────────
 function openNewOrderModal() {
   document.getElementById('newOrderModal').classList.add('open');
@@ -304,10 +379,16 @@ document.getElementById('newOrderForm').addEventListener('submit', async (e) => 
   btn.innerHTML = '<span class="spinner"></span> Creando...';
 
   try {
+    const formData = new FormData();
+    formData.append('paquete_id', paqueteId);
+    formData.append('descripcion', desc);
+    Array.from(document.getElementById('mo_adjuntos').files).forEach(file => {
+      formData.append('adjuntos[]', file);
+    });
+
     const res  = await fetch('/api/orders', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ paquete_id: parseInt(paqueteId), descripcion: desc })
+      body: formData
     });
     const data = await res.json();
     if (data.success) {
@@ -326,6 +407,95 @@ document.getElementById('newOrderForm').addEventListener('submit', async (e) => 
   } finally {
     btn.disabled = false;
     btn.textContent = '🛒 Crear orden';
+  }
+});
+
+// ── Edit order details ─────────────────────────────────────────
+function openEditOrderModal(id) {
+  const order = ORDER_DETAILS[id];
+  if (!order) return;
+
+  document.getElementById('eo_id').value = id;
+  document.getElementById('eo_desc').value = order.descripcion || '';
+  document.getElementById('eo_adjuntos').value = '';
+  document.getElementById('editModalAlert').style.display = 'none';
+  document.getElementById('eerr-desc').textContent = '';
+  renderEditAttachments(order.adjuntos || []);
+
+  document.getElementById('editOrderModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEditOrderModal() {
+  document.getElementById('editOrderModal').classList.remove('open');
+  document.body.style.overflow = '';
+  document.getElementById('editOrderForm').reset();
+}
+
+document.getElementById('editOrderModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('editOrderModal')) closeEditOrderModal();
+});
+
+function renderEditAttachments(attachments) {
+  const list = document.getElementById('eo_attachments');
+  const empty = document.getElementById('eo_no_attachments');
+  list.innerHTML = '';
+  empty.style.display = attachments.length ? 'none' : 'block';
+
+  attachments.forEach(attachment => {
+    const link = document.createElement('a');
+    link.className = 'attachment-link';
+    link.href = attachment.file_path;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.innerHTML = `<span>📎</span><span class="attachment-name"></span>`;
+    link.querySelector('.attachment-name').textContent = attachment.original_name;
+    list.appendChild(link);
+  });
+}
+
+document.getElementById('editOrderForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const id = document.getElementById('eo_id').value;
+  const desc = document.getElementById('eo_desc').value.trim();
+  const alertEl = document.getElementById('editModalAlert');
+  const btn = document.getElementById('editOrderBtn');
+
+  alertEl.style.display = 'none';
+  document.getElementById('eerr-desc').textContent = '';
+  if (!desc) {
+    document.getElementById('eerr-desc').textContent = 'Describe tu proyecto.';
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('descripcion', desc);
+  Array.from(document.getElementById('eo_adjuntos').files).forEach(file => {
+    formData.append('adjuntos[]', file);
+  });
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Guardando...';
+
+  try {
+    const res = await fetch(`/api/orders/${id}/details`, { method: 'POST', body: formData });
+    const data = await res.json();
+    if (data.success) {
+      closeEditOrderModal();
+      showGlobalAlert('✅ Detalles de la orden actualizados.', 'success');
+      setTimeout(() => location.reload(), 1000);
+    } else {
+      alertEl.className = 'alert alert-error';
+      alertEl.textContent = data.message || 'Error al actualizar la orden.';
+      alertEl.style.display = 'block';
+    }
+  } catch {
+    alertEl.className = 'alert alert-error';
+    alertEl.textContent = 'Error de conexión.';
+    alertEl.style.display = 'block';
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Guardar detalles';
   }
 });
 

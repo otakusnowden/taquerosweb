@@ -1,6 +1,17 @@
+# Raiz
+id_rsa
+*.ppk
+*.pub
+PHPMailer
+
 # Credenciales SMTP – nunca subir al repo
 /api/config.php
 
 # Dependencias PHP (Composer)
 /vendor/
 composer.lock
+
+# Archivos subidos por usuarios
+/uploads/order-attachments/*
+!/uploads/order-attachments/.gitkeep
+!/uploads/order-attachments/.htaccess
