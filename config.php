@@ -36,7 +36,7 @@ return [
             'emoji'       => '🌮',
             'nombre'      => 'Starter',
             'subtitulo'   => 'Tu primer sitio completo',
-            'precio'      => 2199,
+            'precio'      => 3499,
             'precio_desde'=> false,
             'disponible'  => true,
             'entrega'     => '5 días hábiles',
@@ -60,7 +60,7 @@ return [
             'tipo_badge'  => 'hot',
             'btn_clase'   => 'btn-card-primary',
             'btn_texto'   => 'Comprar 🛒',
-            'demo'        => 'demo/catalogo.html',
+            'demo'        => 'demo/negocio_pro/',
             'demo_biz'    => 'Café Molcajete',
         ],
 
@@ -70,7 +70,7 @@ return [
             'emoji'       => '🛒',
             'nombre'      => 'Tienda Lite',
             'subtitulo'   => 'E-commerce básico',
-            'precio'      => 9999,
+            'precio'      => 9499,
             'precio_desde'=> false,
             'disponible'  => true,
             'entrega'     => '7–10 días hábiles',
@@ -79,8 +79,8 @@ return [
             'btn_texto'   => 'Comprar 🛒',
             'demo'        => 'demo/tienda.html',
             'demo_biz'    => 'Jabones Raíz',
-        ],
-
+        ]
+        /*
         'pro' => [
             'db_id'       => 5,
             'sku'         => 'TW-PRO',
@@ -114,5 +114,6 @@ return [
             'demo'        => 'demo/pro.html',
             'demo_biz'    => 'Ejemplo Premium',
         ],
+        */
     ],
 ];

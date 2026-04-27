@@ -102,40 +102,42 @@ $jsonLd = [
 $features = [
     'starter' => [
         'inc' => [
-            'Todo en uno (servicios, nosotros, galería, reseñas, contacto)',
+            'Todo en uno (servicios, nosotros, reseñas, contacto, ubicación)',
             'Diseño responsive',
-            'WhatsApp + Mapa de ubicación',
-            'Formulario de contacto avanzado',
-            'SEO básico optimizado',
-            'Galería de fotos o Video',
+            'Contacto por WhatsApp',
+            'Mapa de ubicación',
+            'SEO optimizado',
+            'Asesoría para contenido y copywriting',
             'Entrega en 5 días hábiles',
         ],
-        'exc' => ['Tienda o catálogo'],
+        'exc' => ['Landing page de una sola sección'],
     ],
     'catalogo' => [
         'inc' => [
-            'Hasta 6 páginas personalizadas',
+            'Hasta 3 secciones personalizadas(Galeria,Menu,Eventos, etc)',
             'Catálogo de productos/servicios',
-            'Diseño premium responsive',
-            'WhatsApp + Redes sociales',
-            'SEO intermedio (palabras clave)',
+            'Diseño Premium',
+            'Contacto por WhatsApp',
+            'SEO Avanzado + Copywriting profesional',
             'Google Analytics incluido',
             'Entrega en 5-7 días hábiles',
         ],
-        'exc' => [],
+        'exc' => ['Tienda o catálogo'],
     ],
     'tienda' => [
         'inc' => [
-            'Tienda con hasta 30 productos',
+            'Tienda con hasta 30 productos cargados',
+            'Tecnologia WooCommerce',
             'Carrito de compras',
             'Integración MercadoPago / PayPal',
             'Gestión de inventario básica',
             'Diseño responsive premium',
             'SEO e-commerce optimizado',
-            'Entrega en 7-10 días hábiles',
+            'Entrega en 8-12 días hábiles',
         ],
         'exc' => ['Panel admin avanzado'],
-    ],
+    ]
+    /*
     'pro' => [
         'inc' => [
             'Sitio multi-página sin límite',
@@ -161,7 +163,9 @@ $features = [
             'Cotización personalizada',
         ],
         'exc' => [],
-    ],
+    ]
+    */
+
 ];
 ?>
 <!DOCTYPE html>
@@ -170,7 +174,7 @@ $features = [
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>TaquerosWeb.com — Sitios Web Profesionales para Negocios Mexicanos</title>
+<!--<title>TaquerosWeb.com — Sitios Web Profesionales para Negocios Mexicanos</title>-->
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -1312,11 +1316,15 @@ function openDemo(btn) {
   const price   = card.dataset.price;
 
   // Mobile → new tab (no iframe)
+  /*
   if (window.innerWidth <= 768) {
     window.open(demoUrl, '_blank', 'noopener,noreferrer');
     return;
   }
   loadDemoInModal(demoUrl, bizName, pkgName + ' — ' + price);
+  */
+  window.open(demoUrl, '_blank', 'noopener,noreferrer');
+  return;
 }
 
 function loadDemoInModal(url, title, pkgInfo) {

@@ -12,7 +12,7 @@
     "categoria": "Entradas"
   },
   {
-    "imagen": "https://images.unsplash.com/photo-1625944525533-473f1b3d9684?w=1200&q=80",
+    "imagen": "/demo/negocio_pro/images/plato3.jpg",
     "titulo": "Langosta Thermidor <em>al carbón</em>",
     "descripcion": "Langosta entera abierta a la mitad, rellena con su propia carne rostizada en salsa de mantequilla trufada, mostaza Dijon y Gruyère. Terminada al carbón para un sabor ahumado inolvidable.",
     "categoria": "Especialidades"
@@ -30,7 +30,7 @@
     "categoria": "Ambiente"
   },
   {
-    "imagen": "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?w=1200&q=80",
+    "imagen": "/demo/negocio_pro/images/musicaenvivo.jpg",
     "titulo": "Saxofón <em>en vivo</em>",
     "descripcion": "Todos los jueves, viernes y sábados recibimos a músicos de clase mundial. Jazz, bolero y bossa nova interpretados en vivo mientras cenas. La banda sonora perfecta para tu velada.",
     "categoria": "Música"
