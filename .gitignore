@@ -12,6 +12,7 @@ PHPMailer
 composer.lock
 
 # Archivos subidos por usuarios
+/uploads/
 /uploads/order-attachments/*
 !/uploads/order-attachments/.gitkeep
 !/uploads/order-attachments/.htaccess
