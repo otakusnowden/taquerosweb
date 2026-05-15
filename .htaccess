@@ -47,7 +47,11 @@ Options -MultiViews
     RewriteRule ^dashboard_admin/?$ dashboard_admin.php [L]
     RewriteRule ^ordenes/?$ ordenes.php [L]
     RewriteRule ^verificar-email/?$ verify-email.php [L,QSA]
+    RewriteRule ^politica-de-privacidad/?$ politica-de-privacidad.php [L]
 </IfModule>
+
+# ── Custom error pages ────────────────────────────────
+ErrorDocument 404 /404.php
 
 # ── PHP settings ─────────────────────────────────────────
 <IfModule mod_php.c>
