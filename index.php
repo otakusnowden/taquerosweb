@@ -177,6 +177,17 @@ $features = [
 <title>TaquerosWeb.com — Sitios Web Profesionales</title>
 
 
+<!-- Consent Mode defaults (MUST precede GTM/GA) -->
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('consent', 'default', {
+  analytics_storage: 'denied',
+  ad_storage:        'denied',
+  wait_for_update:   500
+});
+</script>
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -661,6 +672,66 @@ body::before {
   .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
   .cta-actions { flex-direction: column; align-items: center; }
 }
+
+/* ===== COOKIE BANNER ===== */
+.cookie-banner {
+  position: fixed;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(100% + 3rem));
+  z-index: 9998;
+  width: min(640px, calc(100vw - 2rem));
+  background: var(--color-card);
+  border: 1px solid rgba(255,107,43,0.2);
+  border-top: 3px solid var(--color-orange);
+  border-radius: var(--radius-card);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  box-shadow: 0 8px 48px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,107,43,0.06);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease;
+  pointer-events: none;
+}
+.cookie-banner.cb-visible {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+.cookie-banner.cb-hiding {
+  transform: translateX(-50%) translateY(calc(100% + 3rem));
+  opacity: 0;
+  pointer-events: none;
+}
+.cookie-icon { font-size: 1.75rem; flex-shrink: 0; line-height: 1; }
+.cookie-body { flex: 1; min-width: 0; }
+.cookie-body p { font-size: 0.85rem; color: var(--color-muted); line-height: 1.55; margin: 0; }
+.cookie-body strong { color: var(--color-text); font-weight: 700; }
+.cookie-actions { display: flex; gap: 0.6rem; flex-shrink: 0; }
+.btn-ck-accept {
+  padding: 0.6rem 1.4rem; border-radius: var(--radius-btn);
+  font-size: 0.85rem; font-weight: 700; font-family: var(--font-body);
+  background: var(--grad-hero); color: #fff;
+  border: none; cursor: pointer; white-space: nowrap;
+  transition: var(--transition);
+}
+.btn-ck-accept:hover { transform: translateY(-1px); box-shadow: 0 8px 24px rgba(255,107,43,0.4); }
+.btn-ck-accept:focus-visible { outline: 2px solid var(--color-orange); outline-offset: 3px; }
+.btn-ck-policy {
+  padding: 0.6rem 1.2rem; border-radius: var(--radius-btn);
+  font-size: 0.85rem; font-weight: 600; font-family: var(--font-body);
+  background: rgba(255,255,255,0.05); color: var(--color-muted);
+  border: 1px solid var(--color-border); cursor: pointer; white-space: nowrap;
+  transition: var(--transition); text-decoration: none; display: inline-flex; align-items: center;
+}
+.btn-ck-policy:hover { background: rgba(255,255,255,0.09); color: var(--color-text); }
+.btn-ck-policy:focus-visible { outline: 2px solid var(--color-orange); outline-offset: 3px; }
+@media (max-width: 600px) {
+  .cookie-banner { flex-direction: column; align-items: flex-start; gap: 1rem; bottom: 1rem; padding: 1.1rem 1.25rem; }
+  .cookie-actions { width: 100%; }
+  .btn-ck-accept, .btn-ck-policy { flex: 1; justify-content: center; text-align: center; }
+}
 </style>
 </head>
 <body>
@@ -1126,7 +1197,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="footer-bottom">
       <div class="footer-copy">© <?= date('Y') ?> TaquerosWeb.com — Todos los derechos reservados 🌮</div>
       <div class="footer-legal">
-        <a href="#">Aviso de privacidad</a>
+        <a href="/politica-de-privacidad">Aviso de privacidad</a>
         <a href="#">Términos y condiciones</a>
         <a href="#">Política de reembolsos</a>
       </div>
@@ -1137,6 +1208,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- ===== WHATSAPP FLOAT ===== -->
 <a href="https://wa.me/<?= $cfg['whatsapp'] ?>?text=Hola%2C%20me%20interesa%20un%20sitio%20web%20de%20TaquerosWeb.com"
    class="whatsapp-float" target="_blank" title="Contactar por WhatsApp">💬</a>
+
+<!-- ===== COOKIE BANNER ===== -->
+<div id="cookieBanner" class="cookie-banner" role="dialog" aria-modal="false"
+     aria-label="Aviso de uso de cookies" aria-describedby="cookieBannerDesc">
+  <span class="cookie-icon" aria-hidden="true">🍪</span>
+  <div class="cookie-body">
+    <p id="cookieBannerDesc"><strong>Usamos cookies</strong> y herramientas de análisis para mejorar tu experiencia y entender cómo se usa nuestro sitio.</p>
+  </div>
+  <div class="cookie-actions">
+    <button class="btn-ck-accept" id="cookieAcceptBtn" onclick="twAcceptCookies()">Aceptar</button>
+    <a href="/politica-de-privacidad" class="btn-ck-policy">Ver política</a>
+  </div>
+</div>
 
 <!-- ===== SUCCESS MODAL ===== -->
 <div class="modal-overlay" id="successModal">
@@ -1413,6 +1497,47 @@ const sectionObserver = new IntersectionObserver((entries) => {
   });
 }, { threshold: 0.4 });
 sections.forEach(s => sectionObserver.observe(s));
+
+// ─── Cookie Consent ───────────────────────────────────────────────────────────
+(function () {
+  const KEY    = 'tw_cookies_ok';
+  const banner = document.getElementById('cookieBanner');
+
+  function hasConsent() {
+    try { return localStorage.getItem(KEY) === '1'; } catch { return false; }
+  }
+
+  function grantAnalytics() {
+    if (typeof gtag === 'function') {
+      gtag('consent', 'update', { analytics_storage: 'granted', ad_storage: 'denied' });
+    }
+  }
+
+  window.twAcceptCookies = function () {
+    try { localStorage.setItem(KEY, '1'); } catch {}
+    banner.classList.remove('cb-visible');
+    banner.classList.add('cb-hiding');
+    grantAnalytics();
+    setTimeout(() => { banner.style.display = 'none'; }, 600);
+  };
+
+  if (hasConsent()) {
+    banner.style.display = 'none';
+    grantAnalytics();
+  } else {
+    setTimeout(() => {
+      banner.classList.add('cb-visible');
+    }, 1400);
+  }
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && banner.classList.contains('cb-visible')) {
+      banner.classList.remove('cb-visible');
+      banner.classList.add('cb-hiding');
+      setTimeout(() => { banner.style.display = 'none'; }, 600);
+    }
+  });
+}());
 </script>
 </body>
 </html>
