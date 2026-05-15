@@ -83,7 +83,7 @@ $jsonLd = [
                     'availability'    => $p['disponible']
                                          ? 'https://schema.org/InStock'
                                          : 'https://schema.org/OutOfStock',
-                    'url'             => $siteUrl . '/#paquetes',
+                    'url'             => $siteUrl . '/#Paquetes Web',
                     'seller'          => ['@id' => $siteUrl . '/#organization'],
                     'priceValidUntil' => (date('Y') + 1) . '-12-31',
                 ], array_values($paquetes)),
@@ -174,7 +174,27 @@ $features = [
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<!--<title>TaquerosWeb.com — Sitios Web Profesionales para Negocios Mexicanos</title>-->
+<title>TaquerosWeb.com — Sitios Web Profesionales</title>
+
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M54LSFV6');</script>
+<!-- End Google Tag Manager -->
+
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-SKHTE94DQB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-SKHTE94DQB');
+</script>
 
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
@@ -645,6 +665,12 @@ body::before {
 </head>
 <body>
 
+
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M54LSFV6"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
 <!-- ===== NAVBAR ===== -->
 <nav class="navbar" id="navbar">
   <a href="#" class="navbar-logo">
@@ -652,7 +678,7 @@ body::before {
     <span class="logo-taqueros">Taqueros</span><span class="logo-web">Web</span><span class="logo-mx">.com</span>
   </a>
   <ul class="nav-links">
-    <li><a href="#paquetes">Paquetes</a></li>
+    <li><a href="#Paquetes Web">Paquetes</a></li>
     <li><a href="#servicios">Servicios</a></li>
     <li><a href="#proceso">Proceso</a></li>
     <li><a href="#testimonios">Clientes</a></li>
@@ -668,7 +694,7 @@ body::before {
       <a href="/dashboard" class="btn-nav-ghost">👤 <?= htmlspecialchars($authUser['nombre'], ENT_QUOTES) ?></a>
       <a href="/logout" class="btn-nav">Salir</a>
     <?php else: ?>
-      <a href="#paquetes" class="btn-nav">🔥 Ver paquetes</a>
+      <a href="#Paquetes Web" class="btn-nav">🔥 Ver paquetes</a>
     <?php endif; ?>
   </div>
   <button class="hamburger" id="hamburger" aria-label="Menú">
@@ -679,7 +705,7 @@ body::before {
 <!-- ===== MOBILE MENU ===== -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" id="mobileClose">✕</button>
-  <a href="#paquetes" class="mobile-link">🌮 Paquetes</a>
+  <a href="#Paquetes Web" class="mobile-link">🌮 Paquetes</a>
   <a href="#servicios" class="mobile-link">⚡ Servicios</a>
   <a href="#proceso" class="mobile-link">📋 Proceso</a>
   <a href="#testimonios" class="mobile-link">⭐ Clientes</a>
@@ -689,7 +715,7 @@ body::before {
   <?php else: ?>
     <a href="/login" class="mobile-link nav-login">🔑 Iniciar sesión</a>
   <?php endif; ?>
-  <a href="#paquetes" class="btn-primary">🔥 Comprar ahora</a>
+  <a href="#Paquetes Web" class="btn-primary">🔥 Comprar ahora</a>
 </div>
 
 <!-- ===== HERO ===== -->
@@ -707,7 +733,7 @@ body::before {
           Sitios web profesionales al precio de unos tacos de canasta. Rápidos, bonitos y que sí convierten. Sin conocimientos técnicos, sin complicaciones.
         </p>
         <div class="hero-actions">
-          <a href="#paquetes" class="btn-primary">🔥 Ver paquetes</a>
+          <a href="#Paquetes Web" class="btn-primary">🔥 Ver paquetes</a>
           <a href="#contacto" class="btn-secondary">💬 Comprar ahora</a>
         </div>
         <div class="hero-stats">
@@ -761,7 +787,7 @@ body::before {
 </div>
 
 <!-- ===== PAQUETES ===== -->
-<section class="packages section" id="paquetes">
+<section class="packages section" id="Paquetes Web">
   <div class="container">
     <div class="packages-header">
       <div class="section-tag">🌮 Menú de paquetes</div>
@@ -873,7 +899,7 @@ body::before {
         <div class="section-tag">✅ ¿Por qué nosotros?</div>
         <h2 class="section-title">La salsa secreta<br><span class="highlight">de cada proyecto</span></h2>
         <p class="section-sub">No solo construimos sitios web — construimos herramientas de venta que trabajan por ti las 24 horas.</p>
-        <div style="margin-top:2rem"><a href="#paquetes" class="btn-primary">🔥 Ver paquetes ahora</a></div>
+        <div style="margin-top:2rem"><a href="#Paquetes Web" class="btn-primary">🔥 Ver paquetes ahora</a></div>
       </div>
       <div style="display:flex;flex-direction:column;gap:1.5rem">
         <div class="beneficio-item reveal"><div class="beneficio-icon-wrap">⚡</div><div><div class="beneficio-title">Entrega ultrarrápida</div><div class="beneficio-desc">Mientras otros tardan semanas, nosotros entregamos en días. Sabemos que cada día sin sitio es dinero perdido.</div></div></div>
@@ -1042,7 +1068,7 @@ body::before {
       <h2 class="cta-title">¿Sigues sin sitio web?<br><span class="highlight">Tus competidores sí tienen.</span></h2>
       <p class="cta-sub">Cada día que pasa es un cliente potencial que no te encuentra en Google. ¡Arranca hoy!</p>
       <div class="cta-actions">
-        <a href="#paquetes" class="btn-primary">🔥 Ver paquetes</a>
+        <a href="#Paquetes Web" class="btn-primary">🔥 Ver paquetes</a>
         <a href="https://wa.me/<?= $cfg['whatsapp'] ?>?text=Hola%2C%20quiero%20info%20sobre%20sitios%20web" target="_blank" class="btn-secondary">💬 Hablar con un asesor</a>
       </div>
     </div>
@@ -1068,7 +1094,7 @@ body::before {
         <div class="footer-col-title">Paquetes</div>
         <ul class="footer-links">
           <?php foreach ($paquetes as $p): ?>
-          <li><a href="#paquetes"><?= $p['emoji'] ?> <?= htmlspecialchars($p['nombre'], ENT_QUOTES) ?> — $<?= fmt($p['precio']) ?><?= ($p['precio_desde'] ?? false) ? '+' : '' ?></a></li>
+          <li><a href="#Paquetes Web"><?= $p['emoji'] ?> <?= htmlspecialchars($p['nombre'], ENT_QUOTES) ?> — $<?= fmt($p['precio']) ?><?= ($p['precio_desde'] ?? false) ? '+' : '' ?></a></li>
           <?php endforeach; ?>
         </ul>
       </div>
