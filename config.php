@@ -42,8 +42,8 @@ return [
             'tipo_badge'  => 'best', // '' | 'hot' | 'best'
             'btn_clase'   => 'btn-card-outline',
             'btn_texto'   => 'Comprar 🛒',
-            'demo'        => 'demo/menu-digital.html',
-            'demo_biz'    => 'Taquería El Pastorcito',
+            'demo'        => 'demo/menudigital/index.html',
+            'demo_biz'    => 'El Sabor Yucateco',
         ],
         'starter' => [
             'db_id'       => 1,
