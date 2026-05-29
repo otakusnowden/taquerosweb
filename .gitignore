@@ -3,9 +3,11 @@ id_rsa
 *.ppk
 *.pub
 PHPMailer
+.claude/
 
 # Credenciales SMTP – nunca subir al repo
 /api/config.php
+
 
 # Dependencias PHP (Composer)
 /vendor/
