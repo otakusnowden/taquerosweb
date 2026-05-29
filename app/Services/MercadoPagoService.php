@@ -54,7 +54,7 @@ final class MercadoPagoService
         $cliente = $this->clientes->findById($clienteId);
 
         $client   = new PreferenceClient();
-        $payload  = [
+        $payload = [
             'items' => [[
                 'id'          => "orden_{$ordenId}",
                 'title'       => "{$paquete['emoji']} {$paquete['nombre']} — TaquerosWeb",
@@ -63,17 +63,29 @@ final class MercadoPagoService
                 'currency_id' => 'MXN',
                 'unit_price'  => (float) $paquete['precio'],
             ]],
+
             'payer' => [
                 'name'    => $cliente['nombre'],
                 'surname' => $cliente['apellidos'],
                 'email'   => $cliente['email'],
                 'phone'   => ['number' => $cliente['telefono']],
             ],
+
+            'payment_methods' => [
+                'excluded_payment_types' => [
+                    ['id' => 'ticket'],
+                    ['id' => 'atm'],
+                    ['id' => 'bank_transfer']
+                ],
+                'installments' => 12,
+            ],
+
             'back_urls' => [
                 'success' => APP_URL . '/dashboard?pago=aprobado&orden=' . $ordenId,
                 'failure' => APP_URL . '/dashboard?pago=error&orden=' . $ordenId,
                 'pending' => APP_URL . '/dashboard?pago=pendiente&orden=' . $ordenId,
             ],
+
             'auto_return'          => 'approved',
             'external_reference'   => (string) $ordenId,
             'notification_url'     => APP_URL . '/api/webhook-mp',

@@ -99,6 +99,27 @@ final class OrderController
         }
     }
 
+    /**
+     * POST /api/orders/{id}/spei-notify
+     * Cliente notifica que ya realizó la transferencia SPEI.
+     * Cambia estado a 'revision', registra el pago como pending y notifica al admin.
+     */
+    public function notifySpei(int $id): never
+    {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') Response::error('Method not allowed.', 405);
+        $user = Auth::user() ?? Response::error('No autenticado.', 401);
+
+        try {
+            $orden = $this->service->notifySpeiTransfer($id, (int)$user['id']);
+            Response::success([
+                'orden'    => $orden,
+                'concepto' => $this->service->formatSpeiConcepto($id),
+            ], 'Notificación de transferencia recibida.');
+        } catch (\RuntimeException $e) {
+            Response::error($e->getMessage(), 400);
+        }
+    }
+
     /** GET /api/packages — list available packages */
     public function packages(): never
     {

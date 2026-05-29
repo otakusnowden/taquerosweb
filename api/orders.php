@@ -21,6 +21,8 @@ if (preg_match('#/api/orders/(\d+)/details#', $uri, $m)) {
     $ctrl->confirm((int)$m[1]);
 } elseif (preg_match('#/api/orders/(\d+)/pay#', $uri, $m)) {
     $ctrl->pay((int)$m[1]);
+} elseif (preg_match('#/api/orders/(\d+)/spei-notify#', $uri, $m)) {
+    $ctrl->notifySpei((int)$m[1]);
 } elseif ($method === 'GET') {
     $ctrl->index();
 } elseif ($method === 'POST') {

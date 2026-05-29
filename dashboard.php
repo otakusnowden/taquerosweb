@@ -18,13 +18,25 @@ $estadoConfig = [
     'pendiente_pago' => ['label' => 'Pendiente pago', 'color' => '#FFB800', 'icon' => '💳'],
     'pagado'         => ['label' => 'Pagado',         'color' => '#8BDA4F', 'icon' => '✅'],
     'en_proceso'     => ['label' => 'En proceso',     'color' => '#FF6B2B', 'icon' => '⚙️'],
-    'revision'       => ['label' => 'En revisión',    'color' => '#9B59B6', 'icon' => '👀'],
+    'revision'       => ['label' => 'Validando pago', 'color' => '#9B59B6', 'icon' => '🔎'],
     'entregado'      => ['label' => 'Entregado',      'color' => '#2ECC71', 'icon' => '🚀'],
     'cancelado'      => ['label' => 'Cancelado',      'color' => '#E8294C', 'icon' => '❌'],
 ];
 
 $pagoStatus = $_GET['pago']   ?? null;
 $pagoOrden  = (int)($_GET['orden'] ?? 0);
+
+// ── Datos bancarios para transferencia SPEI ────────────────────
+$speiConfig = [
+    'clabe'        => '722969010830199367',
+    'beneficiario' => 'Martina Resendiz Chavez',
+    'institucion'  => 'Mercado Pago W',
+];
+
+/** Concepto de pago SPEI: ORD-### (mínimo 3 dígitos). */
+function speiConcepto(int $ordenId): string {
+    return 'ORD-' . str_pad((string)$ordenId, 3, '0', STR_PAD_LEFT);
+}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -129,6 +141,48 @@ a{color:inherit;text-decoration:none}
 .btn-modal-submit:disabled{opacity:.6;transform:none;cursor:not-allowed}
 .modal-close{position:absolute;top:1.25rem;right:1.25rem;width:32px;height:32px;border-radius:8px;background:rgba(255,255,255,.06);border:1px solid var(--color-border);color:var(--color-text);font-size:1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:var(--transition)}
 .modal-close:hover{background:rgba(232,41,76,.2);border-color:rgba(232,41,76,.4);color:#f87093}
+
+/* ── Payment method selector ──────────────── */
+.pm-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.5rem}
+@media (max-width:560px){.pm-grid{grid-template-columns:1fr}}
+.pm-card{background:rgba(255,255,255,.03);border:1.5px solid var(--color-border);border-radius:14px;padding:1.25rem;cursor:pointer;transition:var(--transition);text-align:left;font-family:var(--font-body);color:var(--color-text);display:flex;flex-direction:column;gap:.5rem;position:relative}
+.pm-card:hover{border-color:rgba(255,107,43,.4);transform:translateY(-2px)}
+.pm-card.active{border-color:var(--color-orange);background:rgba(255,107,43,.08);box-shadow:0 0 0 3px rgba(255,107,43,.1)}
+.pm-card-head{display:flex;align-items:center;justify-content:space-between;gap:.5rem}
+.pm-icon{font-size:1.6rem}
+.pm-radio{width:18px;height:18px;border-radius:50%;border:2px solid var(--color-border);flex-shrink:0;transition:var(--transition);position:relative}
+.pm-card.active .pm-radio{border-color:var(--color-orange);background:var(--color-orange)}
+.pm-card.active .pm-radio::after{content:'';position:absolute;inset:3px;background:#fff;border-radius:50%}
+.pm-name{font-weight:800;font-size:.95rem;letter-spacing:.01em}
+.pm-desc{font-size:.78rem;color:var(--color-muted);line-height:1.5}
+.pm-tag{display:inline-flex;align-items:center;gap:.3rem;font-size:.68rem;font-weight:700;color:var(--color-lime);background:rgba(139,218,79,.1);border:1px solid rgba(139,218,79,.25);border-radius:100px;padding:.2rem .6rem;width:fit-content}
+.pm-pane{display:none}
+.pm-pane.active{display:block;animation:fadeInPane .3s ease}
+@keyframes fadeInPane{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SPEI bank card ────────────────────────── */
+.spei-card{background:linear-gradient(160deg,#1F1B16,#141210);border:1px solid var(--color-border);border-radius:16px;padding:1.5rem;margin-bottom:1.25rem}
+.spei-hint{display:flex;align-items:flex-start;gap:.55rem;background:rgba(255,184,0,.08);border:1px solid rgba(255,184,0,.2);border-radius:10px;padding:.7rem .9rem;font-size:.78rem;color:var(--color-gold);line-height:1.5;margin-bottom:1rem}
+.spei-row{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:.85rem 0;border-bottom:1px dashed rgba(255,255,255,.07)}
+.spei-row:last-of-type{border-bottom:none}
+.spei-label{font-size:.72rem;color:var(--color-muted);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-bottom:.2rem}
+.spei-value{font-family:'Manrope',monospace;font-size:.95rem;color:var(--color-text);font-weight:600;word-break:break-all}
+.spei-value.concepto{color:var(--color-gold);font-weight:800;letter-spacing:.04em}
+.spei-info{flex:1;min-width:0}
+.btn-copy{display:inline-flex;align-items:center;gap:.35rem;padding:.45rem .75rem;border-radius:8px;font-size:.72rem;font-weight:700;background:rgba(255,107,43,.1);color:var(--color-orange);border:1px solid rgba(255,107,43,.25);cursor:pointer;transition:var(--transition);flex-shrink:0;font-family:var(--font-body)}
+.btn-copy:hover{background:rgba(255,107,43,.2);border-color:rgba(255,107,43,.4)}
+.btn-copy.copied{background:rgba(139,218,79,.15);color:var(--color-lime);border-color:rgba(139,218,79,.35)}
+.btn-copy-all{width:100%;padding:.7rem;border-radius:10px;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.04);border:1px dashed rgba(255,255,255,.18);color:var(--color-text);cursor:pointer;transition:var(--transition);margin-top:.5rem;font-family:var(--font-body);display:inline-flex;align-items:center;justify-content:center;gap:.4rem}
+.btn-copy-all:hover{background:rgba(255,107,43,.06);border-color:rgba(255,107,43,.3);border-style:solid}
+.btn-copy-all.copied{background:rgba(139,218,79,.1);color:var(--color-lime);border-color:rgba(139,218,79,.35);border-style:solid}
+.spei-notes{font-size:.78rem;color:var(--color-muted);line-height:1.6;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--color-border)}
+.spei-notes li{margin-bottom:.4rem;list-style:none;padding-left:1.2rem;position:relative}
+.spei-notes li::before{content:'•';position:absolute;left:.3rem;color:var(--color-orange);font-weight:800}
+
+/* ── Toast ────────────────────────────────── */
+.toast{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%) translateY(120%);background:#1A1714;border:1px solid var(--color-border);border-left:3px solid var(--color-lime);border-radius:12px;padding:.85rem 1.25rem;font-size:.85rem;font-weight:600;color:var(--color-text);box-shadow:0 16px 48px rgba(0,0,0,.6);z-index:5000;display:flex;align-items:center;gap:.6rem;transition:transform .35s cubic-bezier(.34,1.56,.64,1);max-width:calc(100vw - 2rem)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.error{border-left-color:var(--color-red)}
 
 /* ── Spinner ──────────────────────────────── */
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -236,9 +290,11 @@ a{color:inherit;text-decoration:none}
               ✅ Confirmar orden
             </button>
           <?php elseif ($o['estado'] === 'pendiente_pago'): ?>
-            <button class="btn-action btn-pay" onclick="payOrder(<?= $o['id'] ?>)">
+            <button class="btn-action btn-pay" onclick="openPaymentModal(<?= $o['id'] ?>, <?= (float)$o['paquete_precio'] ?>)">
               💳 Pagar ahora — $<?= $precio ?> MXN
             </button>
+          <?php elseif ($o['estado'] === 'revision'): ?>
+            <span class="btn-action btn-disabled" style="color:#c39ad6">🔎 Validando tu transferencia…</span>
           <?php elseif ($o['estado'] === 'pagado'): ?>
             <span class="btn-action btn-disabled">✅ Pago recibido — en producción</span>
           <?php elseif ($o['estado'] === 'en_proceso'): ?>
@@ -259,6 +315,112 @@ a{color:inherit;text-decoration:none}
   <?php endif; ?>
 
 </main>
+
+<!-- ── Payment Method Modal ──────────────────────── -->
+<div class="modal-overlay" id="paymentModal">
+  <div class="modal-box" style="position:relative;max-width:620px">
+    <button class="modal-close" onclick="closePaymentModal()">✕</button>
+    <h2 class="modal-title">Método de pago 💳</h2>
+    <p class="modal-sub">Orden <span id="pm_concepto" style="color:var(--color-gold);font-weight:700"></span> · Total <span id="pm_total" style="color:var(--color-text);font-weight:700"></span></p>
+
+    <div id="paymentAlert" style="display:none" class="alert"></div>
+
+    <!-- Method selector (radio cards) -->
+    <div class="pm-grid" role="radiogroup" aria-label="Método de pago">
+      <button type="button" class="pm-card active" data-method="mp" role="radio" aria-checked="true" onclick="selectMethod('mp')">
+        <div class="pm-card-head">
+          <span class="pm-icon">💳</span>
+          <span class="pm-radio"></span>
+        </div>
+        <div class="pm-name">Mercado Pago</div>
+        <div class="pm-desc">Tarjeta, OXXO, saldo MP. Activación inmediata al aprobarse.</div>
+        <span class="pm-tag">⚡ Instantáneo</span>
+      </button>
+      <button type="button" class="pm-card" data-method="spei" role="radio" aria-checked="false" onclick="selectMethod('spei')">
+        <div class="pm-card-head">
+          <span class="pm-icon">🏦</span>
+          <span class="pm-radio"></span>
+        </div>
+        <div class="pm-name">Transferencia SPEI</div>
+        <div class="pm-desc">Desde tu app bancaria. Validación manual por nuestro equipo.</div>
+        <span class="pm-tag" style="color:var(--color-gold);background:rgba(255,184,0,.1);border-color:rgba(255,184,0,.25)">🔎 Manual</span>
+      </button>
+    </div>
+
+    <!-- Pane: Mercado Pago -->
+    <div class="pm-pane active" id="pane_mp">
+      <p style="font-size:.85rem;color:var(--color-muted);line-height:1.6;margin-bottom:1.25rem">
+        Te redirigiremos al checkout seguro de Mercado Pago. Acepta tarjetas de crédito, débito, OXXO y saldo MP.
+      </p>
+      <button type="button" class="btn-modal-submit" id="payMpBtn">💳 Continuar a Mercado Pago</button>
+      <p style="text-align:center;font-size:.72rem;color:var(--color-muted);margin-top:.75rem">🔒 Pago procesado por Mercado Pago</p>
+    </div>
+
+    <!-- Pane: SPEI -->
+    <div class="pm-pane" id="pane_spei">
+      <div class="spei-card">
+        <div class="spei-hint">
+          <span>💡</span>
+          <span><strong>Usa exactamente este concepto de pago</strong> para que podamos identificar tu depósito automáticamente.</span>
+        </div>
+
+        <div class="spei-row">
+          <div class="spei-info">
+            <div class="spei-label">Concepto de pago</div>
+            <div class="spei-value concepto" id="spei_concepto"></div>
+          </div>
+          <button type="button" class="btn-copy" data-target="spei_concepto" onclick="copyField(this)">📋 Copiar</button>
+        </div>
+
+        <div class="spei-row">
+          <div class="spei-info">
+            <div class="spei-label">CLABE interbancaria</div>
+            <div class="spei-value" id="spei_clabe"><?= htmlspecialchars($speiConfig['clabe'], ENT_QUOTES) ?></div>
+          </div>
+          <button type="button" class="btn-copy" data-target="spei_clabe" onclick="copyField(this)">📋 Copiar</button>
+        </div>
+
+        <div class="spei-row">
+          <div class="spei-info">
+            <div class="spei-label">Beneficiario</div>
+            <div class="spei-value" id="spei_beneficiario"><?= htmlspecialchars($speiConfig['beneficiario'], ENT_QUOTES) ?></div>
+          </div>
+          <button type="button" class="btn-copy" data-target="spei_beneficiario" onclick="copyField(this)">📋 Copiar</button>
+        </div>
+
+        <div class="spei-row">
+          <div class="spei-info">
+            <div class="spei-label">Institución bancaria</div>
+            <div class="spei-value" id="spei_institucion"><?= htmlspecialchars($speiConfig['institucion'], ENT_QUOTES) ?></div>
+          </div>
+          <button type="button" class="btn-copy" data-target="spei_institucion" onclick="copyField(this)">📋 Copiar</button>
+        </div>
+
+        <div class="spei-row">
+          <div class="spei-info">
+            <div class="spei-label">Monto a transferir</div>
+            <div class="spei-value" id="spei_monto"></div>
+          </div>
+          <button type="button" class="btn-copy" data-target="spei_monto" onclick="copyField(this)">📋 Copiar</button>
+        </div>
+
+        <button type="button" class="btn-copy-all" id="copyAllBtn" onclick="copyAllSpei()">📋 Copiar todos los datos</button>
+
+        <ul class="spei-notes">
+          <li>Tu pago será validado manualmente por nuestro equipo.</li>
+          <li>Las transferencias pueden tardar algunos minutos en reflejarse.</li>
+          <li>Te enviaremos un correo en cuanto confirmemos el depósito.</li>
+        </ul>
+      </div>
+
+      <button type="button" class="btn-modal-submit" id="speiNotifyBtn">✅ Ya realicé la transferencia</button>
+      <p style="text-align:center;font-size:.72rem;color:var(--color-muted);margin-top:.75rem">Al notificar, el equipo recibirá un aviso para validar tu depósito.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"><span id="toastIcon">✅</span><span id="toastMsg"></span></div>
 
 <!-- ── New Order Modal ──────────────────────── -->
 <div class="modal-overlay" id="newOrderModal">
@@ -514,24 +676,176 @@ async function confirmOrder(id) {
   } catch { showGlobalAlert('Error de conexión.', 'error'); }
 }
 
-// ── Pay order ─────────────────────────────────────────────────
-async function payOrder(id) {
-  const btn = document.querySelector(`#order-${id} .btn-pay`);
-  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Preparando pago...'; }
+// ── Payment method modal ──────────────────────────────────────
+let currentPaymentOrderId = null;
+let currentPaymentAmount  = 0;
 
+function formatMoney(n) {
+  return '$' + Number(n).toLocaleString('es-MX', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ' MXN';
+}
+
+function speiConceptoFor(id) {
+  return 'ORD-' + String(id).padStart(3, '0');
+}
+
+function openPaymentModal(id, amount) {
+  currentPaymentOrderId = id;
+  currentPaymentAmount  = amount;
+
+  const concepto = speiConceptoFor(id);
+  document.getElementById('pm_concepto').textContent  = '#' + id + ' · ' + concepto;
+  document.getElementById('pm_total').textContent     = formatMoney(amount);
+  document.getElementById('spei_concepto').textContent = concepto;
+  document.getElementById('spei_monto').textContent    = formatMoney(amount);
+  document.getElementById('paymentAlert').style.display = 'none';
+
+  selectMethod('mp');
+  resetPaymentButtons();
+  document.getElementById('paymentModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePaymentModal() {
+  document.getElementById('paymentModal').classList.remove('open');
+  document.body.style.overflow = '';
+  currentPaymentOrderId = null;
+}
+
+document.getElementById('paymentModal').addEventListener('click', e => {
+  if (e.target === document.getElementById('paymentModal')) closePaymentModal();
+});
+
+function selectMethod(method) {
+  document.querySelectorAll('.pm-card').forEach(c => {
+    const active = c.dataset.method === method;
+    c.classList.toggle('active', active);
+    c.setAttribute('aria-checked', active ? 'true' : 'false');
+  });
+  document.getElementById('pane_mp').classList.toggle('active', method === 'mp');
+  document.getElementById('pane_spei').classList.toggle('active', method === 'spei');
+  document.getElementById('paymentAlert').style.display = 'none';
+}
+
+function resetPaymentButtons() {
+  const mpBtn = document.getElementById('payMpBtn');
+  const sBtn  = document.getElementById('speiNotifyBtn');
+  mpBtn.disabled = false; mpBtn.innerHTML = '💳 Continuar a Mercado Pago';
+  sBtn.disabled  = false; sBtn.innerHTML  = '✅ Ya realicé la transferencia';
+  document.querySelectorAll('.btn-copy.copied, .btn-copy-all.copied').forEach(b => {
+    b.classList.remove('copied');
+    if (b.classList.contains('btn-copy-all')) b.innerHTML = '📋 Copiar todos los datos';
+    else b.innerHTML = '📋 Copiar';
+  });
+}
+
+function showPaymentAlert(msg, type = 'error') {
+  const el = document.getElementById('paymentAlert');
+  el.className = `alert alert-${type}`;
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+// ── Mercado Pago ──
+document.getElementById('payMpBtn').addEventListener('click', async () => {
+  if (!currentPaymentOrderId) return;
+  const btn = document.getElementById('payMpBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Preparando pago...';
   try {
-    const res  = await fetch(`/api/orders/${id}/pay`, { method: 'POST' });
+    const res  = await fetch(`/api/orders/${currentPaymentOrderId}/pay`, { method: 'POST' });
     const data = await res.json();
     if (data.success && data.data?.init_point) {
       window.location.href = data.data.init_point;
     } else {
-      showGlobalAlert(data.message || 'Error al iniciar el pago.', 'error');
-      if (btn) { btn.disabled = false; btn.textContent = '💳 Pagar ahora'; }
+      showPaymentAlert(data.message || 'Error al iniciar el pago.');
+      btn.disabled = false; btn.innerHTML = '💳 Continuar a Mercado Pago';
     }
   } catch {
-    showGlobalAlert('Error de conexión.', 'error');
-    if (btn) { btn.disabled = false; btn.textContent = '💳 Pagar ahora'; }
+    showPaymentAlert('Error de conexión.');
+    btn.disabled = false; btn.innerHTML = '💳 Continuar a Mercado Pago';
   }
+});
+
+// ── Copy helpers ──
+async function copyToClipboard(text) {
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(text);
+      return true;
+    }
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    const ok = document.execCommand('copy');
+    document.body.removeChild(ta);
+    return ok;
+  } catch { return false; }
+}
+
+async function copyField(btn) {
+  const target = btn.dataset.target;
+  const value  = document.getElementById(target).textContent.trim();
+  const ok = await copyToClipboard(value);
+  if (!ok) { showToast('No se pudo copiar', 'error'); return; }
+  const original = btn.innerHTML;
+  btn.innerHTML = '✓ Copiado';
+  btn.classList.add('copied');
+  showToast('Copiado al portapapeles');
+  setTimeout(() => { btn.innerHTML = original; btn.classList.remove('copied'); }, 1800);
+}
+
+async function copyAllSpei() {
+  const lines = [
+    'Concepto: '     + document.getElementById('spei_concepto').textContent.trim(),
+    'CLABE: '        + document.getElementById('spei_clabe').textContent.trim(),
+    'Beneficiario: ' + document.getElementById('spei_beneficiario').textContent.trim(),
+    'Institución: '  + document.getElementById('spei_institucion').textContent.trim(),
+    'Monto: '        + document.getElementById('spei_monto').textContent.trim(),
+  ].join('\n');
+  const ok = await copyToClipboard(lines);
+  const btn = document.getElementById('copyAllBtn');
+  if (!ok) { showToast('No se pudo copiar', 'error'); return; }
+  btn.innerHTML = '✓ Todos los datos copiados';
+  btn.classList.add('copied');
+  showToast('Datos bancarios copiados');
+  setTimeout(() => { btn.innerHTML = '📋 Copiar todos los datos'; btn.classList.remove('copied'); }, 2200);
+}
+
+// ── SPEI notify ──
+document.getElementById('speiNotifyBtn').addEventListener('click', async () => {
+  if (!currentPaymentOrderId) return;
+  if (!confirm('¿Confirmas que ya realizaste la transferencia? Notificaremos al equipo para validarla.')) return;
+
+  const btn = document.getElementById('speiNotifyBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Enviando notificación...';
+
+  try {
+    const res  = await fetch(`/api/orders/${currentPaymentOrderId}/spei-notify`, { method: 'POST' });
+    const data = await res.json();
+    if (data.success) {
+      closePaymentModal();
+      showGlobalAlert('Hemos recibido tu notificación de transferencia. Nuestro equipo validará el pago y activará tu servicio una vez confirmado.', 'success');
+      setTimeout(() => location.reload(), 1800);
+    } else {
+      showPaymentAlert(data.message || 'No pudimos registrar tu notificación.');
+      btn.disabled = false; btn.innerHTML = '✅ Ya realicé la transferencia';
+    }
+  } catch {
+    showPaymentAlert('Error de conexión. Intenta de nuevo.');
+    btn.disabled = false; btn.innerHTML = '✅ Ya realicé la transferencia';
+  }
+});
+
+// ── Toast ──
+function showToast(msg, type = 'success') {
+  const t = document.getElementById('toast');
+  document.getElementById('toastIcon').textContent = type === 'error' ? '⚠️' : '✅';
+  document.getElementById('toastMsg').textContent  = msg;
+  t.classList.toggle('error', type === 'error');
+  t.classList.add('show');
+  clearTimeout(showToast._t);
+  showToast._t = setTimeout(() => t.classList.remove('show'), 2400);
 }
 
 // ── Global alert ──────────────────────────────────────────────

@@ -9,6 +9,7 @@ use App\Repositories\OrdenAdjuntoRepository;
 use App\Repositories\PaqueteRepository;
 use App\Repositories\ClienteRepository;
 use App\Repositories\OrdenLogRepository;
+use App\Repositories\PagoRepository;
 
 final class OrderService
 {
@@ -26,6 +27,7 @@ final class OrderService
         private readonly ClienteRepository  $clientes = new ClienteRepository(),
         private readonly OrdenLogRepository $logs     = new OrdenLogRepository(),
         private readonly EmailService       $email    = new EmailService(),
+        private readonly PagoRepository     $pagos    = new PagoRepository(),
     ) {}
 
     /** Create a new draft order for an existing client */
@@ -116,6 +118,63 @@ final class OrderService
         $this->email->sendOrderConfirmed($cliente['email'], $cliente['nombre'], $orden, $paquete);
 
         return $orden;
+    }
+
+    /**
+     * Cliente notifica que realizó una transferencia SPEI.
+     * Transiciones: pendiente_pago → revision.
+     * Registra el pago como pendiente con método 'spei_transferencia' y notifica al admin.
+     * El admin valida manualmente y luego pasa a 'pagado'.
+     */
+    public function notifySpeiTransfer(int $ordenId, int $clienteId): array
+    {
+        $orden = $this->ordenes->findById($ordenId);
+
+        if (!$orden) {
+            throw new \RuntimeException('Orden no encontrada.');
+        }
+        if ((int)$orden['cliente_id'] !== $clienteId) {
+            throw new \RuntimeException('No tienes permiso sobre esta orden.');
+        }
+        if ($orden['estado'] !== 'pendiente_pago') {
+            throw new \RuntimeException("Esta orden no está pendiente de pago.");
+        }
+
+        $speiRef = 'SPEI-ORD-' . $ordenId;
+
+        if ($this->pagos->findByMpPaymentId($speiRef)) {
+            throw new \RuntimeException('Ya notificaste una transferencia para esta orden. Nuestro equipo la está revisando.');
+        }
+
+        $paquete = $this->paquetes->findById((int)$orden['paquete_id']);
+        $cliente = $this->clientes->findById($clienteId);
+
+        $this->pagos->create([
+            'orden_id'       => $ordenId,
+            'mp_payment_id'  => $speiRef,
+            'mp_status'      => 'pending',
+            'monto'          => (float)$paquete['precio'],
+            'metodo_pago'    => 'spei_transferencia',
+        ]);
+
+        $this->ordenes->updateEstado($ordenId, 'revision');
+        $concepto = $this->formatSpeiConcepto($ordenId);
+        $this->logs->log(
+            $ordenId,
+            'spei_notificado',
+            "Cliente notificó transferencia SPEI. Concepto: {$concepto}.",
+            $clienteId
+        );
+
+        $this->email->sendAdminSpeiNotification($cliente, $paquete, $orden, $concepto);
+
+        return $this->ordenes->findById($ordenId);
+    }
+
+    /** Formato del concepto de pago SPEI: ORD-### (zero padded a 3 dígitos como mínimo). */
+    public function formatSpeiConcepto(int $ordenId): string
+    {
+        return 'ORD-' . str_pad((string)$ordenId, 3, '0', STR_PAD_LEFT);
     }
 
     public function getClientOrders(int $clienteId): array

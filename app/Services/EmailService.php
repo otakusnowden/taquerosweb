@@ -98,6 +98,24 @@ final class EmailService
         }
     }
 
+    /** 5. Admin notification: cliente avisó que realizó transferencia SPEI */
+    public function sendAdminSpeiNotification(array $cliente, array $paquete, array $orden, string $concepto): bool
+    {
+        try {
+            $mail = $this->buildMailer();
+            $mail->addAddress($_ENV['MAIL_ADMIN']);
+            $mail->Subject = "[Pago por validar] Orden {$concepto}";
+            $mail->isHTML(true);
+            $mail->Body    = $this->templateAdminSpeiNotification($cliente, $paquete, $orden, $concepto);
+            $mail->AltBody = "El cliente {$cliente['nombre']} {$cliente['apellidos']} notificó una transferencia SPEI por la orden #{$orden['id']} (concepto {$concepto}). Verifica el depósito y actualiza el estado.";
+            $mail->send();
+            return true;
+        } catch (MailException) {
+            error_log("EmailService::sendAdminSpeiNotification failed: " . $mail->ErrorInfo);
+            return false;
+        }
+    }
+
     // ─── HTML Templates ──────────────────────────────────────────────────────
 
     private function baseWrap(string $content): string
@@ -201,6 +219,34 @@ HTML;
 <div style="text-align:center">
   <a href="{$dashUrl}" style="background:linear-gradient(135deg,#FF6B2B,#E8294C);color:#fff;text-decoration:none;padding:16px 40px;border-radius:12px;font-size:16px;font-weight:700;display:inline-block">
     💳 Ir a pagar
+  </a>
+</div>
+HTML;
+        return $this->baseWrap($content);
+    }
+
+    private function templateAdminSpeiNotification(array $c, array $p, array $o, string $concepto): string
+    {
+        $precio   = number_format((float)$p['precio'], 2);
+        $fecha    = date('d/m/Y H:i');
+        $adminUrl = APP_URL . '/dashboard_admin';
+        $content = <<<HTML
+<h2 style="color:#F5F0E8;font-size:20px;margin:0 0 8px">💳 Pago SPEI por validar — {$concepto}</h2>
+<p style="color:#8A8278;font-size:14px;margin:0 0 24px">El cliente notificó que realizó una transferencia SPEI. Verifica el depósito en Mercado Pago W y actualiza el estado de la orden manualmente.</p>
+<table style="width:100%;border-collapse:collapse">
+  <tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#8A8278;font-size:13px;width:40%">Concepto de pago</td><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#FFB800;font-size:15px;font-weight:700">{$concepto}</td></tr>
+  <tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#8A8278;font-size:13px">ID de orden</td><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#F5F0E8;font-size:14px">#{$o['id']}</td></tr>
+  <tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#8A8278;font-size:13px">Cliente</td><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#F5F0E8;font-size:14px">{$c['nombre']} {$c['apellidos']}</td></tr>
+  <tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#8A8278;font-size:13px">Email cliente</td><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#FF6B2B;font-size:14px">{$c['email']}</td></tr>
+  <tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#8A8278;font-size:13px">Teléfono</td><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#F5F0E8;font-size:14px">{$c['telefono']}</td></tr>
+  <tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#8A8278;font-size:13px">Paquete</td><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#F5F0E8;font-size:14px">{$p['emoji']} {$p['nombre']}</td></tr>
+  <tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#8A8278;font-size:13px">Monto esperado</td><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#FFB800;font-size:16px;font-weight:700">\${$precio} MXN</td></tr>
+  <tr><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#8A8278;font-size:13px">Método</td><td style="padding:10px;border-bottom:1px solid rgba(255,255,255,0.07);color:#F5F0E8;font-size:14px">Transferencia SPEI</td></tr>
+  <tr><td style="padding:10px;color:#8A8278;font-size:13px">Fecha de aviso</td><td style="padding:10px;color:#F5F0E8;font-size:13px">{$fecha}</td></tr>
+</table>
+<div style="margin-top:28px;text-align:center">
+  <a href="{$adminUrl}" style="background:linear-gradient(135deg,#FF6B2B,#E8294C);color:#fff;text-decoration:none;padding:14px 32px;border-radius:12px;font-size:14px;font-weight:700;display:inline-block">
+    Ver orden en el panel admin
   </a>
 </div>
 HTML;

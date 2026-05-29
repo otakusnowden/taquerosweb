@@ -174,7 +174,7 @@ $features = [
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<title>TaquerosWeb.com — Sitios Web Profesionales</title>
+<title>Páginas Web Profesionales</title>
 
 
 <!-- Consent Mode defaults (MUST precede GTM/GA) -->
@@ -1177,7 +1177,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           <li><a href="#testimonios">Testimonios</a></li>
           <li><a href="#beneficios">Beneficios</a></li>
           <li><a href="#contacto">Contacto</a></li>
-          <li><a href="#">Blog</a></li>
         </ul>
       </div>
       <div>
@@ -1199,7 +1198,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="footer-legal">
         <a href="/politica-de-privacidad">Aviso de privacidad</a>
         <a href="#">Términos y condiciones</a>
-        <a href="#">Política de reembolsos</a>
       </div>
     </div>
   </div>
