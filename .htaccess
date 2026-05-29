@@ -48,6 +48,7 @@ Options -MultiViews
     RewriteRule ^ordenes/?$ ordenes.php [L]
     RewriteRule ^verificar-email/?$ verify-email.php [L,QSA]
     RewriteRule ^politica-de-privacidad/?$ politica-de-privacidad.php [L]
+    RewriteRule ^terminos-y-condiciones/?$ terminos-y-condiciones.php [L]
 </IfModule>
 
 # ── Custom error pages ────────────────────────────────

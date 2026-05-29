@@ -29,7 +29,22 @@ return [
     // Cada clave debe coincidir con el orden de seeds.sql.
     // `db_id` = ID real en la tabla `paquetes` (usado en /api/register).
     'paquetes' => [
-
+        'menu_digital' => [
+            'db_id'       => 8,
+            'sku'         => 'TW-MENU',
+            'emoji'       => '📱',
+            'nombre'      => 'Menú Digital',
+            'subtitulo'   => 'Tu menú siempre actualizado',
+            'precio'      => 2499,
+            'precio_desde'=> false,
+            'disponible'  => true,
+            'entrega'     => '3 días hábiles',
+            'tipo_badge'  => 'best', // '' | 'hot' | 'best'
+            'btn_clase'   => 'btn-card-outline',
+            'btn_texto'   => 'Comprar 🛒',
+            'demo'        => 'demo/menu-digital.html',
+            'demo_biz'    => 'Taquería El Pastorcito',
+        ],
         'starter' => [
             'db_id'       => 1,
             'sku'         => 'TW-STARTER',
@@ -79,7 +94,7 @@ return [
             'btn_texto'   => 'Comprar 🛒',
             'demo'        => 'demo/tienda.html',
             'demo_biz'    => 'Jabones Raíz',
-        ]
+        ],
         /*
         'pro' => [
             'db_id'       => 5,
@@ -97,7 +112,7 @@ return [
             'demo'        => 'demo/pro.html',
             'demo_biz'    => 'Dental Sonríe',
         ],
-
+        
         'premium' => [
             'db_id'       => 6,
             'sku'         => 'TW-PREMIUM',
@@ -115,5 +130,6 @@ return [
             'demo_biz'    => 'Ejemplo Premium',
         ],
         */
+        
     ],
 ];

@@ -187,6 +187,11 @@ a{color:inherit;text-decoration:none}
 /* ── Spinner ──────────────────────────────── */
 @keyframes spin{to{transform:rotate(360deg)}}
 .spinner{display:inline-block;width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:.35rem}
+
+/* ── Terms acceptance legend ──────────────────── */
+.terms-legend{font-size:.78rem;color:var(--color-muted);line-height:1.55;margin-bottom:.9rem;padding:.7rem .9rem;background:rgba(255,255,255,.03);border:1px solid var(--color-border);border-radius:10px}
+.terms-legend a{color:var(--color-orange);font-weight:700;text-decoration:underline}
+.terms-legend a:hover{color:#ff8c5a}
 </style>
 </head>
 <body>
@@ -352,6 +357,7 @@ a{color:inherit;text-decoration:none}
       <p style="font-size:.85rem;color:var(--color-muted);line-height:1.6;margin-bottom:1.25rem">
         Te redirigiremos al checkout seguro de Mercado Pago. Acepta tarjetas de crédito, débito, OXXO y saldo MP.
       </p>
+      <p class="terms-legend">Al realizar el pago, usted declara haber leído y aceptado los <a href="/terminos-y-condiciones" target="_blank" rel="noopener">Términos y Condiciones</a> del servicio.</p>
       <button type="button" class="btn-modal-submit" id="payMpBtn">💳 Continuar a Mercado Pago</button>
       <p style="text-align:center;font-size:.72rem;color:var(--color-muted);margin-top:.75rem">🔒 Pago procesado por Mercado Pago</p>
     </div>
@@ -413,6 +419,7 @@ a{color:inherit;text-decoration:none}
         </ul>
       </div>
 
+      <p class="terms-legend">Al realizar el pago, usted declara haber leído y aceptado los <a href="/terminos-y-condiciones" target="_blank" rel="noopener">Términos y Condiciones</a> del servicio.</p>
       <button type="button" class="btn-modal-submit" id="speiNotifyBtn">✅ Ya realicé la transferencia</button>
       <p style="text-align:center;font-size:.72rem;color:var(--color-muted);margin-top:.75rem">Al notificar, el equipo recibirá un aviso para validar tu depósito.</p>
     </div>

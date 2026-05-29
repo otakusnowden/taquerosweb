@@ -100,6 +100,24 @@ $jsonLd = [
 
 // ── Features por clave de paquete ─────────────────────────────────────────
 $features = [
+    'menu_digital' => [
+      'inc' => [
+          'Código QR personalizado listo para imprimir',
+          'Menú digital accesible desde cualquier dispositivo',
+          'Categorías organizadas para una navegación rápida',
+          'Galería de productos con imágenes y descripciones',
+          'Actualización de precios sin costos de impresión',
+          'Botón de pedido y contacto por WhatsApp',
+          'Ubicación integrada con Google Maps',
+          'Entrega en 3 días hábiles',
+      ],
+      'exc' => [
+          'Panel de administración',
+          'Carrito de compras',
+          'Sistema de promociones y cupones',
+          'Versión multiidioma',
+      ],
+    ],
     'starter' => [
         'inc' => [
             'Todo en uno (servicios, nosotros, reseñas, contacto, ubicación)',
@@ -115,14 +133,17 @@ $features = [
     'catalogo' => [
         'inc' => [
             'Hasta 3 secciones personalizadas(Galeria,Menu,Eventos, etc)',
-            'Catálogo de productos/servicios',
+            'Generación de QR único. Ideal para menús digitales',
+            'Catálogo de productos/servicios(Menú digital)',
             'Diseño Premium',
+            'Ubicación integrada con Google Maps',
+            'Botón de reservación y contacto por WhatsApp',
             'Contacto por WhatsApp',
             'SEO Avanzado + Copywriting profesional',
             'Google Analytics incluido',
             'Entrega en 5-7 días hábiles',
         ],
-        'exc' => ['Tienda o catálogo'],
+        'exc' => ['Tienda online con carrito de compras'],
     ],
     'tienda' => [
         'inc' => [
@@ -136,7 +157,7 @@ $features = [
             'Entrega en 8-12 días hábiles',
         ],
         'exc' => ['Panel admin avanzado'],
-    ]
+    ],
     /*
     'pro' => [
         'inc' => [
@@ -151,6 +172,7 @@ $features = [
         ],
         'exc' => [],
     ],
+    
     'premium' => [
         'inc' => [
             'Desarrollo 100% a tu medida',
@@ -1197,7 +1219,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="footer-copy">© <?= date('Y') ?> TaquerosWeb.com — Todos los derechos reservados 🌮</div>
       <div class="footer-legal">
         <a href="/politica-de-privacidad">Aviso de privacidad</a>
-        <a href="#">Términos y condiciones</a>
+        <a href="/terminos-y-condiciones">Términos y condiciones</a>
       </div>
     </div>
   </div>
