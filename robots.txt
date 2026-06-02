@@ -1,0 +1,19 @@
+User-agent: *
+Allow: /
+
+# Áreas privadas / no indexables
+Disallow: /api/
+Disallow: /app/
+Disallow: /config/
+Disallow: /database/
+Disallow: /vendor/
+Disallow: /sales_admin/
+Disallow: /dashboard
+Disallow: /dashboard_admin
+Disallow: /login
+Disallow: /logout
+Disallow: /ordenes
+Disallow: /verificar-email
+Disallow: /verify-email.php
+
+Sitemap: https://taquerosweb.com/sitemap.xml
