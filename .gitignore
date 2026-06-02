@@ -7,6 +7,7 @@ PHPMailer
 
 # Credenciales SMTP – nunca subir al repo
 /api/config.php
+sales_admin/
 
 
 # Dependencias PHP (Composer)
