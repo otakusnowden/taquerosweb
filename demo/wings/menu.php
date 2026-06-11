@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-$active    = 'menu.php';
+$active    = 'menu';
 $pageTitle = 'Menú · ' . SITE_NAME;
 $pageDesc  = 'Conoce el menú completo de Hot Wings: wings, boneless, ribs, burgers, snacks, bebidas y más.';
 
@@ -28,7 +28,7 @@ include __DIR__ . '/includes/header.php';
     <div class="container reveal">
         <h2 class="section-title">¿Listo para <span class="hl">ordenar</span>?</h2>
         <p class="lead" style="margin:0 auto 26px;">Reserva tu mesa y disfruta las mejores alitas de la ciudad.</p>
-        <a href="reservacion.php" class="btn btn-primary">Reservar mesa</a>
+        <a href="reservacion" class="btn btn-primary">Reservar mesa</a>
     </div>
 </section>
 <?= section_divider() ?>

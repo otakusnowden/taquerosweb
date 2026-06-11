@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-$active    = 'index.php';
+$active    = './';
 $pageTitle = SITE_NAME . ' · ' . SITE_TAGLINE . ' — Las mejores alitas de la ciudad';
 $pageDesc  = 'Hot Wings: wings, boneless, ribs y burgers con el mejor sabor. Promociones, ubicaciones y reservaciones en línea.';
 
@@ -42,7 +42,7 @@ include __DIR__ . '/includes/header.php';
         <span class="eyebrow">#STAY REBEL</span>
         <h2 class="section-title">Las mejores <span class="hl">alitas</span> de la ciudad</h2>
         <p class="lead" style="margin:0 auto 28px;">Descubre nuestro menú completo y encuentra tu sabor favorito.</p>
-        <a href="menu.php" class="btn btn-red">Ver Menú</a>
+        <a href="menu" class="btn btn-red">Ver Menú</a>
     </div>
 </section>
 <?= section_divider() ?>

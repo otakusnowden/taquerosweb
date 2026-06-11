@@ -4,9 +4,9 @@ $active   = $active   ?? '';
 $pageTitle = $pageTitle ?? SITE_NAME . ' · ' . SITE_TAGLINE;
 $pageDesc  = $pageDesc  ?? 'Las mejores alitas de la ciudad. Wings, boneless, ribs, burgers y más.';
 $nav = [
-    'index.php'       => 'Home',
-    'menu.php'        => 'Menú',
-    'ubicaciones.php' => 'Ubicaciones',
+    './'          => 'Home',
+    'menu'        => 'Menú',
+    'ubicaciones' => 'Ubicaciones',
 ];
 ?>
 <!DOCTYPE html>
@@ -30,7 +30,7 @@ $nav = [
 <a class="skip-link" href="#main">Saltar al contenido</a>
 <header class="site-header" id="siteHeader">
     <div class="container header-inner">
-        <a class="brand" href="index.php" aria-label="<?= SITE_NAME ?> inicio">
+        <a class="brand" href="./" aria-label="<?= SITE_NAME ?> inicio">
             <img src="assets/img/wings_logo.png" alt="<?= SITE_NAME ?> <?= SITE_TAGLINE ?>" width="170" height="84">
         </a>
 
@@ -48,7 +48,7 @@ $nav = [
                     </li>
                 <?php endforeach; ?>
                 <li class="nav-cta">
-                    <a href="reservacion.php" class="btn btn-primary btn-sm"<?= $active === 'reservacion.php' ? ' aria-current="page"' : '' ?>>Reservar</a>
+                    <a href="reservacion" class="btn btn-primary btn-sm"<?= $active === 'reservacion' ? ' aria-current="page"' : '' ?>>Reservar</a>
                 </li>
             </ul>
         </nav>

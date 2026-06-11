@@ -20,10 +20,10 @@
         <nav class="footer-links" aria-label="Enlaces del sitio">
             <h4>Navegación</h4>
             <ul>
-                <li><a href="index.php">Home</a></li>
-                <li><a href="menu.php">Menú</a></li>
-                <li><a href="ubicaciones.php">Ubicaciones</a></li>
-                <li><a href="reservacion.php">Reservación</a></li>
+                <li><a href="./">Home</a></li>
+                <li><a href="menu">Menú</a></li>
+                <li><a href="ubicaciones">Ubicaciones</a></li>
+                <li><a href="reservacion">Reservación</a></li>
             </ul>
         </nav>
 

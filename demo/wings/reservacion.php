@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-$active    = 'reservacion.php';
+$active    = 'reservacion';
 $pageTitle = 'Reservación · ' . SITE_NAME;
 $pageDesc  = 'Reserva tu mesa en Hot Wings. Completa el formulario y confirma tu reservación por WhatsApp.';
 

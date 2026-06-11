@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/includes/config.php';
-$active    = 'ubicaciones.php';
+$active    = 'ubicaciones';
 $pageTitle = 'Ubicaciones y Contacto · ' . SITE_NAME;
 $pageDesc  = 'Encuentra Hot Wings: dirección, teléfono, WhatsApp, correo, horarios y mapa de ubicación.';
 
