@@ -1,6 +1,0 @@
-User-agent: *
-Allow: /
-Disallow: /admin/
-Disallow: /includes/
-
-Sitemap: https://www.hotwings.mx/sitemap.xml
