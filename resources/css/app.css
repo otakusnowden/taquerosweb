@@ -1,0 +1,150 @@
+@import 'tailwindcss';
+
+/* Self-hosted variable fonts — weight axis only. unicode-range makes the
+   browser fetch just the latin subset at runtime (no external CDN). */
+@import '@fontsource-variable/inter/wght.css';
+@import '@fontsource-variable/sora/wght.css';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+
+/*
+ * TaquerosWeb Design System
+ * Corporate-with-warmth: clean white/slate base, corporate blue for trust,
+ * orange (from the logo) reserved for primary CTAs, green only for WhatsApp.
+ */
+@theme {
+    /* Typography */
+    --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    --font-display: 'Sora Variable', ui-sans-serif, system-ui, sans-serif;
+
+    /* Brand — corporate blue (primary UI / trust) */
+    --color-brand-50: #eff4ff;
+    --color-brand-100: #dbe6ff;
+    --color-brand-200: #bdd0ff;
+    --color-brand-300: #90b0ff;
+    --color-brand-400: #5b85fb;
+    --color-brand-500: #355ef2;
+    --color-brand-600: #1d4ed8;
+    --color-brand-700: #1a40b8;
+    --color-brand-800: #1b3795;
+    --color-brand-900: #0b1f3a;
+    --color-brand-950: #081428;
+
+    /* CTA — orange (from logo, action only) */
+    --color-cta-400: #fb923c;
+    --color-cta-500: #f97316;
+    --color-cta-600: #ea580c;
+    --color-cta-700: #c2410c;
+
+    /* WhatsApp — official green (WhatsApp surfaces only) */
+    --color-whatsapp-400: #4ade80;
+    --color-whatsapp-500: #25d366;
+    --color-whatsapp-600: #1ebe5a;
+    --color-whatsapp-700: #128c7e;
+
+    /* Brand accent green (cactus — checks / subtle accents) */
+    --color-accent-500: #16a34a;
+    --color-accent-600: #15803d;
+
+    /* Soft, premium shadows */
+    --shadow-card: 0 1px 2px 0 rgb(15 23 42 / 0.04), 0 4px 16px -2px rgb(15 23 42 / 0.06);
+    --shadow-card-hover: 0 8px 30px -4px rgb(15 23 42 / 0.12);
+    --shadow-cta: 0 8px 24px -6px rgb(234 88 12 / 0.45);
+
+    /* Radii */
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+}
+
+@layer base {
+    [x-cloak] {
+        display: none !important;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+
+    body {
+        @apply bg-white text-slate-600 font-sans antialiased;
+    }
+
+    h1, h2, h3, h4, h5 {
+        @apply font-display text-slate-900 tracking-tight;
+        text-wrap: balance;
+    }
+
+    /* Accessible focus ring */
+    :where(a, button, [role='button'], input, select, textarea):focus-visible {
+        @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white rounded-md;
+    }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+            scroll-behavior: auto !important;
+        }
+    }
+}
+
+@layer components {
+    /* Container helper */
+    .container-app {
+        @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+    }
+
+    /* Section vertical rhythm — lots of air */
+    .section {
+        @apply py-20 sm:py-24 lg:py-32;
+    }
+
+    /* Reveal-on-scroll (driven by IntersectionObserver in app.js) */
+    .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        will-change: opacity, transform;
+    }
+    .reveal.is-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    /* Eyebrow label */
+    .eyebrow {
+        @apply inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-widest text-brand-600;
+    }
+
+    /* Legal / long-form content */
+    .prose-legal {
+        @apply text-slate-600;
+    }
+    .prose-legal h2 {
+        @apply mt-10 mb-3 text-xl font-bold text-slate-900;
+    }
+    .prose-legal h3 {
+        @apply mt-6 mb-2 text-base font-semibold text-slate-900;
+    }
+    .prose-legal p {
+        @apply mt-3 leading-relaxed;
+    }
+    .prose-legal ul {
+        @apply mt-3 space-y-2 pl-5;
+        list-style: disc;
+    }
+    .prose-legal a {
+        @apply text-brand-700 underline underline-offset-2 hover:text-brand-800;
+    }
+    .prose-legal strong {
+        @apply font-semibold text-slate-800;
+    }
+}

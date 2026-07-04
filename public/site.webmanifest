@@ -1,0 +1,24 @@
+{
+  "name": "TaquerosWeb — Soluciones digitales para restaurantes",
+  "short_name": "TaquerosWeb",
+  "description": "Menú digital, página web, reservaciones y código QR para tu restaurante.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1d4ed8",
+  "lang": "es-MX",
+  "icons": [
+    {
+      "src": "/images/logo-a-color.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg",
+      "purpose": "any"
+    },
+    {
+      "src": "/images/logo-a-color.jpeg",
+      "sizes": "512x512",
+      "type": "image/jpeg",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+
+# Áreas no indexables
+Disallow: /login
+Disallow: /aviso-de-privacidad
+Disallow: /terminos-y-condiciones
+
+Sitemap: https://taquerosweb.com/sitemap.xml
