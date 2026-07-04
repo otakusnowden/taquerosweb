@@ -1,1 +1,38 @@
-OLD
+# Environment & Sensitive
+.env
+.env.backup
+.env.local
+.env.*.local
+
+# Dependencies (installed via composer install + npm install in production)
+/vendor
+/node_modules
+
+# Build output (generated via npm run build in production)
+/public/build
+/public/hot
+
+# Storage & Logs
+/storage/logs
+/storage/*.key
+/storage/pail
+*.log
+
+# OS & IDE
+.DS_Store
+Thumbs.db
+.phpactor.json
+.phpunit.result.cache
+.phpunit.cache
+.idea
+.vscode
+.zed
+.fleet
+.nova
+auth.json
+Homestead.json
+Homestead.yaml
+
+# Project-specific
+/OLD
+/_laravel_tmp
