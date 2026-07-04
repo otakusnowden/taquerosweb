@@ -33,6 +33,15 @@ auth.json
 Homestead.json
 Homestead.yaml
 
+# Claude Code & local development tools
+/.agents
+/.claude
+/skills-lock.json
+.editorconfig
+
+# Testing (run locally, not needed in production)
+/tests
+
 # Project-specific
 /OLD
 /_laravel_tmp
