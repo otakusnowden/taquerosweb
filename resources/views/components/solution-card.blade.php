@@ -36,7 +36,7 @@
 
     <div class="mt-5">
         @if ($available)
-            <a href="{{ route('solution', $solution) }}"
+            <a href="{{ route('contacto') }}"
                class="inline-flex items-center gap-1.5 text-sm font-semibold text-brand-700 transition group-hover:gap-2.5">
                 Conocer más
                 <x-icon name="arrow-right" class="w-4 h-4" />

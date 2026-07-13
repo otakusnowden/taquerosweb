@@ -74,8 +74,9 @@
 
                     {{-- CTA + promo --}}
                     <div class="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
-                        <x-button variant="primary" size="lg" class="text-base" x-on:click="$store.contratar.open()">
-                            Aprovecha la oferta
+
+                        <x-button variant="primary" class="text-base" size="lg" href="https://menudigital.taquerosweb.com" target="_blank" rel="noopener noreferrer">
+                            Ver el Menú Digital
                         </x-button>
                         <!--
                         <p class="text-white/90">
@@ -121,21 +122,70 @@
                 —o lo que ven no convence— terminan eligiendo al de junto.
             </x-section-heading>
 
-            <div class="mt-14 grid gap-6 md:grid-cols-3">
-                @foreach ([
-                    ['icon' => 'globe', 'title' => 'No apareces en Google', 'text' => 'Sin página propia, eres invisible para quien te busca por primera vez.'],
-                    ['icon' => 'qr-code', 'title' => 'Menús de papel y QR genéricos', 'text' => 'Se ven baratos, se desactualizan y no transmiten la calidad de tu cocina.'],
-                    ['icon' => 'phone', 'title' => 'WhatsApp desordenado', 'text' => 'Pedidos y reservas perdidos entre mensajes, justo cuando más vendes.'],
-                ] as $pain)
-                    <div class="reveal rounded-2xl border border-slate-100 bg-slate-50/60 p-7">
-                        <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-slate-400 shadow-sm">
-                            <x-icon :name="$pain['icon']" class="w-6 h-6" />
-                        </span>
-                        <h3 class="mt-5 text-lg font-semibold text-slate-900">{{ $pain['title'] }}</h3>
-                        <p class="mt-2 text-[0.95rem] leading-relaxed text-slate-600">{{ $pain['text'] }}</p>
+            {{-- Carrusel home 16:9 --}}
+            @php
+                $carruselFiles = collect(glob(public_path('images/carrusel_home/*.{jpg,jpeg,png,webp,gif}'), GLOB_BRACE))
+                    ->sort()
+                    ->map(fn ($path) => 'images/carrusel_home/' . basename($path))
+                    ->values();
+            @endphp
+
+            @if ($carruselFiles->isNotEmpty())
+                <div
+                    x-data="{
+                        current: 0,
+                        total: {{ $carruselFiles->count() }},
+                        next() { this.current = (this.current + 1) % this.total },
+                        prev() { this.current = (this.current - 1 + this.total) % this.total },
+                    }"
+                    class="reveal mt-14"
+                >
+                    <div class="relative overflow-hidden rounded-2xl bg-slate-900 shadow-card">
+                        {{-- Slides track --}}
+                        <div class="aspect-video">
+                            <div class="flex h-full transition-transform duration-500 ease-out"
+                                 :style="`transform: translateX(-${current * 100}%)`">
+                                @foreach ($carruselFiles as $i => $file)
+                                    <img src="{{ asset($file) }}"
+                                         alt="Ejemplo de restaurante digitalizado con TaquerosWeb {{ $i + 1 }}"
+                                         width="1280" height="720"
+                                         loading="{{ $i === 0 ? 'eager' : 'lazy' }}"
+                                         class="h-full w-full shrink-0 object-cover">
+                                @endforeach
+                            </div>
+                        </div>
+
+                        @if ($carruselFiles->count() > 1)
+                            {{-- Prev button --}}
+                            <button type="button" x-on:click="prev()" aria-label="Imagen anterior"
+                                class="absolute left-3 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-black text-white shadow-lg ring-1 ring-white/20 transition hover:bg-black/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:left-4 sm:h-14 sm:w-14">
+                                <svg class="h-6 w-6 sm:h-7 sm:w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M15 18l-6-6 6-6" />
+                                </svg>
+                            </button>
+
+                            {{-- Next button --}}
+                            <button type="button" x-on:click="next()" aria-label="Imagen siguiente"
+                                class="absolute right-3 top-1/2 -translate-y-1/2 flex h-11 w-11 items-center justify-center rounded-full bg-black text-white shadow-lg ring-1 ring-white/20 transition hover:bg-black/80 focus:outline-none focus-visible:ring-2 focus-visible:ring-white sm:right-4 sm:h-14 sm:w-14">
+                                <svg class="h-6 w-6 sm:h-7 sm:w-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M9 6l6 6-6 6" />
+                                </svg>
+                            </button>
+
+                            {{-- Dots --}}
+                            <div class="absolute bottom-4 left-1/2 flex -translate-x-1/2 gap-2">
+                                @foreach ($carruselFiles as $i => $file)
+                                    <button type="button" x-on:click="current = {{ $i }}"
+                                        aria-label="Ir a la imagen {{ $i + 1 }}"
+                                        class="h-2.5 rounded-full transition-all"
+                                        :class="current === {{ $i }} ? 'w-6 bg-white' : 'w-2.5 bg-white/50 hover:bg-white/80'">
+                                    </button>
+                                @endforeach
+                            </div>
+                        @endif
                     </div>
-                @endforeach
-            </div>
+                </div>
+            @endif
         </div>
     </section>
 
@@ -157,10 +207,8 @@
                     </p>
 
                     <div class="mt-8 flex flex-col gap-3 sm:flex-row">
-                        <x-button variant="primary" size="lg" x-on:click="$store.contratar.open()">
-                            Empezar ahora
-                        </x-button>
-                        <x-button variant="white" size="lg" href="{{ route('solution', 'menu-digital') }}">
+
+                        <x-button variant="white" size="lg" href="https://menudigital.taquerosweb.com" target="_blank" rel="noopener noreferrer">
                             Ver el Menú Digital
                         </x-button>
                     </div>
@@ -231,9 +279,8 @@
             </div>
 
             <div class="mt-12 text-center">
-                <x-button variant="secondary" size="lg" href="{{ route('solution', 'menu-digital') }}">
-                    Ver todo lo que incluye
-                    <x-icon name="arrow-right" class="w-5 h-5" />
+                <x-button variant="white" size="lg" href="https://menudigital.taquerosweb.com" target="_blank" rel="noopener noreferrer">
+                    Ver el Menú Digital
                 </x-button>
             </div>
         </div>
@@ -346,10 +393,7 @@
                         gratis el primer año, y empieza a recibir más reservas y pedidos.
                     </p>
                     <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                        <x-button variant="primary" size="lg" x-on:click="$store.contratar.open()">
-                            Contratar ahora
-                            <x-icon name="arrow-right" class="w-5 h-5" />
-                        </x-button>
+
                         <x-button variant="whatsapp" size="lg" :href="\App\Support\Site::whatsappUrl()" target="_blank" rel="noopener">
                             <x-icon name="phone" class="w-5 h-5" />
                             Hablar por WhatsApp

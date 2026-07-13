@@ -38,7 +38,7 @@
                     Cuéntanos cómo es tu restaurante y te recomendamos la mejor solución para ti. Sin compromiso.
                 </p>
                 <div class="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                    <x-button variant="primary" size="lg" x-on:click="$store.contratar.open()">
+                    <x-button variant="primary" size="lg" href="{{ route('contacto') }}">
                         Contratar ahora
                     </x-button>
                     <x-button variant="whatsapp" size="lg" :href="\App\Support\Site::whatsappUrl()" target="_blank" rel="noopener">
