@@ -75,6 +75,9 @@
     gtag('config', 'G-SKHTE94DQB');
     </script>
 
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1096983964063318"
+     crossorigin="anonymous"></script>
+
 </head>
 <body class="min-h-screen bg-white text-slate-600 antialiased">
     {{-- Skip link for keyboard users --}}
